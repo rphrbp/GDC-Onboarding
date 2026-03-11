@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GDC — Day One</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Onboarding at GDC</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -26,11 +26,17 @@ body{font-family:'Inter',sans-serif;background:#ede8dc;min-height:100vh;overflow
 
 
 /* Diagonal accent lines */
-.stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
-to{transform:translateX(0);}}
-.firefly{display:none;}
-@keyframes ff{0%{transform:translateY(0) scale(1);opacity:0;}10%{opacity:1;}90%{opacity:.6;}100%{transform:translateY(-80vh) scale(.3);opacity:0;}}
-.petal{display:none;}
+/* ── GDC Building Background ── */
+#gdcWorld{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.sky{position:absolute;inset:0;background:linear-gradient(180deg,#2e8fc4 0%,#4aaed8 22%,#72c2e8 45%,#a0d8f0 62%,#c8eaf8 76%,#dff4f8 88%,#ede8dc 100%);}
+.sun{position:absolute;top:260px;right:60px;width:56px;height:56px;border-radius:50%;background:radial-gradient(circle,#fff9e0 0%,#ffeaa0 40%,#ffcc44 70%,rgba(255,200,50,0) 100%);filter:blur(1px);}
+.sun-glow{position:absolute;top:232px;right:32px;width:112px;height:112px;border-radius:50%;background:radial-gradient(circle,rgba(255,220,80,.25) 0%,rgba(255,200,50,0) 70%);}
+.clouds{position:absolute;top:0;left:0;right:0;height:100%;pointer-events:none;}
+.ground{position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(180deg,#c8b890 0%,#b8a878 40%,#a89860 100%);}
+.road{position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(180deg,#8a8070 0%,#787060 100%);}
+.road-line{position:absolute;bottom:24px;left:0;right:0;height:3px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0px,rgba(255,255,255,.35) 30px,transparent 30px,transparent 60px);}
+.speed-bump{position:absolute;bottom:48px;left:12px;width:60px;height:10px;border-radius:5px 5px 0 0;background:repeating-linear-gradient(90deg,#f5c000 0px,#f5c000 8px,#1a1a1a 8px,#1a1a1a 16px);}
+.building-wrap{position:absolute;bottom:60px;left:-30px;right:-30px;display:flex;justify-content:center;}
 .container{position:relative;z-index:10;max-width:480px;margin:0 auto;padding:24px 16px 140px;min-height:100vh;}
 
 /* WELCOME */
@@ -54,7 +60,6 @@ to{transform:translateX(0);}}
 .pill-group{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;justify-content:center;}
 .pill{padding:9px 16px;border-radius:20px;border:1px solid rgba(26,20,64,.1);background:rgba(255,255,255,.5);font-family:'Inter',sans-serif;font-size:13px;font-weight:400;color:var(--ink-soft);cursor:pointer;transition:all .25s;user-select:none;white-space:nowrap;touch-action:manipulation;-webkit-user-select:none;min-height:44px;display:inline-flex;align-items:center;}
 .pill:hover{border-color:rgba(255,204,0,.3);background:rgba(255,204,0,.05);color:var(--ink);}
-.pill.selected.gender{border-color:rgba(255,204,0,.5);background:rgba(255,204,0,.08);color:var(--dyson2);}
 .pill.selected.team-rdd{border-color:#5a7ec8;background:rgba(90,126,200,.12);color:#5a7ec8;}
 .pill.selected.team-gsc{border-color:var(--copper);background:rgba(200,120,48,.12);color:var(--copper);}
 .pill.selected.team-quality{border-color:#8a5ac8;background:rgba(138,90,200,.12);color:#8a5ac8;}
@@ -99,11 +104,11 @@ to{transform:translateX(0);}}
 .leaf-mid{font-size:10px;opacity:.5;color:var(--dyson3);}
 
 /* CHARACTER CARD */
-.char-card{background:rgba(255,255,255,0.86);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(26,20,64,.1);border-radius:20px;padding:20px;box-shadow:0 4px 24px rgba(26,20,64,.1),0 1px 0 rgba(255,255,255,.9) inset;animation:fadeUp .8s .15s ease both;position:relative;overflow:hidden;}
+.char-card{background:rgba(255,255,255,0.86);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(26,20,64,.1);border-radius:20px;padding:20px;box-shadow:0 4px 24px rgba(26,20,64,.1),0 1px 0 rgba(255,255,255,.9) inset;animation:fadeUp .8s .15s ease both;position:relative;}
 .char-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--malaysia-red),var(--malaysia-gold),var(--malaysia-red));opacity:.5;}
 .char-row{display:flex;align-items:center;gap:14px;}
-.av-wrap{width:86px;height:86px;flex-shrink:0;position:relative;}
-.av-circle{width:86px;height:86px;border-radius:50%;background:rgba(250,248,242,0.9);border:1px solid rgba(26,20,64,.1);display:flex;align-items:center;justify-content:center;animation:avatar-breathe 4s ease-in-out infinite;box-shadow:0 4px 24px rgba(0,0,0,.4);position:relative;overflow:hidden;}
+.av-wrap{width:110px;height:120px;flex-shrink:0;position:relative;}
+.av-circle{width:110px;height:110px;border-radius:50%;background:rgba(250,248,242,0.9);border:1px solid rgba(26,20,64,.1);display:flex;align-items:center;justify-content:center;animation:avatar-breathe 4s ease-in-out infinite;box-shadow:0 4px 24px rgba(0,0,0,.4);position:relative;overflow:hidden;}
 @keyframes avatar-breathe{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,.3);}50%{box-shadow:0 0 24px 4px rgba(255,204,0,.15);}}
 .lv-pill{position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);background:rgba(255,204,0,.12);border:1px solid rgba(255,204,0,.35);color:var(--dyson2);font-family:'Inter',sans-serif;font-size:9px;font-weight:500;padding:2px 9px;border-radius:100px;white-space:nowrap;letter-spacing:1px;}
 .char-info{flex:1;min-width:0;}
@@ -165,7 +170,7 @@ to{transform:translateX(0);}}
 /* CODE MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(26,20,64,.25);backdrop-filter:blur(10px);z-index:100;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;}
 .modal-overlay.open{opacity:1;pointer-events:all;}
-.modal{background:rgba(252,250,244,.97);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(26,20,64,.08);border-bottom:none;border-radius:24px 24px 0 0;padding:32px 26px 48px;width:100%;max-width:480px;transform:translateY(100%);transition:transform .45s cubic-bezier(.34,1.56,.64,1);box-shadow:0 -16px 64px rgba(0,0,0,.7);position:relative;overflow:hidden;}
+.modal{background:rgba(252,250,244,.97);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(26,20,64,.08);border-bottom:none;border-radius:24px 24px 0 0;padding:32px 26px max(48px, env(safe-area-inset-bottom));width:100%;max-width:480px;transform:translateY(100%);transition:transform .45s cubic-bezier(.34,1.56,.64,1);box-shadow:0 -16px 64px rgba(0,0,0,.7);position:relative;overflow-y:auto;max-height:92dvh;max-height:92vh;-webkit-overflow-scrolling:touch;}
 .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--malaysia-red),var(--malaysia-gold),var(--malaysia-red));opacity:.6;}
 .modal-overlay.open .modal{transform:translateY(0);}
 .m-handle{width:36px;height:3px;background:rgba(26,20,64,.12);border-radius:100px;margin:0 auto 24px;}
@@ -187,7 +192,12 @@ to{transform:translateX(0);}}
 /* QUIZ MODAL */
 .quiz-overlay{position:fixed;inset:0;background:rgba(26,20,64,.25);backdrop-filter:blur(14px);z-index:150;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s ease;}
 .quiz-overlay.open{opacity:1;pointer-events:all;}
-.quiz-modal{background:rgba(252,250,244,.97);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(26,20,64,.08);border-bottom:none;border-radius:24px 24px 0 0;padding:32px 22px 52px;width:100%;max-width:480px;transform:translateY(100%);transition:transform .45s cubic-bezier(.34,1.56,.64,1);box-shadow:0 -16px 64px rgba(0,0,0,.7);position:relative;overflow:hidden;}
+.quiz-modal{background:rgba(252,250,244,.97);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border:1px solid rgba(26,20,64,.08);border-bottom:none;border-radius:24px 24px 0 0;padding:0;width:100%;max-width:480px;transform:translateY(100%);transition:transform .45s cubic-bezier(.34,1.56,.64,1);box-shadow:0 -16px 64px rgba(0,0,0,.7);position:relative;overflow:hidden;display:flex;flex-direction:column;max-height:92dvh;max-height:92vh;}
+
+/* Quiz modal inner scroll */
+.quiz-modal-header{padding:20px 22px 0;flex-shrink:0;}
+.quiz-modal-body{padding:0 22px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1 1 auto;}
+.quiz-modal-footer{padding:12px 22px 32px;flex-shrink:0;background:rgba(252,250,244,.98);}
 .quiz-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--malaysia-red),var(--malaysia-gold),var(--malaysia-red));opacity:.6;}
 .quiz-overlay.open .quiz-modal{transform:translateY(0);}
 .quiz-eyebrow{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:3px;color:var(--dyson3);text-transform:uppercase;text-align:center;margin-bottom:10px;}
@@ -323,91 +333,7 @@ to{transform:rotate(360deg);}}
 }
 
 
-/* ════════════════════════════════════════════════════════════════
-   STUDIO GHIBLI — CORPORATE EDITION
-   Soft painted world: warm dawn sky, rolling hills, a glass office
-   building catching morning light, tiny suited figures walking a
-   path, hand-drawn clouds drifting slowly overhead.
-   All at low opacity — a world glimpsed behind the cards.
-════════════════════════════════════════════════════════════════ */
-#ghibliWorld {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-#ghibliWorld svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
 
-/* Whole scene breathes gently */
-@keyframes world-breathe {
-  0%,100% { transform: scale(1) translateY(0px); }
-  50%     { transform: scale(1.006) translateY(-5px); }
-}
-#ghibliWorld svg { animation: world-breathe 28s ease-in-out infinite; transform-origin: 50% 60%; }
-
-/* Clouds drift left to right */
-@keyframes cloud-drift {
-  from { transform: translateX(-120px); }
-  to   { transform: translateX(520px); }
-}
-.g-cloud { animation: cloud-drift linear infinite; }
-.g-cloud-a { animation-duration: 80s;  animation-delay: 0s; }
-.g-cloud-b { animation-duration: 110s; animation-delay: -35s; }
-.g-cloud-c { animation-duration: 65s;  animation-delay: -20s; }
-.g-cloud-d { animation-duration: 95s;  animation-delay: -55s; }
-
-/* Tiny walking figures along path */
-@keyframes walk-right {
-  from { transform: translateX(-30px); }
-  to   { transform: translateX(440px); }
-}
-@keyframes walk-left {
-  from { transform: translateX(440px); }
-  to   { transform: translateX(-30px); }
-}
-.g-walker-r { animation: walk-right linear infinite; }
-.g-walker-l { animation: walk-left  linear infinite; }
-.g-walker-r.w1 { animation-duration: 38s; animation-delay: 0s; }
-.g-walker-r.w2 { animation-duration: 52s; animation-delay: -18s; }
-.g-walker-r.w3 { animation-duration: 44s; animation-delay: -30s; }
-.g-walker-l.w4 { animation-duration: 60s; animation-delay: -10s; }
-.g-walker-l.w5 { animation-duration: 48s; animation-delay: -38s; }
-
-/* Flags on building flutter */
-@keyframes flag-flutter {
-  0%,100% { transform-origin: left center; transform: skewX(0deg) scaleX(1); }
-  25%     { transform-origin: left center; transform: skewX(6deg) scaleX(.92); }
-  75%     { transform-origin: left center; transform: skewX(-4deg) scaleX(.96); }
-}
-.g-flag { animation: flag-flutter 3s ease-in-out infinite; }
-.g-flag:nth-child(2) { animation-delay: -.8s; }
-.g-flag:nth-child(3) { animation-delay: -1.6s; }
-
-/* Leaves on trees drift */
-@keyframes leaf-sway {
-  0%,100% { transform-origin: bottom center; transform: rotate(-3deg); }
-  50%     { transform-origin: bottom center; transform: rotate(3deg); }
-}
-.g-tree { animation: leaf-sway ease-in-out infinite; }
-.g-tree:nth-child(odd)  { animation-duration: 8s; }
-.g-tree:nth-child(even) { animation-duration: 11s; animation-delay: -3s; }
-
-/* Birds glide */
-@keyframes bird-glide {
-  0%   { transform: translate(0,0); }
-  40%  { transform: translate(60px,-18px); }
-  70%  { transform: translate(130px,-8px); }
-  100% { transform: translate(200px,5px); }
-}
-.g-bird { animation: bird-glide 22s ease-in-out infinite; opacity: .35; }
-.g-bird:nth-child(2) { animation-delay: -8s; animation-duration: 28s; }
-.g-bird:nth-child(3) { animation-delay: -14s; animation-duration: 18s; }
 
 /* ── HAPTIC RING ── */
 .haptic-ring{position:fixed;border-radius:50%;border:2px solid var(--malaysia-gold);pointer-events:none;z-index:500;opacity:0;transform:scale(0);}
@@ -417,330 +343,170 @@ to{transform:rotate(360deg);}}
 </head>
 <body>
 
-<div id="ghibliWorld">
-<svg viewBox="0 0 390 844" xmlns="http://www.w3.org/2000/svg"
-     preserveAspectRatio="xMidYMid slice" opacity=".38">
-  <defs>
-    <!-- Sky gradient: deep gold at horizon → soft warm cream at top -->
-    <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#7090c0" stop-opacity=".7"/>
-      <stop offset="35%"  stop-color="#c8a050" stop-opacity=".7"/>
-      <stop offset="70%"  stop-color="#d48020" stop-opacity=".65"/>
-      <stop offset="100%" stop-color="#c06010" stop-opacity=".6"/>
-    </linearGradient>
-    <!-- Hills far gradient -->
-    <linearGradient id="hillFarG" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#506090" stop-opacity=".65"/>
-      <stop offset="100%" stop-color="#405080" stop-opacity=".8"/>
-    </linearGradient>
-    <!-- Hills mid gradient -->
-    <linearGradient id="hillMidG" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#607848" stop-opacity=".75"/>
-      <stop offset="100%" stop-color="#485830" stop-opacity=".9"/>
-    </linearGradient>
-    <!-- Hills near gradient -->
-    <linearGradient id="hillNearG" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#708050" stop-opacity=".82"/>
-      <stop offset="100%" stop-color="#506038" stop-opacity=".95"/>
-    </linearGradient>
-    <!-- Building glass -->
-    <linearGradient id="glassG" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"   stop-color="#b0d0f0" stop-opacity=".85"/>
-      <stop offset="50%"  stop-color="#f0c840" stop-opacity=".55"/>
-      <stop offset="100%" stop-color="#88b0d8" stop-opacity=".75"/>
-    </linearGradient>
-    <!-- Path gradient -->
-    <linearGradient id="pathG" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%"   stop-color="#b89840" stop-opacity=".7"/>
-      <stop offset="100%" stop-color="#c8a840" stop-opacity=".85"/>
-    </linearGradient>
-    <!-- Sun glow -->
-    <radialGradient id="sunGlow" cx="72%" cy="18%" r="35%">
-      <stop offset="0%"   stop-color="#f8d840" stop-opacity=".25"/>
-      <stop offset="60%"  stop-color="#f0c060" stop-opacity=".08"/>
-      <stop offset="100%" stop-color="#f0c060" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+<div id="gdcWorld">
+  <div class="sky"></div>
+  <div class="sun-glow"></div>
+  <div class="sun"></div>
 
-  <!-- ── SKY ─────────────────────────────────────────── -->
-  <rect width="390" height="560" fill="url(#skyG)"/>
-  <!-- Sun glow bloom -->
-  <ellipse cx="280" cy="150" rx="180" ry="160" fill="url(#sunGlow)"/>
-  <!-- Sun disc -->
-  <circle cx="280" cy="110" r="28" fill="rgba(248,210,60,.4)"/>
-  <circle cx="280" cy="110" r="20" fill="rgba(252,220,80,.5)"/>
-  <circle cx="280" cy="110" r="12" fill="rgba(255,235,100,.6)"/>
+  <!-- Clouds -->
+  <svg class="clouds" viewBox="0 0 390 844" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60"  cy="520" rx="55" ry="18" fill="rgba(255,255,255,.78)"/>
+    <ellipse cx="78"  cy="508" rx="32" ry="20" fill="rgba(255,255,255,.78)"/>
+    <ellipse cx="48"  cy="512" rx="24" ry="16" fill="rgba(255,255,255,.68)"/>
+    <ellipse cx="310" cy="498" rx="48" ry="15" fill="rgba(255,255,255,.70)"/>
+    <ellipse cx="322" cy="486" rx="28" ry="18" fill="rgba(255,255,255,.70)"/>
+    <ellipse cx="295" cy="492" rx="20" ry="13" fill="rgba(255,255,255,.62)"/>
+    <ellipse cx="200" cy="475" rx="36" ry="8"  fill="rgba(255,255,255,.48)"/>
+    <ellipse cx="175" cy="480" rx="20" ry="6"  fill="rgba(255,255,255,.42)"/>
+    <path d="M 130 535 Q 133 531 136 535" fill="none" stroke="rgba(40,60,80,.4)" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 140 528 Q 143 524 146 528" fill="none" stroke="rgba(40,60,80,.4)" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 152 537 Q 155 533 158 537" fill="none" stroke="rgba(40,60,80,.35)" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>
 
-  <!-- ── CLOUDS ──────────────────────────────────────── -->
-  <!-- Ghibli clouds: big soft pillowy shapes, hand-drawn feel -->
-  <!-- Cloud A — large, slow -->
-  <g class="g-cloud g-cloud-a">
-    <g transform="translate(40, 80)">
-      <ellipse cx="60"  cy="30" rx="52" ry="24" fill="rgba(255,250,240,.55)"/>
-      <ellipse cx="30"  cy="38" rx="34" ry="18" fill="rgba(255,250,240,.5)"/>
-      <ellipse cx="90"  cy="36" rx="38" ry="20" fill="rgba(255,250,240,.5)"/>
-      <ellipse cx="60"  cy="42" rx="58" ry="16" fill="rgba(255,248,235,.45)"/>
-    </g>
-  </g>
-  <!-- Cloud B — medium -->
-  <g class="g-cloud g-cloud-b">
-    <g transform="translate(-20, 50)">
-      <ellipse cx="45"  cy="22" rx="38" ry="16" fill="rgba(255,248,235,.45)"/>
-      <ellipse cx="22"  cy="28" rx="24" ry="13" fill="rgba(255,248,235,.4)"/>
-      <ellipse cx="68"  cy="26" rx="28" ry="14" fill="rgba(255,248,235,.4)"/>
-      <ellipse cx="45"  cy="32" rx="42" ry="12" fill="rgba(252,245,228,.38)"/>
-    </g>
-  </g>
-  <!-- Cloud C — small, fast -->
-  <g class="g-cloud g-cloud-c">
-    <g transform="translate(200, 40)">
-      <ellipse cx="30"  cy="16" rx="26" ry="11" fill="rgba(255,252,240,.4)"/>
-      <ellipse cx="14"  cy="20" rx="16" ry="9"  fill="rgba(255,252,240,.35)"/>
-      <ellipse cx="46"  cy="18" rx="20" ry="10" fill="rgba(255,252,240,.35)"/>
-      <ellipse cx="30"  cy="23" rx="28" ry="8"  fill="rgba(252,248,232,.32)"/>
-    </g>
-  </g>
-  <!-- Cloud D — wispy top -->
-  <g class="g-cloud g-cloud-d">
-    <g transform="translate(10, 20)">
-      <ellipse cx="50"  cy="12" rx="44" ry="8"  fill="rgba(255,252,240,.3)"/>
-      <ellipse cx="25"  cy="16" rx="28" ry="6"  fill="rgba(255,252,240,.25)"/>
-      <ellipse cx="75"  cy="15" rx="32" ry="7"  fill="rgba(255,252,240,.25)"/>
-    </g>
-  </g>
+  <!-- GDC Building -->
+  <div class="building-wrap">
+    <svg width="450" height="380" viewBox="0 0 390 310" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lobbyInterior" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="rgba(255,230,180,.22)"/>
+          <stop offset="60%"  stop-color="rgba(255,210,140,.14)"/>
+          <stop offset="100%" stop-color="rgba(200,170,100,.08)"/>
+        </linearGradient>
+      </defs>
 
-  <!-- ── BIRDS ───────────────────────────────────────── -->
-  <g transform="translate(30, 160)">
-    <g class="g-bird">
-      <path d="M0,0 Q4,-4 8,0 Q12,-4 16,0" fill="none" stroke="rgba(80,80,120,.5)" stroke-width="1.2" stroke-linecap="round"/>
-    </g>
-    <g class="g-bird" transform="translate(20,8)">
-      <path d="M0,0 Q3,-3 6,0 Q9,-3 12,0" fill="none" stroke="rgba(80,80,120,.4)" stroke-width="1" stroke-linecap="round"/>
-    </g>
-    <g class="g-bird" transform="translate(-10,15)">
-      <path d="M0,0 Q3,-3 6,0 Q9,-3 12,0" fill="none" stroke="rgba(80,80,120,.35)" stroke-width="1" stroke-linecap="round"/>
-    </g>
-  </g>
+      <!-- LEFT WING -->
+      <rect x="0" y="110" width="115" height="155" fill="#eceae4" stroke="rgba(180,170,150,.3)" stroke-width="1"/>
+      <rect x="0" y="183" width="115" height="5" fill="rgba(195,188,170,.55)"/>
+      <rect x="0" y="128" width="115" height="3" fill="rgba(195,188,170,.4)"/>
+      <rect x="0" y="155" width="115" height="3" fill="rgba(195,188,170,.4)"/>
+      <rect x="0" y="200" width="115" height="3" fill="rgba(195,188,170,.38)"/>
+      <rect x="0" y="225" width="115" height="3" fill="rgba(195,188,170,.35)"/>
+      <rect x="10"  y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.46)"/>
+      <rect x="40"  y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.46)"/>
+      <rect x="70"  y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.44)"/>
+      <rect x="10"  y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.42)"/>
+      <rect x="40"  y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.42)"/>
+      <rect x="70"  y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.40)"/>
+      <!-- ROOF A S-curve -->
+      <path d="M -2 0 L -2 113 C 20 55, 90 130, 116 113 L 116 0 Z" fill="#7ec4e0"/>
+      <path d="M -2 112 C 20 54, 90 128, 116 112" fill="none" stroke="#252a2e" stroke-width="18" stroke-linecap="butt"/>
+      <path d="M -2 104 C 20 46, 90 120, 116 104" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
+      <path d="M -2 121 C 20 63, 90 137, 116 121" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2.5"/>
+      <rect x="0" y="110" width="116" height="20" fill="rgba(120,165,190,.25)"/>
 
-  <!-- ── DISTANT HILLS (far, hazy, blue-grey) ──────── -->
-  <path d="M-10,420 Q60,360 130,380 Q200,398 260,365 Q320,335 390,370 L390,500 L-10,500Z"
-        fill="url(#hillFarG)"/>
-  <!-- Second far ridge -->
-  <path d="M-10,440 Q80,395 160,408 Q230,420 300,395 Q350,378 390,395 L390,510 L-10,510Z"
-        fill="rgba(100,115,145,.25)"/>
+      <!-- CENTRE LOBBY — interior scene -->
+      <rect x="118" y="110" width="140" height="150" fill="rgba(255,240,210,.08)"/>
+      <rect x="138" y="228" width="90" height="12" rx="3" fill="rgba(200,175,130,.55)" stroke="rgba(180,155,110,.4)" stroke-width="1"/>
+      <rect x="138" y="236" width="90" height="6" rx="2" fill="rgba(170,145,100,.45)"/>
+      <rect x="218" y="222" width="2" height="8" fill="rgba(180,160,120,.5)"/>
+      <ellipse cx="219" cy="221" rx="5" ry="3" fill="rgba(255,230,150,.4)"/>
+      <ellipse cx="155" cy="220" rx="5" ry="6" fill="rgba(80,55,35,.35)"/>
+      <rect x="151" y="226" width="8" height="12" rx="2" fill="rgba(60,80,100,.35)"/>
+      <ellipse cx="175" cy="220" rx="5" ry="6" fill="rgba(60,40,25,.32)"/>
+      <rect x="171" y="226" width="8" height="12" rx="2" fill="rgba(80,60,40,.30)"/>
+      <rect x="118" y="115" width="140" height="3" rx="1" fill="rgba(255,240,200,.18)"/>
+      <!-- Lobby glass curtain -->
+      <rect x="118" y="110" width="140" height="150" fill="rgba(130,178,205,.08)" stroke="rgba(160,195,215,.12)" stroke-width="1"/>
+      <line x1="142" y1="110" x2="142" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
+      <line x1="166" y1="110" x2="166" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
+      <line x1="190" y1="110" x2="190" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
+      <line x1="214" y1="110" x2="214" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
+      <line x1="238" y1="110" x2="238" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
+      <line x1="118" y1="183" x2="258" y2="183" stroke="rgba(200,210,218,.28)" stroke-width="1.5"/>
+      <path d="M 120 112 L 134 112 L 120 260 L 118 260 Z" fill="rgba(255,255,255,.06)"/>
+      <!-- Doors — half building height -->
+      <rect x="148" y="183" width="80" height="75" rx="1" fill="rgba(25,40,52,.35)" stroke="rgba(100,135,158,.3)" stroke-width="1"/>
+      <rect x="150" y="185" width="36" height="71" rx="0" fill="rgba(148,192,218,.15)" stroke="rgba(170,208,228,.25)" stroke-width=".8"/>
+      <rect x="180" y="215" width="2" height="18" rx="1" fill="rgba(210,220,225,.75)"/>
+      <rect x="152" y="187" width="6" height="67" fill="rgba(255,255,255,.06)"/>
+      <rect x="190" y="185" width="36" height="71" rx="0" fill="rgba(148,192,218,.15)" stroke="rgba(170,208,228,.25)" stroke-width=".8"/>
+      <rect x="194" y="215" width="2" height="18" rx="1" fill="rgba(210,220,225,.75)"/>
+      <rect x="192" y="187" width="6" height="67" fill="rgba(255,255,255,.05)"/>
+      <rect x="186" y="183" width="4" height="75" fill="rgba(80,115,138,.55)"/>
+      <rect x="148" y="258" width="80" height="4" rx="1" fill="rgba(40,55,65,.3)"/>
+      <!-- ROOF B S-curve -->
+      <path d="M 116 0 L 116 113 C 140 40, 234 130, 260 113 L 260 0 Z" fill="#7ec4e0"/>
+      <path d="M 116 112 C 140 39, 234 128, 260 112" fill="none" stroke="#252a2e" stroke-width="20" stroke-linecap="butt"/>
+      <path d="M 116 103 C 140 30, 234 119, 260 103" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="3.5"/>
+      <path d="M 116 122 C 140 49, 234 138, 260 122" fill="none" stroke="rgba(0,0,0,.16)" stroke-width="2.5"/>
 
-  <!-- ── MID HILLS (green, rolling) ────────────────── -->
-  <path d="M-10,490 Q50,445 120,462 Q185,478 250,450 Q310,425 390,455 L390,580 L-10,580Z"
-        fill="url(#hillMidG)"/>
-  <!-- Hill texture — faint contour lines -->
-  <path d="M20,510 Q80,478 140,488" fill="none" stroke="rgba(80,100,60,.12)" stroke-width="1"/>
-  <path d="M200,470 Q260,452 320,462" fill="none" stroke="rgba(80,100,60,.1)" stroke-width="1"/>
+      <!-- RIGHT WING -->
+      <rect x="258" y="110" width="132" height="155" fill="#e8e4dc" stroke="rgba(180,170,150,.3)" stroke-width="1"/>
+      <rect x="258" y="183" width="132" height="5" fill="rgba(195,188,170,.55)"/>
+      <rect x="258" y="128" width="132" height="3" fill="rgba(195,188,170,.4)"/>
+      <rect x="258" y="155" width="132" height="3" fill="rgba(195,188,170,.4)"/>
+      <rect x="258" y="200" width="132" height="3" fill="rgba(195,188,170,.38)"/>
+      <rect x="258" y="225" width="132" height="3" fill="rgba(195,188,170,.35)"/>
+      <rect x="268" y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.46)"/>
+      <rect x="298" y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.46)"/>
+      <rect x="328" y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.44)"/>
+      <rect x="358" y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.44)"/>
+      <rect x="268" y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.42)"/>
+      <rect x="298" y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.42)"/>
+      <rect x="328" y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.40)"/>
+      <rect x="358" y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.40)"/>
+      <circle cx="378" cy="128" r="8" fill="none" stroke="rgba(175,168,155,.55)" stroke-width="1.5"/>
+      <circle cx="378" cy="152" r="8" fill="none" stroke="rgba(175,168,155,.55)" stroke-width="1.5"/>
+      <circle cx="378" cy="176" r="8" fill="none" stroke="rgba(175,168,155,.55)" stroke-width="1.5"/>
+      <circle cx="378" cy="208" r="8" fill="none" stroke="rgba(175,168,155,.5)"  stroke-width="1.5"/>
+      <circle cx="378" cy="232" r="8" fill="none" stroke="rgba(175,168,155,.5)"  stroke-width="1.5"/>
+      <!-- ROOF C S-curve -->
+      <path d="M 258 0 L 258 113 C 280 55, 370 130, 392 113 L 392 0 Z" fill="#7ec4e0"/>
+      <path d="M 258 112 C 280 54, 370 128, 392 112" fill="none" stroke="#252a2e" stroke-width="18" stroke-linecap="butt"/>
+      <path d="M 258 104 C 280 46, 370 120, 392 104" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
+      <path d="M 258 121 C 280 63, 370 137, 392 121" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2.5"/>
 
-  <!-- ── FOREGROUND HILLS (rich green) ─────────────── -->
-  <path d="M-10,560 Q40,520 100,535 Q160,548 220,520 Q280,494 390,525 L390,680 L-10,680Z"
-        fill="url(#hillNearG)"/>
-  <!-- Ground plane -->
-  <path d="M-10,640 Q100,625 195,632 Q290,638 390,625 L390,844 L-10,844Z"
-        fill="rgba(60,80,35,.75)"/>
-  <!-- Ground texture -->
-  <path d="M0,660 Q195,645 390,658" fill="none" stroke="rgba(50,70,25,.3)" stroke-width="1"/>
-  <path d="M0,690 Q195,678 390,685" fill="none" stroke="rgba(50,70,25,.25)" stroke-width="1"/>
+      <!-- SECURITY GATE -->
+      <rect x="0" y="268" width="390" height="22" fill="#d0ccc0"/>
+      <rect x="0" y="265" width="390" height="5"  fill="#c8c4b8"/>
+      <rect x="14"  y="228" width="20" height="42" rx="2" fill="#d8d4cc"/>
+      <circle cx="24" cy="237" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
+      <circle cx="24" cy="249" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
+      <circle cx="24" cy="261" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
+      <rect x="42"  y="238" width="16" height="32" rx="2" fill="#ccc8c0"/>
+      <circle cx="50" cy="248" r="4" fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+      <circle cx="50" cy="260" r="4" fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+      <rect x="336" y="238" width="16" height="32" rx="2" fill="#ccc8c0"/>
+      <circle cx="344" cy="248" r="4" fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+      <circle cx="344" cy="260" r="4" fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+      <rect x="358" y="228" width="20" height="42" rx="2" fill="#d8d4cc"/>
+      <circle cx="368" cy="237" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
+      <circle cx="368" cy="249" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
+      <circle cx="368" cy="261" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
+      <line x1="34"  y1="240" x2="332" y2="240" stroke="rgba(158,153,138,.48)" stroke-width="1.5"/>
+      <line x1="34"  y1="249" x2="332" y2="249" stroke="rgba(158,153,138,.43)" stroke-width="1.5"/>
+      <line x1="34"  y1="258" x2="332" y2="258" stroke="rgba(158,153,138,.38)" stroke-width="1.5"/>
+      <rect x="72" y="254" width="236" height="36" rx="2" fill="#c0bcb0"/>
+      <line x1="72"  y1="261" x2="308" y2="261" stroke="rgba(145,140,125,.5)" stroke-width="1"/>
+      <line x1="72"  y1="268" x2="308" y2="268" stroke="rgba(145,140,125,.5)" stroke-width="1"/>
+      <line x1="72"  y1="275" x2="308" y2="275" stroke="rgba(145,140,125,.5)" stroke-width="1"/>
+      <line x1="72"  y1="282" x2="308" y2="282" stroke="rgba(145,140,125,.5)" stroke-width="1"/>
+      <circle cx="90"  cy="291" r="4" fill="#a8a498"/>
+      <circle cx="292" cy="291" r="4" fill="#a8a498"/>
 
-  <!-- ── WINDING PATH ────────────────────────────────── -->
-  <!-- Stone path curving from bottom-centre to building -->
-  <path d="M155,844 Q160,780 175,740 Q188,705 195,670 Q200,645 215,615 Q228,588 248,568"
-        fill="none" stroke="url(#pathG)" stroke-width="16" stroke-linecap="round"/>
-  <!-- Path edge detail -->
-  <path d="M155,844 Q160,780 175,740 Q188,705 195,670 Q200,645 215,615 Q228,588 248,568"
-        fill="none" stroke="rgba(180,160,100,.15)" stroke-width="18" stroke-linecap="round"/>
-  <path d="M155,844 Q160,780 175,740 Q188,705 195,670 Q200,645 215,615 Q228,588 248,568"
-        fill="none" stroke="rgba(220,200,140,.25)" stroke-width="10" stroke-linecap="round"/>
-  <!-- Path stones (dashes) -->
-  <path d="M155,844 Q160,780 175,740 Q188,705 195,670 Q200,645 215,615 Q228,588 248,568"
-        fill="none" stroke="rgba(200,180,120,.2)" stroke-width="2"
-        stroke-dasharray="8,12" stroke-linecap="round"/>
+      <!-- TREES -->
+      <ellipse cx="46" cy="205" rx="26" ry="34" fill="#527a3c" opacity=".82"/>
+      <ellipse cx="32" cy="218" rx="18" ry="26" fill="#3d6630" opacity=".78"/>
+      <ellipse cx="60" cy="214" rx="16" ry="23" fill="#608040" opacity=".72"/>
+      <rect x="44" y="238" width="5" height="32" fill="#4a3a24" opacity=".6"/>
+      <ellipse cx="88" cy="188" rx="20" ry="28" fill="#4a7a38" opacity=".65"/>
+      <ellipse cx="74" cy="200" rx="14" ry="22" fill="#3a6a2a" opacity=".60"/>
+      <rect x="86" y="215" width="4" height="54" fill="#5a4a30" opacity=".48"/>
+      <ellipse cx="348" cy="188" rx="18" ry="26" fill="#4a7838" opacity=".62"/>
+      <rect x="346" y="212" width="4" height="54" fill="#5a4a30" opacity=".48"/>
+    </svg>
+  </div>
 
-  <!-- ── TREES (foreground, broad canopy Ghibli style) ─ -->
-  <!-- Tree 1 — left mid -->
-  <g class="g-tree" transform="translate(28, 570)">
-    <rect x="-4" y="40" width="8" height="55" rx="3" fill="rgba(50,30,10,.8)"/>
-    <!-- Trunk texture -->
-    <line x1="-1" y1="45" x2="2" y2="80" stroke="rgba(70,50,25,.2)" stroke-width="1"/>
-    <!-- Canopy — layered ellipses -->
-    <ellipse cx="0"   cy="20" rx="34" ry="28" fill="rgba(45,75,25,.75)"/>
-    <ellipse cx="-10" cy="28" rx="26" ry="20" fill="rgba(35,65,20,.7)"/>
-    <ellipse cx="12"  cy="25" rx="28" ry="22" fill="rgba(40,70,22,.68)"/>
-    <ellipse cx="0"   cy="10" rx="22" ry="16" fill="rgba(50,80,28,.65)"/>
-    <!-- Light highlight on canopy -->
-    <ellipse cx="-5"  cy="5"  rx="12" ry="8"  fill="rgba(90,130,50,.35)"/>
-  </g>
-  <!-- Tree 2 — right mid -->
-  <g class="g-tree" transform="translate(340, 555)">
-    <rect x="-4" y="38" width="7" height="50" rx="3" fill="rgba(50,30,10,.8)"/>
-    <ellipse cx="0"   cy="18" rx="30" ry="26" fill="rgba(43,73,23,.72)"/>
-    <ellipse cx="-8"  cy="26" rx="22" ry="18" fill="rgba(36,66,20,.68)"/>
-    <ellipse cx="10"  cy="22" rx="24" ry="20" fill="rgba(40,68,22,.65)"/>
-    <ellipse cx="0"   cy="8"  rx="18" ry="13" fill="rgba(48,78,26,.62)"/>
-    <ellipse cx="-4"  cy="3"  rx="10" ry="7"  fill="rgba(80,120,45,.32)"/>
-  </g>
-  <!-- Tree 3 — far left, smaller -->
-  <g class="g-tree" transform="translate(68, 590)">
-    <rect x="-3" y="32" width="6" height="42" rx="2" fill="rgba(50,30,10,.75)"/>
-    <ellipse cx="0"  cy="14" rx="22" ry="20" fill="rgba(44,72,24,.7)"/>
-    <ellipse cx="-6" cy="20" rx="16" ry="14" fill="rgba(36,64,20,.65)"/>
-    <ellipse cx="7"  cy="17" rx="18" ry="15" fill="rgba(38,66,22,.62)"/>
-    <ellipse cx="0"  cy="6"  rx="13" ry="9"  fill="rgba(46,76,28,.58)"/>
-  </g>
-  <!-- Tree 4 — far right, smaller -->
-  <g class="g-tree" transform="translate(306, 580)">
-    <rect x="-3" y="34" width="6" height="44" rx="2" fill="rgba(50,30,10,.75)"/>
-    <ellipse cx="0"  cy="16" rx="24" ry="21" fill="rgba(44,72,23,.7)"/>
-    <ellipse cx="-7" cy="22" rx="18" ry="15" fill="rgba(36,66,20,.65)"/>
-    <ellipse cx="8"  cy="19" rx="20" ry="16" fill="rgba(38,64,22,.62)"/>
-    <ellipse cx="0"  cy="8"  rx="14" ry="10" fill="rgba(46,76,28,.58)"/>
-  </g>
-
-  <!-- ── GDC BUILDING (centre, glass corporate) ─────── -->
-  <!-- Building shadow on ground -->
-  <ellipse cx="248" cy="572" rx="65" ry="10" fill="rgba(60,60,80,.12)"/>
-  <!-- Main tower body -->
-  <rect x="198" y="330" width="100" height="240" rx="4"
-        fill="url(#glassG)" stroke="rgba(80,120,180,.6)" stroke-width="2"/>
-  <!-- Glass reflection stripe -->
-  <rect x="210" y="335" width="18" height="230" rx="2"
-        fill="rgba(255,240,180,.1)"/>
-  <rect x="235" y="335" width="8"  height="230" rx="1"
-        fill="rgba(255,240,180,.07)"/>
-  <!-- Window grid -->
-  <g stroke="rgba(80,120,180,.35)" stroke-width="1" fill="none">
-    <!-- Horizontal floors — 8 floors -->
-    <line x1="198" y1="360" x2="298" y2="360"/>
-    <line x1="198" y1="390" x2="298" y2="390"/>
-    <line x1="198" y1="420" x2="298" y2="420"/>
-    <line x1="198" y1="450" x2="298" y2="450"/>
-    <line x1="198" y1="480" x2="298" y2="480"/>
-    <line x1="198" y1="510" x2="298" y2="510"/>
-    <line x1="198" y1="540" x2="298" y2="540"/>
-    <!-- Vertical bays — 4 bays -->
-    <line x1="223" y1="330" x2="223" y2="570"/>
-    <line x1="248" y1="330" x2="248" y2="570"/>
-    <line x1="273" y1="330" x2="273" y2="570"/>
-  </g>
-  <!-- Window lights — warm glow in some panes -->
-  <g fill="rgba(255,200,80,.3)">
-    <rect x="200" y="362" width="21" height="26" rx="1"/>
-    <rect x="250" y="362" width="21" height="26" rx="1"/>
-    <rect x="225" y="392" width="21" height="26" rx="1"/>
-    <rect x="275" y="422" width="21" height="26" rx="1"/>
-    <rect x="200" y="452" width="21" height="26" rx="1"/>
-    <rect x="250" y="482" width="21" height="26" rx="1"/>
-    <rect x="225" y="512" width="21" height="26" rx="1"/>
-  </g>
-  <!-- Lobby base / entrance plinth -->
-  <rect x="185" y="555" width="126" height="22" rx="3"
-        fill="rgba(180,165,130,.35)" stroke="rgba(160,145,100,.25)" stroke-width="1"/>
-  <!-- Entrance canopy -->
-  <path d="M210,555 L290,555 L295,540 L205,540Z"
-        fill="rgba(200,185,140,.3)" stroke="rgba(160,145,100,.2)" stroke-width="1"/>
-  <!-- Entrance doors -->
-  <rect x="228" y="532" width="18" height="23" rx="1"
-        fill="rgba(180,200,220,.2)" stroke="rgba(140,165,190,.2)" stroke-width="1"/>
-  <rect x="250" y="532" width="18" height="23" rx="1"
-        fill="rgba(180,200,220,.2)" stroke="rgba(140,165,190,.2)" stroke-width="1"/>
-  <!-- Door handles -->
-  <line x1="244" y1="543" x2="248" y2="543" stroke="rgba(160,140,80,.3)" stroke-width="1.5" stroke-linecap="round"/>
-  <line x1="250" y1="543" x2="254" y2="543" stroke="rgba(160,140,80,.3)" stroke-width="1.5" stroke-linecap="round"/>
-  <!-- Building name plate -->
-  <rect x="220" y="520" width="56" height="10" rx="2"
-        fill="rgba(200,185,140,.25)" stroke="rgba(160,145,100,.2)" stroke-width="1"/>
-  <text x="248" y="528" text-anchor="middle" font-family="Inter,sans-serif"
-        font-size="5.5" font-weight="700" fill="rgba(100,80,30,.4)" letter-spacing="2">GDC</text>
-  <!-- Rooftop details -->
-  <rect x="220" y="328" width="56" height="8" rx="2"
-        fill="rgba(180,170,140,.3)" stroke="rgba(160,145,100,.2)" stroke-width="1"/>
-  <!-- Flags on rooftop -->
-  <g transform="translate(222, 315)">
-    <line x1="0" y1="0" x2="0" y2="18" stroke="rgba(160,140,80,.4)" stroke-width="1.2"/>
-    <rect class="g-flag" x="1" y="1" width="14" height="8" rx="1" fill="rgba(204,0,1,.3)"/>
-  </g>
-  <g transform="translate(244, 312)">
-    <line x1="0" y1="0" x2="0" y2="18" stroke="rgba(160,140,80,.4)" stroke-width="1.2"/>
-    <rect class="g-flag" x="1" y="1" width="14" height="8" rx="1" fill="rgba(1,0,102,.25)"/>
-  </g>
-  <g transform="translate(266, 315)">
-    <line x1="0" y1="0" x2="0" y2="18" stroke="rgba(160,140,80,.4)" stroke-width="1.2"/>
-    <rect class="g-flag" x="1" y="1" width="14" height="8" rx="1" fill="rgba(201,152,10,.3)"/>
-  </g>
-  <!-- Side wing / annex building -->
-  <rect x="298" y="410" width="55" height="160" rx="3"
-        fill="rgba(180,195,210,.2)" stroke="rgba(140,165,190,.2)" stroke-width="1"/>
-  <g stroke="rgba(140,165,200,.15)" stroke-width="1" fill="none">
-    <line x1="316" y1="410" x2="316" y2="570"/>
-    <line x1="334" y1="410" x2="334" y2="570"/>
-    <line x1="298" y1="440" x2="353" y2="440"/>
-    <line x1="298" y1="470" x2="353" y2="470"/>
-    <line x1="298" y1="500" x2="353" y2="500"/>
-    <line x1="298" y1="530" x2="353" y2="530"/>
-  </g>
-
-  <!-- ── WALKING FIGURES on path ──────────────────── -->
-  <!-- Each figure: tiny suited silhouette, ~14px tall -->
-  <!-- Walking right toward building -->
-  <g class="g-walker-r w1" transform="translate(0,648)">
-    <!-- Suit figure -->
-    <circle cx="8" cy="-16" r="4" fill="rgba(40,50,90,.85)"/>
-    <rect x="5" cy="-12" y="-12" width="6" height="10" rx="1" fill="rgba(40,50,90,.85)"/>
-    <line x1="5" y1="-8"  x2="2"  y2="-2" stroke="rgba(40,50,90,.35)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="11" y1="-8" x2="14" y2="-2" stroke="rgba(40,50,90,.35)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="7" y1="-2"  x2="5"  y2="6"  stroke="rgba(40,50,90,.35)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="9" y1="-2"  x2="11" y2="6"  stroke="rgba(40,50,90,.35)" stroke-width="1.5" stroke-linecap="round"/>
-    <!-- Briefcase -->
-    <rect x="13" y="-6" width="6" height="5" rx="1" fill="rgba(120,90,40,.4)"/>
-  </g>
-  <g class="g-walker-r w2" transform="translate(0,652)">
-    <circle cx="8" cy="-16" r="4" fill="rgba(80,30,30,.8)"/>
-    <rect x="5" y="-12" width="6" height="10" rx="1" fill="rgba(180,60,60,.7)"/>
-    <line x1="5" y1="-8"  x2="2"  y2="-2" stroke="rgba(180,60,60,.22)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="11" y1="-8" x2="14" y2="-2" stroke="rgba(180,60,60,.22)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="7" y1="-2"  x2="5"  y2="6"  stroke="rgba(180,60,60,.22)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="9" y1="-2"  x2="11" y2="6"  stroke="rgba(180,60,60,.22)" stroke-width="1.5" stroke-linecap="round"/>
-    <!-- Bag strap -->
-    <line x1="5" y1="-10" x2="0" y2="-4" stroke="rgba(120,80,40,.3)" stroke-width="1" stroke-linecap="round"/>
-  </g>
-  <g class="g-walker-r w3" transform="translate(0,645)">
-    <circle cx="8" cy="-16" r="4" fill="rgba(40,50,90,.8)"/>
-    <rect x="5" y="-12" width="6" height="10" rx="1" fill="rgba(30,60,120,.22)"/>
-    <line x1="5" y1="-8"  x2="2"  y2="-2" stroke="rgba(30,60,120,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="11" y1="-8" x2="14" y2="-2" stroke="rgba(30,60,120,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="7" y1="-2"  x2="5"  y2="6"  stroke="rgba(30,60,120,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="9" y1="-2"  x2="11" y2="6"  stroke="rgba(30,60,120,.2)" stroke-width="1.5" stroke-linecap="round"/>
-  </g>
-  <!-- Walking left (leaving) -->
-  <g class="g-walker-l w4" transform="translate(0,655)">
-    <circle cx="8" cy="-16" r="4" fill="rgba(50,80,50,.8)"/>
-    <rect x="5" y="-12" width="6" height="10" rx="1" fill="rgba(50,100,50,.68)"/>
-    <line x1="5" y1="-8"  x2="2"  y2="-2" stroke="rgba(50,100,50,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="11" y1="-8" x2="14" y2="-2" stroke="rgba(50,100,50,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="7" y1="-2"  x2="5"  y2="6"  stroke="rgba(50,100,50,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="9" y1="-2"  x2="11" y2="6"  stroke="rgba(50,100,50,.2)" stroke-width="1.5" stroke-linecap="round"/>
-  </g>
-  <g class="g-walker-l w5" transform="translate(0,650)">
-    <circle cx="8" cy="-16" r="4" fill="rgba(90,60,30,.8)"/>
-    <rect x="5" y="-12" width="6" height="10" rx="1" fill="rgba(100,70,30,.68)"/>
-    <line x1="5" y1="-8"  x2="2"  y2="-2" stroke="rgba(100,70,30,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="11" y1="-8" x2="14" y2="-2" stroke="rgba(100,70,30,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="7" y1="-2"  x2="5"  y2="6"  stroke="rgba(100,70,30,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="9" y1="-2"  x2="11" y2="6"  stroke="rgba(100,70,30,.2)" stroke-width="1.5" stroke-linecap="round"/>
-    <rect x="13" y="-5" width="5" height="4" rx="1" fill="rgba(140,100,40,.35)"/>
-  </g>
-
-</svg>
+  <div class="ground"></div>
+  <div class="road"></div>
+  <div class="road-line"></div>
+  <div class="speed-bump"></div>
 </div>
 
 <!-- WELCOME SCREEN -->
 <div id="welcomeScreen">
   <div class="welcome-card">
-    <div class="welcome-title">GDC &mdash; Day One</div>
+    <div class="welcome-title">Onboarding at GDC</div>
     <div class="welcome-h1">Welcome to <span>GDC!</span></div>
     <p class="welcome-sub">This activity is part of your onboarding and will help you orientate yourself around the site.<br><br><strong>Don't close this window until you've completed all 6 stations.</strong></p>
     <label class="field-label">Your Name</label>
@@ -752,12 +518,6 @@ to{transform:rotate(360deg);}}
         </div>
       </div>
       <div class="welcome-av-hint" id="welcomeAvHint">Select your team to see your character</div>
-    </div>
-    <label class="field-label">Gender</label>
-    <div class="pill-group" id="genderGroup">
-      <div class="pill gender" data-val="male">Male</div>
-      <div class="pill gender" data-val="female">Female</div>
-      <div class="pill gender" data-val="other">Prefer not to say</div>
     </div>
     <label class="field-label">Your Team</label>
     <div class="pill-group" id="teamGroup">
@@ -798,7 +558,7 @@ to{transform:rotate(360deg);}}
         <div class="gdc-emblem">GDC</div>
         <div class="gdc-stack">
           <div class="gdc-name">GDC</div>
-          <div class="gdc-sub">Day One Journey</div>
+          <div class="gdc-sub">Onboarding at GDC</div>
         </div>
       </div>
       <div class="h-greeting" id="hGreeting">Welcome to GDC</div>
@@ -810,7 +570,7 @@ to{transform:rotate(360deg);}}
     <div class="char-card">
       <div class="char-row">
         <div class="av-wrap">
-          <div class="av-circle" id="avCircle"><div id="avInner" style="width:70px;height:70px;"></div></div>
+          <div class="av-circle" id="avCircle"><div id="avInner" style="width:90px;height:90px;"></div></div>
           <div class="lv-pill" id="lvPill">Level I</div>
         </div>
         <div class="char-info">
@@ -865,13 +625,19 @@ to{transform:rotate(360deg);}}
 <!-- QUIZ MODAL -->
 <div class="quiz-overlay" id="quizOverlay">
   <div class="quiz-modal">
-    <div class="m-handle"></div>
-    <div class="quiz-eyebrow">&#10022; Pillar Question &#10022;</div>
-    <div class="quiz-q" id="quizQ"></div>
-    <div class="quiz-opts" id="quizOpts"></div>
-    <button class="quiz-confirm-btn" id="quizConfirmBtn">&#10022; Confirm Answer</button>
-    <div class="quiz-change-link" id="quizChangeLink">Change my answer</div>
-    <span class="modal-back-link" id="quizBackLink">&#8592; Back to main page</span>
+    <div class="quiz-modal-header">
+      <div class="m-handle"></div>
+      <div class="quiz-eyebrow">&#10022; Pillar Question &#10022;</div>
+      <div class="quiz-q" id="quizQ"></div>
+    </div>
+    <div class="quiz-modal-body">
+      <div class="quiz-opts" id="quizOpts"></div>
+    </div>
+    <div class="quiz-modal-footer">
+      <button class="quiz-confirm-btn" id="quizConfirmBtn">&#10022; Confirm Answer</button>
+      <div class="quiz-change-link" id="quizChangeLink">Change my answer</div>
+      <span class="modal-back-link" id="quizBackLink">&#8592; Back to main page</span>
+    </div>
   </div>
 </div>
 
@@ -884,6 +650,19 @@ to{transform:rotate(360deg);}}
     <div class="qs-unlock" id="qsUnlock"></div>
     <button class="qs-cta" id="qsCta">Continue the Journey</button>
     <button class="qs-back" id="qsBack" onclick="document.getElementById('qSuccessOverlay').classList.remove('show');">&#8592; Back to Main Page</button>
+  </div>
+</div>
+
+
+<!-- SUBMIT CONFIRM OVERLAY -->
+<div class="q-success-overlay" id="submitConfirmOverlay">
+  <div class="q-success-card" style="max-width:340px;">
+    <span class="qs-emoji">🏆</span>
+    <div class="qs-title">Ready to see your results?</div>
+    <div class="qs-flavor" style="margin-bottom:8px;">You've completed all 6 stations — well done!</div>
+    <div class="qs-flavor" style="font-size:12px;color:var(--ink-soft);margin-bottom:20px;line-height:1.5;">Once you go to your results page you <strong>won't be able to return</strong> to the station questions.</div>
+    <button class="qs-cta" id="confirmGoFinal">✦ View My Results</button>
+    <button class="qs-back" id="confirmStayBack">← Not yet, go back</button>
   </div>
 </div>
 
@@ -914,273 +693,383 @@ to{transform:rotate(360deg);}}
 
 <script>
 /* ══ AVATAR ══ */
-function makeAvatar(team,gender,size){
-  size=size||80;var s=size;
-  var cx=Math.round(s*.5),cy=Math.round(s*.34),hr=Math.round(s*.22),hrY=Math.round(s*.2);
-  var hy=Math.round(s*.17),neckY=cy+hrY,neckH=Math.round(s*.07),by=neckY+neckH;
-  var bw=Math.round(s*.58),bh=Math.round(s*.34),bx=cx-Math.round(bw/2);
-  var armW=Math.round(s*.13),armH=Math.round(s*.24),skin="#f5c89a";
-  var hc=gender==="female"?"#2a1a0a":gender==="male"?"#3a2a1a":"#1a1a2a";
+function makeAvatar(team,size){
+  size=size||80; var s=size;
+  var cx=s*.5;
 
-  function hair(g){
-    if(g==="male")return'<ellipse cx="'+cx+'" cy="'+(hy+Math.round(s*.06))+'" rx="'+Math.round(s*.23)+'" ry="'+Math.round(s*.12)+'" fill="'+hc+'"/><rect x="'+(cx-Math.round(s*.23))+'" y="'+(hy+Math.round(s*.06))+'" width="'+Math.round(s*.46)+'" height="'+Math.round(s*.07)+'" fill="'+hc+'"/>';
-    if(g==="female")return'<ellipse cx="'+cx+'" cy="'+(hy+Math.round(s*.08))+'" rx="'+Math.round(s*.25)+'" ry="'+Math.round(s*.17)+'" fill="'+hc+'"/><rect x="'+(cx-Math.round(s*.25))+'" y="'+(hy+Math.round(s*.1))+'" width="'+Math.round(s*.11)+'" height="'+Math.round(s*.28)+'" rx="'+Math.round(s*.05)+'" fill="'+hc+'"/><rect x="'+(cx+Math.round(s*.14))+'" y="'+(hy+Math.round(s*.1))+'" width="'+Math.round(s*.11)+'" height="'+Math.round(s*.28)+'" rx="'+Math.round(s*.05)+'" fill="'+hc+'"/>';
-    return'<ellipse cx="'+cx+'" cy="'+(hy+Math.round(s*.07))+'" rx="'+Math.round(s*.24)+'" ry="'+Math.round(s*.14)+'" fill="'+hc+'"/><path d="M '+(cx-Math.round(s*.24))+' '+(hy+Math.round(s*.1))+' Q '+(cx-Math.round(s*.28))+' '+(hy+Math.round(s*.22))+' '+(cx-Math.round(s*.2))+' '+(hy+Math.round(s*.3))+'" fill="none" stroke="'+hc+'" stroke-width="'+Math.round(s*.09)+'" stroke-linecap="round"/>';
-  }
+  /* ── Proportions ── */
+  var hr   = s*.195;   /* head radius X — same for all (Ghibli round heads) */
+  var hrY  = s*.22;
+  var hcy  = s*.27;
+  var neckW= s*.13;
+  var neckT= hcy+hrY;
+  var neckH= s*.06;
+  var by   = neckT+neckH;
+  var bh   = s*.36;
+  var bw   = s*.54;
+  var bx   = cx-bw/2;
+  var armW = s*.12, armH = s*.25;
+
+  /* ── Skin — warm, single tone ── */
+  var skin = '#e8b888', skinD = '#c8885c';
+
+
+  /* ── Hair colour — varies by team index for variety ── */
+  var teams=['rdd','gsc','quality','ddio','dbs','hr','hse','security','it','finance','legal'];
+  var ti=teams.indexOf(team); if(ti<0)ti=0;
+  var hairCols=['#1a0e04','#2a1808','#0e0e16','#1a1404','#0a0a10'];
+  var hc=hairCols[ti%hairCols.length];
+
+  /* ── Face ── */
   function face(){
-    return'<rect x="'+(cx-Math.round(s*.075))+'" y="'+neckY+'" width="'+Math.round(s*.15)+'" height="'+neckH+'" rx="3" fill="'+skin+'"/>'
-      +'<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+hr+'" ry="'+hrY+'" fill="'+skin+'"/>'
-      +hair(gender)
-      +'<circle cx="'+(cx-Math.round(s*.085))+'" cy="'+(cy+Math.round(s*.04))+'" r="'+Math.round(s*.033)+'" fill="#2c1f0e"/>'
-      +'<circle cx="'+(cx+Math.round(s*.085))+'" cy="'+(cy+Math.round(s*.04))+'" r="'+Math.round(s*.033)+'" fill="#2c1f0e"/>'
-      +'<circle cx="'+(cx-Math.round(s*.076))+'" cy="'+(cy+Math.round(s*.032))+'" r="'+Math.round(s*.011)+'" fill="white"/>'
-      +'<circle cx="'+(cx+Math.round(s*.094))+'" cy="'+(cy+Math.round(s*.032))+'" r="'+Math.round(s*.011)+'" fill="white"/>'
-      +'<path d="M '+(cx-Math.round(s*.075))+' '+(cy+Math.round(s*.11))+' Q '+cx+' '+(cy+Math.round(s*.165))+' '+(cx+Math.round(s*.075))+' '+(cy+Math.round(s*.11))+'" fill="none" stroke="#8a4a28" stroke-width="'+Math.round(s*.02)+'" stroke-linecap="round"/>'
-      +'<circle cx="'+(cx-Math.round(s*.155))+'" cy="'+(cy+Math.round(s*.1))+'" r="'+Math.round(s*.048)+'" fill="rgba(220,120,100,0.22)"/>'
-      +'<circle cx="'+(cx+Math.round(s*.155))+'" cy="'+(cy+Math.round(s*.1))+'" r="'+Math.round(s*.048)+'" fill="rgba(220,120,100,0.22)"/>';
-  }
-  function baseBody(col){
-    return'<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" rx="'+Math.round(s*.1)+'" fill="'+col+'"/>'
-      +'<rect x="'+(bx-Math.round(s*.04))+'" y="'+(by+Math.round(s*.03))+'" width="'+armW+'" height="'+armH+'" rx="'+Math.round(s*.055)+'" fill="'+col+'"/>'
-      +'<rect x="'+(bx+bw-Math.round(s*.09))+'" y="'+(by+Math.round(s*.03))+'" width="'+armW+'" height="'+armH+'" rx="'+Math.round(s*.055)+'" fill="'+col+'"/>'
-      +'<circle cx="'+(bx+Math.round(s*.03))+'" cy="'+(by+armH+Math.round(s*.04))+'" r="'+Math.round(s*.066)+'" fill="'+skin+'"/>'
-      +'<circle cx="'+(bx+bw-Math.round(s*.03))+'" cy="'+(by+armH+Math.round(s*.04))+'" r="'+Math.round(s*.066)+'" fill="'+skin+'"/>';
+    var ey  = hcy + s*.032;
+    /* Eye sizes */
+    var erx = s*.040;
+    var ery = s*.044;
+    var ex  = s*.08;
+    /* Mouth */
+    var mx  = s*.065;
+    var my  = hcy + s*.115;
+    /* Brow */
+    var bry = ey - s*.072;
+    var brw = s*.016;
+
+    return (
+      /* neck */
+      '<rect x="'+(cx-neckW/2)+'" y="'+neckT+'" width="'+neckW+'" height="'+neckH+'" rx="'+(neckW*.45)+'" fill="'+skin+'"/>'
+      /* head */
+      +'<ellipse cx="'+cx+'" cy="'+hcy+'" rx="'+hr+'" ry="'+hrY+'" fill="'+skin+'"/>'
+
+      /* cheek blush */
+      +'<ellipse cx="'+(cx-hr*.64)+'" cy="'+(hcy+s*.08)+'" rx="'+(s*.06)+'" ry="'+(s*.036)+'" fill="rgba(218,100,80,.18)"/>'
+      +'<ellipse cx="'+(cx+hr*.64)+'" cy="'+(hcy+s*.08)+'" rx="'+(s*.06)+'" ry="'+(s*.036)+'" fill="rgba(218,100,80,.18)"/>'
+      /* ears */
+      +'<ellipse cx="'+(cx-hr-s*.008)+'" cy="'+(hcy+s*.02)+'" rx="'+(s*.038)+'" ry="'+(s*.052)+'" fill="'+skin+'"/>'
+      +'<ellipse cx="'+(cx+hr+s*.008)+'" cy="'+(hcy+s*.02)+'" rx="'+(s*.038)+'" ry="'+(s*.052)+'" fill="'+skin+'"/>'
+      /* ── EYES ── */
+      /* whites */
+      +'<ellipse cx="'+(cx-ex)+'" cy="'+ey+'" rx="'+erx+'" ry="'+ery+'" fill="rgba(255,252,248,.95)"/>'
+      +'<ellipse cx="'+(cx+ex)+'" cy="'+ey+'" rx="'+erx+'" ry="'+ery+'" fill="rgba(255,252,248,.95)"/>'
+      /* iris */
+      +'<ellipse cx="'+(cx-ex)+'" cy="'+ey+'" rx="'+(erx*.7)+'" ry="'+(ery*.78)+'" fill="#2a1806"/>'
+      +'<ellipse cx="'+(cx+ex)+'" cy="'+ey+'" rx="'+(erx*.7)+'" ry="'+(ery*.78)+'" fill="#2a1806"/>'
+      /* pupil */
+      +'<ellipse cx="'+(cx-ex)+'" cy="'+ey+'" rx="'+(erx*.38)+'" ry="'+(ery*.42)+'" fill="#080408"/>'
+      +'<ellipse cx="'+(cx+ex)+'" cy="'+ey+'" rx="'+(erx*.38)+'" ry="'+(ery*.42)+'" fill="#080408"/>'
+      /* catchlight */
+      +'<ellipse cx="'+(cx-ex+erx*.32)+'" cy="'+(ey-ery*.32)+'" rx="'+(erx*.22)+'" ry="'+(ery*.22)+'" fill="rgba(255,255,255,.88)"/>'
+      +'<ellipse cx="'+(cx+ex+erx*.32)+'" cy="'+(ey-ery*.32)+'" rx="'+(erx*.22)+'" ry="'+(ery*.22)+'" fill="rgba(255,255,255,.88)"/>'
+      /* upper lid line */
+      +'<path d="M '+(cx-ex-erx)+' '+(ey-ery*.2)+' Q '+(cx-ex)+' '+(ey-ery*1.1)+' '+(cx-ex+erx)+' '+(ey-ery*.2)+'" fill="none" stroke="'+hc+'" stroke-width="'+(s*.014)+'" stroke-linecap="round"/>'
+      +'<path d="M '+(cx+ex-erx)+' '+(ey-ery*.2)+' Q '+(cx+ex)+' '+(ey-ery*1.1)+' '+(cx+ex+erx)+' '+(ey-ery*.2)+'" fill="none" stroke="'+hc+'" stroke-width="'+(s*.014)+'" stroke-linecap="round"/>'
+      /* brows — soft arch */
+      +'<path d="M '+(cx-ex-s*.048)+' '+(bry+s*.012)+' Q '+(cx-ex)+' '+(bry-s*.02)+' '+(cx-ex+s*.048)+' '+(bry+s*.008)+'" fill="none" stroke="'+hc+'" stroke-width="'+brw+'" stroke-linecap="round"/>'
+      +'<path d="M '+(cx+ex-s*.048)+' '+(bry+s*.008)+' Q '+(cx+ex)+' '+(bry-s*.02)+' '+(cx+ex+s*.048)+' '+(bry+s*.012)+'" fill="none" stroke="'+hc+'" stroke-width="'+brw+'" stroke-linecap="round"/>'
+      /* nose */
+      +'<path d="M '+(cx-s*.012)+' '+(hcy+s*.075)+' Q '+cx+' '+(hcy+s*.098)+' '+(cx+s*.012)+' '+(hcy+s*.075)+'" fill="none" stroke="'+skinD+'" stroke-width="'+(s*.014)+'" stroke-linecap="round"/>'
+      /* mouth — gentle smile */
+      +'<path d="M '+(cx-mx)+' '+my+' Q '+cx+' '+(my+s*.03)+' '+(cx+mx)+' '+my+'" fill="none" stroke="rgba(155,75,40,.6)" stroke-width="'+(s*.018)+'" stroke-linecap="round"/>'
+    );
   }
 
+  /* ══════════════════════════════════════════════
+     HAIR — original simple designs
+  ══════════════════════════════════════════════ */
+  function hair(col){
+    /* simple crown only */
+    return '<ellipse cx="'+cx+'" cy="'+(hcy-hrY*.5)+'" rx="'+(hr+s*.03)+'" ry="'+(hrY*.72)+'" fill="'+col+'"/>';
+  }
+
+  /* ══════════════════════════════════════════════
+     COAT — structured, lapelled, Ghibli-warm
+  ══════════════════════════════════════════════ */
+  function coat(col,lapelCol,liningCol){
+    liningCol=liningCol||'rgba(255,255,255,.35)';
+    return (
+      /* body */
+      '<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" rx="'+(s*.1)+'" fill="'+col+'"/>'
+      /* subtle right shading */
+      +'<rect x="'+(bx+bw*.58)+'" y="'+by+'" width="'+(bw*.42)+'" height="'+bh+'" rx="'+(s*.1)+'" fill="rgba(0,0,0,.06)"/>'
+      /* left arm */
+      +'<rect x="'+(bx-s*.015)+'" y="'+(by+s*.02)+'" width="'+armW+'" height="'+armH+'" rx="'+(s*.055)+'" fill="'+col+'"/>'
+      /* right arm */
+      +'<rect x="'+(bx+bw-armW+s*.015)+'" y="'+(by+s*.02)+'" width="'+armW+'" height="'+armH+'" rx="'+(s*.055)+'" fill="'+col+'"/>'
+      /* hands */
+      +'<ellipse cx="'+(bx+s*.04)+'" cy="'+(by+armH+s*.04)+'" rx="'+(s*.052)+'" ry="'+(s*.058)+'" fill="'+skin+'"/>'
+      +'<ellipse cx="'+(bx+bw-s*.04)+'" cy="'+(by+armH+s*.04)+'" rx="'+(s*.052)+'" ry="'+(s*.058)+'" fill="'+skin+'"/>'
+      /* lapels */
+      +'<polygon points="'+cx+','+(by+s*.01)+' '+(cx-s*.14)+','+(by+s*.24)+' '+(cx-s*.04)+','+(by+s*.24)+'" fill="'+lapelCol+'"/>'
+      +'<polygon points="'+cx+','+(by+s*.01)+' '+(cx+s*.14)+','+(by+s*.24)+' '+(cx+s*.04)+','+(by+s*.24)+'" fill="'+lapelCol+'"/>'
+      /* shirt */
+      +'<polygon points="'+cx+','+(by+s*.01)+' '+(cx-s*.04)+','+(by+s*.24)+' '+(cx+s*.04)+','+(by+s*.24)+'" fill="'+liningCol+'"/>'
+      /* collar */
+      +'<rect x="'+(cx-s*.065)+'" y="'+(neckT+neckH-s*.018)+'" width="'+(s*.13)+'" height="'+(s*.04)+'" rx="'+(s*.02)+'" fill="'+liningCol+'"/>'
+      /* cuffs */
+      +'<rect x="'+(bx-s*.015)+'" y="'+(by+armH-s*.04)+'" width="'+armW+'" height="'+(s*.052)+'" rx="'+(s*.024)+'" fill="'+liningCol+'" opacity=".6"/>'
+      +'<rect x="'+(bx+bw-armW+s*.015)+'" y="'+(by+armH-s*.04)+'" width="'+armW+'" height="'+(s*.052)+'" rx="'+(s*.024)+'" fill="'+liningCol+'" opacity=".6"/>'
+      /* buttons */
+      +'<circle cx="'+cx+'" cy="'+(by+s*.3)+'" r="'+(s*.018)+'" fill="'+lapelCol+'" opacity=".7"/>'
+      +'<circle cx="'+cx+'" cy="'+(by+s*.42)+'" r="'+(s*.018)+'" fill="'+lapelCol+'" opacity=".7"/>'
+    );
+  }
+
+  /* ── LANYARD helper ── */
+  function lanyard(lc,badge){
+    badge=badge||'GDC';
+    return '<line x1="'+cx+'" y1="'+neckT+'" x2="'+cx+'" y2="'+(by+s*.18)+'" stroke="'+lc+'" stroke-width="'+(s*.022)+'" stroke-dasharray="'+(s*.03)+','+(s*.02)+'"/>'
+          +'<rect x="'+(cx-s*.055)+'" y="'+(by+s*.18)+'" width="'+(s*.11)+'" height="'+(s*.08)+'" rx="'+(s*.015)+'" fill="white" stroke="'+lc+'" stroke-width="'+(s*.018)+'"/>'
+          +'<text x="'+cx+'" y="'+(by+s*.245)+'" font-size="'+(s*.055)+'" fill="'+lc+'" text-anchor="middle" font-weight="bold">'+badge+'</text>';
+  }
+
+  /* ── POCKET SQUARE helper ── */
+  function pocketSquare(col){
+    return '<rect x="'+(bx+bw*.1)+'" y="'+(by+s*.05)+'" width="'+(s*.07)+'" height="'+(s*.05)+'" rx="'+(s*.015)+'" fill="white" stroke="'+col+'" stroke-width="1"/>'
+          +'<path d="M '+(bx+bw*.115)+' '+(by+s*.05)+' L '+(bx+bw*.155)+' '+(by+s*.018)+' L '+(bx+bw*.19)+' '+(by+s*.05)+'" fill="white" stroke="'+col+'" stroke-width="1"/>';
+  }
+
+  /* ── TIE helper ── */
+  function tie(col){
+    return '<polygon points="'+cx+','+(by+s*.04)+' '+(cx-s*.025)+','+(by+s*.12)+' '+(cx-s*.04)+','+(by+s*.28)+' '+cx+','+(by+s*.32)+' '+(cx+s*.04)+','+(by+s*.28)+' '+(cx+s*.025)+','+(by+s*.12)+'" fill="'+col+'"/>'
+          +'<rect x="'+(cx-s*.02)+'" y="'+(by+s*.04)+'" width="'+(s*.04)+'" height="'+(s*.03)+'" rx="'+(s*.01)+'" fill="rgba(255,255,255,.3)"/>';
+  }
+
+  /* ── START SVG ── */
   var svg='<svg width="'+s+'" height="'+s+'" viewBox="0 0 '+s+' '+s+'" xmlns="http://www.w3.org/2000/svg">';
 
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     TEAM-SPECIFIC DESIGNS
+     Each: coat() + accessories + face() + hair()
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
   if(team==="rdd"){
-    // White lab coat, goggles on forehead, test tube
-    svg+=baseBody("#f0f4ff");
-    svg+='<polygon points="'+cx+','+(by+Math.round(s*.04))+' '+(cx-Math.round(s*.12))+','+(by+Math.round(s*.22))+' '+cx+','+(by+Math.round(s*.2))+'" fill="#5a7ec8"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.04))+' '+(cx+Math.round(s*.12))+','+(by+Math.round(s*.22))+' '+cx+','+(by+Math.round(s*.2))+'" fill="#5a7ec8"/>';
-    svg+='<rect x="'+(bx+Math.round(bw*.6))+'" y="'+(by+Math.round(s*.07))+'" width="'+Math.round(s*.12)+'" height="'+Math.round(s*.09)+'" rx="2" fill="white" stroke="#5a7ec8" stroke-width="1.2"/>'
-        +'<line x1="'+(bx+Math.round(bw*.66))+'" y1="'+(by+Math.round(s*.07))+'" x2="'+(bx+Math.round(bw*.66))+'" y2="'+(by+Math.round(s*.03))+'" stroke="#3a3a8a" stroke-width="2" stroke-linecap="round"/>'
-        +'<circle cx="'+(bx+Math.round(bw*.66))+'" cy="'+(by+Math.round(s*.03))+'" r="2" fill="#e03050"/>';
-    svg+='<rect x="'+(bx+bw-Math.round(s*.04))+'" y="'+(by+Math.round(s*.18))+'" width="'+Math.round(s*.05)+'" height="'+Math.round(s*.14)+'" rx="'+Math.round(s*.025)+'" fill="#88ccff" stroke="#5a7ec8" stroke-width="1.2"/>'
-        +'<rect x="'+(bx+bw-Math.round(s*.04))+'" y="'+(by+Math.round(s*.24))+'" width="'+Math.round(s*.05)+'" height="'+Math.round(s*.06)+'" rx="'+Math.round(s*.025)+'" fill="#44aaff" opacity=".6"/>';
+    /* RDD — Research, Design & Dev
+       White lab coat over navy, goggles on forehead, test tube
+       Palette: white, navy, electric blue */
+    var rc="#1a3a7a", rc2="#4a6ab0";
+    svg+=coat("#eef2ff",rc2,"rgba(240,242,255,.9)");
+    /* Lab coat overlay — slightly narrower */
+    svg+='<rect x="'+(bx+s*.04)+'" y="'+by+'" width="'+(bw-s*.08)+'" height="'+bh+'" rx="'+(s*.08)+'" fill="rgba(255,255,255,.55)"/>';
+    /* Pen in breast pocket */
+    svg+='<rect x="'+(bx+bw*.55)+'" y="'+(by+s*.06)+'" width="'+(s*.025)+'" height="'+(s*.1)+'" rx="'+(s*.012)+'" fill="'+rc2+'" stroke="'+rc+'" stroke-width="1"/>'
+        +'<circle cx="'+(bx+bw*.562)+'" cy="'+(by+s*.06)+'" r="'+(s*.016)+'" fill="#e02040"/>';
+    /* Test tube in right hand */
+    svg+='<rect x="'+(bx+bw-s*.01)+'" y="'+(by+armH-s*.02)+'" width="'+(s*.04)+'" height="'+(s*.14)+'" rx="'+(s*.02)+'" fill="#88ccff" stroke="'+rc+'" stroke-width="1.2"/>'
+        +'<rect x="'+(bx+bw-s*.01)+'" y="'+(by+armH+s*.08)+'" width="'+(s*.04)+'" height="'+(s*.04)+'" rx="'+(s*.02)+'" fill="#44aaff" opacity=".6"/>';
     svg+=face();
-    svg+='<ellipse cx="'+(cx-Math.round(s*.09))+'" cy="'+(cy-Math.round(s*.1))+'" rx="'+Math.round(s*.075)+'" ry="'+Math.round(s*.055)+'" fill="rgba(100,160,255,0.3)" stroke="#3a5aaa" stroke-width="'+Math.round(s*.025)+'"/>'
-        +'<ellipse cx="'+(cx+Math.round(s*.09))+'" cy="'+(cy-Math.round(s*.1))+'" rx="'+Math.round(s*.075)+'" ry="'+Math.round(s*.055)+'" fill="rgba(100,160,255,0.3)" stroke="#3a5aaa" stroke-width="'+Math.round(s*.025)+'"/>'
-        +'<line x1="'+(cx-Math.round(s*.015))+'" y1="'+(cy-Math.round(s*.1))+'" x2="'+(cx+Math.round(s*.015))+'" y2="'+(cy-Math.round(s*.1))+'" stroke="#3a5aaa" stroke-width="'+Math.round(s*.025)+'"/>'
-        +'<line x1="'+(cx-Math.round(s*.165))+'" y1="'+(cy-Math.round(s*.1))+'" x2="'+(cx-Math.round(s*.22))+'" y2="'+(cy-Math.round(s*.06))+'" stroke="#3a5aaa" stroke-width="'+Math.round(s*.02)+'"/>'
-        +'<line x1="'+(cx+Math.round(s*.165))+'" y1="'+(cy-Math.round(s*.1))+'" x2="'+(cx+Math.round(s*.22))+'" y2="'+(cy-Math.round(s*.06))+'" stroke="#3a5aaa" stroke-width="'+Math.round(s*.02)+'"/>';
+    svg+=hair(hc);
+    /* Goggles on forehead */
+    svg+='<ellipse cx="'+(cx-s*.09)+'" cy="'+(hcy-s*.1)+'" rx="'+(s*.072)+'" ry="'+(s*.05)+'" fill="rgba(100,160,255,.3)" stroke="'+rc+'" stroke-width="'+(s*.022)+'"/>'
+        +'<ellipse cx="'+(cx+s*.09)+'" cy="'+(hcy-s*.1)+'" rx="'+(s*.072)+'" ry="'+(s*.05)+'" fill="rgba(100,160,255,.3)" stroke="'+rc+'" stroke-width="'+(s*.022)+'"/>'
+        +'<line x1="'+(cx-s*.018)+'" y1="'+(hcy-s*.1)+'" x2="'+(cx+s*.018)+'" y2="'+(hcy-s*.1)+'" stroke="'+rc+'" stroke-width="'+(s*.022)+'"/>'
+        +'<line x1="'+(cx-s*.162)+'" y1="'+(hcy-s*.1)+'" x2="'+(cx-hr-s*.02)+'" y2="'+(hcy-s*.06)+'" stroke="'+rc+'" stroke-width="'+(s*.018)+'"/>'
+        +'<line x1="'+(cx+s*.162)+'" y1="'+(hcy-s*.1)+'" x2="'+(cx+hr+s*.02)+'" y2="'+(hcy-s*.06)+'" stroke="'+rc+'" stroke-width="'+(s*.018)+'"/>';
 
   } else if(team==="gsc"){
-    // Hi-vis vest, hard hat, clipboard
-    svg+=baseBody("#4a5a6a");
-    svg+='<rect x="'+(bx+Math.round(bw*.08))+'" y="'+by+'" width="'+Math.round(bw*.84)+'" height="'+bh+'" rx="'+Math.round(s*.08)+'" fill="#e87820"/>'
-        +'<rect x="'+(bx+Math.round(bw*.06))+'" y="'+(by+Math.round(s*.1))+'" width="'+Math.round(bw*.88)+'" height="'+Math.round(s*.04)+'" rx="2" fill="rgba(255,255,180,0.75)"/>'
-        +'<rect x="'+(bx+Math.round(bw*.06))+'" y="'+(by+Math.round(s*.18))+'" width="'+Math.round(bw*.88)+'" height="'+Math.round(s*.04)+'" rx="2" fill="rgba(255,255,180,0.75)"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.1))+','+(by+Math.round(s*.2))+' '+(cx+Math.round(s*.1))+','+(by+Math.round(s*.2))+'" fill="#4a5a6a"/>';
-    svg+='<rect x="'+(bx-Math.round(s*.04))+'" y="'+(by+Math.round(s*.03))+'" width="'+armW+'" height="'+armH+'" rx="'+Math.round(s*.055)+'" fill="#4a5a6a"/>'
-        +'<rect x="'+(bx+bw-Math.round(s*.09))+'" y="'+(by+Math.round(s*.03))+'" width="'+armW+'" height="'+armH+'" rx="'+Math.round(s*.055)+'" fill="#4a5a6a"/>';
-    svg+='<rect x="'+(bx-Math.round(s*.02))+'" y="'+(by+Math.round(s*.15))+'" width="'+Math.round(s*.16)+'" height="'+Math.round(s*.2)+'" rx="2" fill="white" stroke="#a04808" stroke-width="1.5"/>'
-        +'<rect x="'+(bx+Math.round(s*.01))+'" y="'+(by+Math.round(s*.18))+'" width="'+Math.round(s*.1)+'" height="'+Math.round(s*.015)+'" rx="1" fill="#ccc"/>'
-        +'<rect x="'+(bx+Math.round(s*.01))+'" y="'+(by+Math.round(s*.21))+'" width="'+Math.round(s*.08)+'" height="'+Math.round(s*.015)+'" rx="1" fill="#ccc"/>'
-        +'<rect x="'+(bx+Math.round(s*.01))+'" y="'+(by+Math.round(s*.24))+'" width="'+Math.round(s*.09)+'" height="'+Math.round(s*.015)+'" rx="1" fill="#ccc"/>'
-        +'<rect x="'+(bx+Math.round(s*.04))+'" y="'+(by+Math.round(s*.13))+'" width="'+Math.round(s*.08)+'" height="'+Math.round(s*.04)+'" rx="2" fill="#a04808"/>';
+    /* GSC — Global Supply Chain
+       Hi-vis vest over shirt, hard hat, clipboard
+       Palette: orange hi-vis, dark grey, yellow stripe */
+    svg+=coat("#3a4a58","#2a3848","rgba(240,240,235,.8)");
+    /* Hi-vis vest over coat */
+    svg+='<rect x="'+(bx+s*.04)+'" y="'+by+'" width="'+(bw-s*.08)+'" height="'+(bh*.8)+'" rx="'+(s*.06)+'" fill="#e87820"/>'
+        +'<rect x="'+(bx+s*.03)+'" y="'+(by+s*.1)+'" width="'+(bw-s*.06)+'" height="'+(s*.04)+'" rx="2" fill="rgba(255,255,180,.78)"/>'
+        +'<rect x="'+(bx+s*.03)+'" y="'+(by+s*.18)+'" width="'+(bw-s*.06)+'" height="'+(s*.04)+'" rx="2" fill="rgba(255,255,180,.78)"/>'
+        /* V opening */
+        +'<polygon points="'+cx+','+(by+s*.02)+' '+(cx-s*.09)+','+(by+s*.2)+' '+(cx+s*.09)+','+(by+s*.2)+'" fill="#3a4a58"/>';
+    /* Clipboard */
+    svg+='<rect x="'+(bx-s*.04)+'" y="'+(by+s*.1)+'" width="'+(s*.17)+'" height="'+(s*.22)+'" rx="2" fill="white" stroke="#a04808" stroke-width="1.5"/>'
+        +'<rect x="'+(bx+s*.04)+'" y="'+(by+s*.08)+'" width="'+(s*.05)+'" height="'+(s*.04)+'" rx="2" fill="#a04808"/>'
+        +'<rect x="'+(bx)+'" y="'+(by+s*.155)+'" width="'+(s*.1)+'" height="'+(s*.015)+'" rx="1" fill="#ccc"/>'
+        +'<rect x="'+(bx)+'" y="'+(by+s*.185)+'" width="'+(s*.08)+'" height="'+(s*.015)+'" rx="1" fill="#ccc"/>'
+        +'<rect x="'+(bx)+'" y="'+(by+s*.215)+'" width="'+(s*.09)+'" height="'+(s*.015)+'" rx="1" fill="#ccc"/>';
     svg+=face();
-    svg+='<ellipse cx="'+cx+'" cy="'+(hy+Math.round(s*.02))+'" rx="'+Math.round(s*.26)+'" ry="'+Math.round(s*.13)+'" fill="#f0a020"/>'
-        +'<ellipse cx="'+cx+'" cy="'+(hy+Math.round(s*.12))+'" rx="'+Math.round(s*.28)+'" ry="'+Math.round(s*.04)+'" fill="#f0a020"/>'
-        +'<rect x="'+(cx-Math.round(s*.06))+'" y="'+hy+'" width="'+Math.round(s*.12)+'" height="'+Math.round(s*.1)+'" rx="2" fill="rgba(255,255,255,0.35)"/>'
-        +'<circle cx="'+(bx+Math.round(s*.03))+'" cy="'+(by+armH+Math.round(s*.04))+'" r="'+Math.round(s*.066)+'" fill="'+skin+'"/>'
-        +'<circle cx="'+(bx+bw-Math.round(s*.03))+'" cy="'+(by+armH+Math.round(s*.04))+'" r="'+Math.round(s*.066)+'" fill="'+skin+'"/>';
-
-  } else if(team==="gf"){
-    // Smart blazer, lanyard/ID, tablet with Gantt
-    var bl="#3a5a3a",bl2="#6a8a5a",lc="#d4a020";
-    svg+=baseBody(bl);
-    svg+='<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.14))+','+(by+Math.round(s*.24))+' '+(cx-Math.round(s*.04))+','+(by+Math.round(s*.24))+'" fill="'+bl2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx+Math.round(s*.14))+','+(by+Math.round(s*.24))+' '+(cx+Math.round(s*.04))+','+(by+Math.round(s*.24))+'" fill="'+bl2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.04))+','+(by+Math.round(s*.24))+' '+(cx+Math.round(s*.04))+','+(by+Math.round(s*.24))+'" fill="white"/>';
-    svg+='<path d="M '+(cx-Math.round(s*.04))+' '+by+' Q '+(cx-Math.round(s*.06))+' '+(by+Math.round(s*.14))+' '+cx+' '+(by+Math.round(s*.22))+'" fill="none" stroke="'+lc+'" stroke-width="'+Math.round(s*.02)+'"/>'
-        +'<path d="M '+(cx+Math.round(s*.04))+' '+by+' Q '+(cx+Math.round(s*.06))+' '+(by+Math.round(s*.14))+' '+cx+' '+(by+Math.round(s*.22))+'" fill="none" stroke="'+lc+'" stroke-width="'+Math.round(s*.02)+'"/>'
-        +'<rect x="'+(cx-Math.round(s*.07))+'" y="'+(by+Math.round(s*.2))+'" width="'+Math.round(s*.14)+'" height="'+Math.round(s*.1)+'" rx="2" fill="white" stroke="'+lc+'" stroke-width="1.5"/>';
-    var tx=bx+bw-Math.round(s*.06),ty=by+Math.round(s*.1);
-    svg+='<rect x="'+tx+'" y="'+ty+'" width="'+Math.round(s*.18)+'" height="'+Math.round(s*.22)+'" rx="3" fill="#e8eef0" stroke="'+bl+'" stroke-width="1.5"/>'
-        +'<rect x="'+(tx+Math.round(s*.015))+'" y="'+(ty+Math.round(s*.015))+'" width="'+Math.round(s*.15)+'" height="'+Math.round(s*.18)+'" rx="2" fill="white"/>'
-        +'<rect x="'+(tx+Math.round(s*.025))+'" y="'+(ty+Math.round(s*.04))+'" width="'+Math.round(s*.09)+'" height="'+Math.round(s*.025)+'" rx="1" fill="#5a8a4a"/>'
-        +'<rect x="'+(tx+Math.round(s*.055))+'" y="'+(ty+Math.round(s*.08))+'" width="'+Math.round(s*.07)+'" height="'+Math.round(s*.025)+'" rx="1" fill="#c87830"/>'
-        +'<rect x="'+(tx+Math.round(s*.025))+'" y="'+(ty+Math.round(s*.12))+'" width="'+Math.round(s*.11)+'" height="'+Math.round(s*.025)+'" rx="1" fill="#5a7ec8"/>'
-        +'<rect x="'+(tx+Math.round(s*.035))+'" y="'+(ty+Math.round(s*.155))+'" width="'+Math.round(s*.06)+'" height="'+Math.round(s*.025)+'" rx="1" fill="#d4a020"/>';
-    svg+=face();
+    svg+=hair(hc);
+    /* Hard hat */
+    svg+='<ellipse cx="'+cx+'" cy="'+(hcy-hrY+s*.06)+'" rx="'+(hr+s*.06)+'" ry="'+(s*.14)+'" fill="#f0a020"/>'
+        +'<ellipse cx="'+cx+'" cy="'+(hcy-hrY+s*.14)+'" rx="'+(hr+s*.08)+'" ry="'+(s*.04)+'" fill="#f0a020"/>'
+        +'<rect x="'+(cx-s*.06)+'" y="'+(hcy-hrY+s*.04)+'" width="'+(s*.12)+'" height="'+(s*.08)+'" rx="2" fill="rgba(255,255,255,.3)"/>';
 
   } else if(team==="quality"){
-    // Purple auditor: formal suit, magnifying glass, checklist
-    var qc="#7a4ab8",qc2="#b088e0";
-    svg+=baseBody(qc);
-    svg+='<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+qc2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx+Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+qc2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="white"/>'
-        // Tie
-        +'<polygon points="'+cx+','+(by+Math.round(s*.04))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.12))+' '+cx+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.12))+'" fill="#d4a020"/>';
-    // Checklist in left hand
-    svg+='<rect x="'+(bx-Math.round(s*.02))+'" y="'+(by+Math.round(s*.12))+'" width="'+Math.round(s*.17)+'" height="'+Math.round(s*.22)+'" rx="2" fill="white" stroke="'+qc+'" stroke-width="1.5"/>'
-        +'<line x1="'+(bx+Math.round(s*.04))+'" y1="'+(by+Math.round(s*.17))+'" x2="'+(bx+Math.round(s*.13))+'" y2="'+(by+Math.round(s*.17))+'" stroke="#aaa" stroke-width="1"/>'
-        +'<line x1="'+(bx+Math.round(s*.04))+'" y1="'+(by+Math.round(s*.205))+'" x2="'+(bx+Math.round(s*.13))+'" y2="'+(by+Math.round(s*.205))+'" stroke="#aaa" stroke-width="1"/>'
-        +'<line x1="'+(bx+Math.round(s*.04))+'" y1="'+(by+Math.round(s*.24))+'" x2="'+(bx+Math.round(s*.13))+'" y2="'+(by+Math.round(s*.24))+'" stroke="#aaa" stroke-width="1"/>'
-        +'<text x="'+(bx+Math.round(s*.02))+'" y="'+(by+Math.round(s*.20))+'" font-size="'+Math.round(s*.07)+'" fill="#5a8a4a">&#x2713;</text>'
-        +'<text x="'+(bx+Math.round(s*.02))+'" y="'+(by+Math.round(s*.235))+'" font-size="'+Math.round(s*.07)+'" fill="#5a8a4a">&#x2713;</text>';
-    // Magnifying glass in right hand
-    svg+='<circle cx="'+(bx+bw+Math.round(s*.01))+'" cy="'+(by+armH-Math.round(s*.04))+'" r="'+Math.round(s*.07)+'" fill="none" stroke="'+qc+'" stroke-width="'+Math.round(s*.025)+'"/>'
-        +'<line x1="'+(bx+bw+Math.round(s*.05))+'" y1="'+(by+armH)+'" x2="'+(bx+bw+Math.round(s*.1))+'" y2="'+(by+armH+Math.round(s*.08))+'" stroke="'+qc+'" stroke-width="'+Math.round(s*.03)+'" stroke-linecap="round"/>';
+    /* Quality
+       Structured charcoal blazer, white shirt, gold pin, magnifying glass
+       Palette: charcoal, white, gold */
+    var qc="#2a2a38", qg="#c9980a";
+    svg+=coat(qc,"#4a4a58","rgba(248,245,235,.9)");
+    svg+=tie(qg);
+    svg+=pocketSquare(qg);
+    /* Gold quality badge on lapel */
+    svg+='<circle cx="'+(cx+s*.1)+'" cy="'+(by+s*.12)+'" r="'+(s*.035)+'" fill="'+qg+'"/>'
+        +'<text x="'+(cx+s*.1)+'" y="'+(by+s*.135)+'" text-anchor="middle" font-size="'+(s*.04)+'" fill="'+qc+'">★</text>';
+    /* Magnifying glass in right hand */
+    svg+='<circle cx="'+(bx+bw+s*.02)+'" cy="'+(by+armH+s*.02)+'" r="'+(s*.07)+'" fill="none" stroke="'+qc+'" stroke-width="'+(s*.028)+'"/>'
+        +'<circle cx="'+(bx+bw+s*.02)+'" cy="'+(by+armH+s*.02)+'" r="'+(s*.042)+'" fill="rgba(180,210,255,.25)" stroke="rgba(180,210,255,.2)" stroke-width="1"/>'
+        +'<line x1="'+(bx+bw+s*.07)+'" y1="'+(by+armH+s*.07)+'" x2="'+(bx+bw+s*.12)+'" y2="'+(by+armH+s*.12)+'" stroke="'+qc+'" stroke-width="'+(s*.032)+'" stroke-linecap="round"/>';
     svg+=face();
+    svg+=hair(hc);
 
   } else if(team==="ddio"){
-    // Teal programmer: hoodie, laptop/screen glow, headphones
-    var dc="#1a7a8a",dc2="#50b0c0";
-    svg+=baseBody(dc2);
-    // Hoodie pocket
-    svg+='<path d="M '+(cx-Math.round(s*.18))+' '+(by+Math.round(s*.2))+' Q '+cx+' '+(by+Math.round(s*.28))+' '+(cx+Math.round(s*.18))+' '+(by+Math.round(s*.2))+'" fill="none" stroke="'+dc+'" stroke-width="'+Math.round(s*.015)+'"/>'
-        +'<rect x="'+(cx-Math.round(s*.1))+'" y="'+(by+Math.round(s*.22))+'" width="'+Math.round(s*.2)+'" height="'+Math.round(s*.1)+'" rx="'+Math.round(s*.05)+'" fill="rgba(0,0,0,0.12)"/>';
-    // Laptop in lap / held flat
-    svg+='<rect x="'+(bx+Math.round(s*.04))+'" y="'+(by+armH-Math.round(s*.02))+'" width="'+Math.round(s*.42)+'" height="'+Math.round(s*.1)+'" rx="3" fill="#1a2a3a" stroke="'+dc+'" stroke-width="1.5"/>'
-        +'<rect x="'+(bx+Math.round(s*.06))+'" y="'+(by+armH)+'" width="'+Math.round(s*.38)+'" height="'+Math.round(s*.07)+'" rx="2" fill="#0a3a4a"/>'
-        +'<rect x="'+(bx+Math.round(s*.08))+'" y="'+(by+armH+Math.round(s*.01))+'" width="'+Math.round(s*.1)+'" height="'+Math.round(s*.015)+'" rx="1" fill="#50b0c0" opacity=".8"/>'
-        +'<rect x="'+(bx+Math.round(s*.22))+'" y="'+(by+armH+Math.round(s*.01))+'" width="'+Math.round(s*.06)+'" height="'+Math.round(s*.015)+'" rx="1" fill="#50c090" opacity=".8"/>'
-        +'<rect x="'+(bx+Math.round(s*.08))+'" y="'+(by+armH+Math.round(s*.03))+'" width="'+Math.round(s*.14)+'" height="'+Math.round(s*.015)+'" rx="1" fill="#50b0c0" opacity=".5"/>';
+    /* DDIO — Digital
+       Hoodie, screen glow, headphones, clean tech aesthetic
+       Palette: teal, dark, glow green */
+    var dc="#1a7a8a", dc2="#50b0c0";
+    svg+=coat(dc2,dc,"rgba(220,245,248,.8)");
+    /* Hoodie kangaroo pocket */
+    svg+='<path d="M '+(cx-s*.18)+' '+(by+s*.2)+' Q '+cx+' '+(by+s*.3)+' '+(cx+s*.18)+' '+(by+s*.2)+'" fill="none" stroke="'+dc+'" stroke-width="'+(s*.015)+'"/>'
+        +'<rect x="'+(cx-s*.1)+'" y="'+(by+s*.22)+'" width="'+(s*.2)+'" height="'+(s*.1)+'" rx="'+(s*.05)+'" fill="rgba(0,0,0,.1)"/>';
+    /* Small laptop screen in hands, glowing */
+    svg+='<rect x="'+(bx+s*.04)+'" y="'+(by+armH-s*.02)+'" width="'+(s*.42)+'" height="'+(s*.1)+'" rx="3" fill="#1a2a3a" stroke="'+dc+'" stroke-width="1.5"/>'
+        +'<rect x="'+(bx+s*.06)+'" y="'+(by+armH)+'" width="'+(s*.38)+'" height="'+(s*.07)+'" rx="2" fill="#0a3a4a"/>'
+        +'<rect x="'+(bx+s*.08)+'" y="'+(by+armH+s*.01)+'" width="'+(s*.1)+'" height="'+(s*.015)+'" rx="1" fill="'+dc2+'" opacity=".85"/>'
+        +'<rect x="'+(bx+s*.22)+'" y="'+(by+armH+s*.01)+'" width="'+(s*.06)+'" height="'+(s*.015)+'" rx="1" fill="#50d890" opacity=".85"/>'
+        +'<rect x="'+(bx+s*.08)+'" y="'+(by+armH+s*.03)+'" width="'+(s*.14)+'" height="'+(s*.015)+'" rx="1" fill="'+dc2+'" opacity=".5"/>';
     svg+=face();
-    // Headphones
-    svg+='<path d="M '+(cx-Math.round(s*.22))+' '+cy+' Q '+(cx-Math.round(s*.22))+' '+(hy)+' '+cx+' '+hy+' Q '+(cx+Math.round(s*.22))+' '+hy+' '+(cx+Math.round(s*.22))+' '+cy+'" fill="none" stroke="'+dc+'" stroke-width="'+Math.round(s*.025)+'"/>'
-        +'<rect x="'+(cx-Math.round(s*.27))+'" y="'+(cy-Math.round(s*.05))+'" width="'+Math.round(s*.09)+'" height="'+Math.round(s*.1)+'" rx="'+Math.round(s*.045)+'" fill="'+dc+'"/>'
-        +'<rect x="'+(cx+Math.round(s*.18))+'" y="'+(cy-Math.round(s*.05))+'" width="'+Math.round(s*.09)+'" height="'+Math.round(s*.1)+'" rx="'+Math.round(s*.045)+'" fill="'+dc+'"/>';
+    svg+=hair(hc);
+    /* Headphones */
+    svg+='<path d="M '+(cx-s*.22)+' '+(hcy+s*.05)+' Q '+(cx-s*.22)+' '+(hcy-hrY)+' '+cx+' '+(hcy-hrY)+' Q '+(cx+s*.22)+' '+(hcy-hrY)+' '+(cx+s*.22)+' '+(hcy+s*.05)+'" fill="none" stroke="'+dc+'" stroke-width="'+(s*.025)+'"/>'
+        +'<rect x="'+(cx-s*.27)+'" y="'+(hcy)+'" width="'+(s*.09)+'" height="'+(s*.1)+'" rx="'+(s*.045)+'" fill="'+dc+'"/>'
+        +'<rect x="'+(cx+s*.18)+'" y="'+(hcy)+'" width="'+(s*.09)+'" height="'+(s*.1)+'" rx="'+(s*.045)+'" fill="'+dc+'"/>';
 
   } else if(team==="hr"){
-    // HR — burgundy blazer, clipboard with people chart, lanyard
-    var hrc="#8a3050",hrc2="#b86080";
-    svg+=baseBody(hrc);
-    svg+='<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+hrc2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx+Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+hrc2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="white"/>';
-    // Lanyard + ID badge
-    svg+='<line x1="'+cx+'" y1="'+neckY+'" x2="'+cx+'" y2="'+(by+Math.round(s*.14))+'" stroke="'+hrc+'" stroke-width="'+Math.round(s*.025)+'" stroke-dasharray="3,2"/>'
-        +'<rect x="'+(cx-Math.round(s*.055))+'" y="'+(by+Math.round(s*.14))+'" width="'+Math.round(s*.11)+'" height="'+Math.round(s*.08)+'" rx="2" fill="white" stroke="'+hrc+'" stroke-width="1.5"/>'
-        +'<rect x="'+(cx-Math.round(s*.04))+'" y="'+(by+Math.round(s*.155))+'" width="'+Math.round(s*.08)+'" height="'+Math.round(s*.015)+'" rx="1" fill="'+hrc2+'"/>'
-        +'<circle cx="'+cx+'" cy="'+(by+Math.round(s*.185))+'" r="'+Math.round(s*.02)+'" fill="'+hrc+'"/>';
-    // Clipboard with people icons
-    svg+='<rect x="'+(bx-Math.round(s*.04))+'" y="'+(by+Math.round(s*.1))+'" width="'+Math.round(s*.17)+'" height="'+Math.round(s*.22)+'" rx="2" fill="white" stroke="'+hrc+'" stroke-width="1.5"/>'
-        +'<rect x="'+(bx+Math.round(s*.02))+'" y="'+(by+Math.round(s*.08))+'" width="'+Math.round(s*.05)+'" height="'+Math.round(s*.04)+'" rx="2" fill="'+hrc+'"/>'
-        +'<circle cx="'+(bx+Math.round(s*.025))+'" cy="'+(by+Math.round(s*.17))+'" r="'+Math.round(s*.02)+'" fill="'+hrc+'"/>'
-        +'<circle cx="'+(bx+Math.round(s*.07))+'" cy="'+(by+Math.round(s*.17))+'" r="'+Math.round(s*.02)+'" fill="'+hrc+'"/>'
-        +'<circle cx="'+(bx+Math.round(s*.115))+'" cy="'+(by+Math.round(s*.17))+'" r="'+Math.round(s*.02)+'" fill="'+hrc+'"/>'
-        +'<line x1="'+(bx+Math.round(s*.01))+'" y1="'+(by+Math.round(s*.215))+'" x2="'+(bx+Math.round(s*.13))+'" y2="'+(by+Math.round(s*.215))+'" stroke="#ddd" stroke-width="1"/>'
-        +'<line x1="'+(bx+Math.round(s*.01))+'" y1="'+(by+Math.round(s*.245))+'" x2="'+(bx+Math.round(s*.1))+'" y2="'+(by+Math.round(s*.245))+'" stroke="#ddd" stroke-width="1"/>';
+    /* HR
+       Burgundy blazer, lanyard + badge, warm welcoming
+       Palette: burgundy, dusty pink, white */
+    var hrc="#8a3050", hrc2="#c47090";
+    svg+=coat(hrc,hrc2,"rgba(255,248,250,.88)");
+    svg+=lanyard(hrc,"HR");
+    /* People icons on badge */
+    svg+='<circle cx="'+(cx-s*.02)+'" cy="'+(by+s*.21)+'" r="'+(s*.016)+'" fill="'+hrc+'"/>'
+        +'<circle cx="'+(cx+s*.02)+'" cy="'+(by+s*.21)+'" r="'+(s*.016)+'" fill="'+hrc+'"/>'
+        +'<path d="M '+(cx-s*.04)+' '+(by+s*.25)+' Q '+(cx-s*.02)+' '+(by+s*.23)+' '+cx+' '+(by+s*.235)+' Q '+(cx+s*.02)+' '+(by+s*.23)+' '+(cx+s*.04)+' '+(by+s*.25)+'" fill="none" stroke="'+hrc+'" stroke-width="1"/>';
+    /* Clipboard in left hand */
+    svg+='<rect x="'+(bx-s*.04)+'" y="'+(by+s*.08)+'" width="'+(s*.17)+'" height="'+(s*.23)+'" rx="2" fill="white" stroke="'+hrc+'" stroke-width="1.5"/>'
+        +'<rect x="'+(bx+s*.04)+'" y="'+(by+s*.06)+'" width="'+(s*.05)+'" height="'+(s*.04)+'" rx="2" fill="'+hrc+'"/>'
+        +'<line x1="'+(bx)+'" y1="'+(by+s*.16)+'" x2="'+(bx+s*.12)+'" y2="'+(by+s*.16)+'" stroke="#ddd" stroke-width="1"/>'
+        +'<line x1="'+(bx)+'" y1="'+(by+s*.19)+'" x2="'+(bx+s*.1)+'" y2="'+(by+s*.19)+'" stroke="#ddd" stroke-width="1"/>'
+        +'<line x1="'+(bx)+'" y1="'+(by+s*.22)+'" x2="'+(bx+s*.11)+'" y2="'+(by+s*.22)+'" stroke="#ddd" stroke-width="1"/>';
     svg+=face();
+    svg+=hair(hc);
 
   } else if(team==="hse"){
-    // HSE — green uniform, hard hat, safety clipboard
-    var hse1="#2e7d4f",hse2="#5ab87a";
-    svg+=baseBody(hse1);
-    svg+='<rect x="'+(bx+Math.round(bw*.08))+'" y="'+by+'" width="'+Math.round(bw*.84)+'" height="'+bh+'" rx="'+Math.round(s*.08)+'" fill="'+hse1+'"/>'
-        // Hi-vis stripe
-        +'<rect x="'+(bx+Math.round(bw*.06))+'" y="'+(by+Math.round(s*.14))+'" width="'+Math.round(bw*.88)+'" height="'+Math.round(s*.04)+'" rx="2" fill="rgba(255,255,180,0.8)"/>';
-    // Safety clipboard
-    svg+='<rect x="'+(bx-Math.round(s*.02))+'" y="'+(by+Math.round(s*.12))+'" width="'+Math.round(s*.17)+'" height="'+Math.round(s*.22)+'" rx="2" fill="white" stroke="'+hse1+'" stroke-width="1.5"/>'
-        +'<rect x="'+(bx+Math.round(s*.02))+'" y="'+(by+Math.round(s*.1))+'" width="'+Math.round(s*.09)+'" height="'+Math.round(s*.04)+'" rx="2" fill="'+hse1+'"/>'
-        +'<text x="'+(bx+Math.round(s*.02))+'" y="'+(by+Math.round(s*.205))+'" font-size="'+Math.round(s*.07)+'" fill="'+hse1+'">&#x2713;</text>'
-        +'<text x="'+(bx+Math.round(s*.02))+'" y="'+(by+Math.round(s*.245))+'" font-size="'+Math.round(s*.07)+'" fill="'+hse1+'">&#x2713;</text>'
-        +'<line x1="'+(bx+Math.round(s*.06))+'" y1="'+(by+Math.round(s*.2))+'" x2="'+(bx+Math.round(s*.15))+'" y2="'+(by+Math.round(s*.2))+'" stroke="#ccc" stroke-width="1"/>'
-        +'<line x1="'+(bx+Math.round(s*.06))+'" y1="'+(by+Math.round(s*.24))+'" x2="'+(bx+Math.round(s*.13))+'" y2="'+(by+Math.round(s*.24))+'" stroke="#ccc" stroke-width="1"/>';
+    /* HSE — Health, Safety & Environment
+       Green uniform, hard hat, safety clipboard with ticks
+       Palette: forest green, hi-vis yellow stripe, white */
+    var hse1="#2e7d4f", hse2="#5ab87a";
+    svg+=coat(hse1,hse2,"rgba(238,252,242,.88)");
+    /* Hi-vis safety stripe across chest */
+    svg+='<rect x="'+(bx+s*.02)+'" y="'+(by+s*.15)+'" width="'+(bw-s*.04)+'" height="'+(s*.04)+'" rx="2" fill="rgba(255,255,180,.85)"/>';
+    /* Safety clipboard */
+    svg+='<rect x="'+(bx-s*.04)+'" y="'+(by+s*.1)+'" width="'+(s*.18)+'" height="'+(s*.23)+'" rx="2" fill="white" stroke="'+hse1+'" stroke-width="1.5"/>'
+        +'<rect x="'+(bx+s*.04)+'" y="'+(by+s*.08)+'" width="'+(s*.07)+'" height="'+(s*.04)+'" rx="2" fill="'+hse1+'"/>'
+        +'<text x="'+(bx+s*.01)+'" y="'+(by+s*.205)+'" font-size="'+(s*.07)+'" fill="'+hse1+'">✓</text>'
+        +'<text x="'+(bx+s*.01)+'" y="'+(by+s*.255)+'" font-size="'+(s*.07)+'" fill="'+hse1+'">✓</text>'
+        +'<line x1="'+(bx+s*.07)+'" y1="'+(by+s*.198)+'" x2="'+(bx+s*.16)+'" y2="'+(by+s*.198)+'" stroke="#ccc" stroke-width="1"/>'
+        +'<line x1="'+(bx+s*.07)+'" y1="'+(by+s*.248)+'" x2="'+(bx+s*.14)+'" y2="'+(by+s*.248)+'" stroke="#ccc" stroke-width="1"/>';
     svg+=face();
-    // Green hard hat
-    svg+='<ellipse cx="'+cx+'" cy="'+(hy+Math.round(s*.02))+'" rx="'+Math.round(s*.27)+'" ry="'+Math.round(s*.13)+'" fill="'+hse1+'"/>'
-        +'<rect x="'+(cx-Math.round(s*.25))+'" y="'+(hy+Math.round(s*.08))+'" width="'+Math.round(s*.5)+'" height="'+Math.round(s*.05)+'" rx="2" fill="'+hse2+'"/>';
+    svg+=hair(hc);
+    /* Green hard hat */
+    svg+='<ellipse cx="'+cx+'" cy="'+(hcy-hrY+s*.06)+'" rx="'+(hr+s*.06)+'" ry="'+(s*.14)+'" fill="'+hse1+'"/>'
+        +'<ellipse cx="'+cx+'" cy="'+(hcy-hrY+s*.15)+'" rx="'+(hr+s*.08)+'" ry="'+(s*.04)+'" fill="'+hse2+'"/>'
+        +'<rect x="'+(cx-s*.05)+'" y="'+(hcy-hrY+s*.04)+'" width="'+(s*.1)+'" height="'+(s*.07)+'" rx="2" fill="rgba(255,255,255,.3)"/>';
 
   } else if(team==="security"){
-    // Security — dark navy uniform, badge, radio
-    var sc1="#2a3a5a",sc2="#4a5a7a",sc3="#d4a020";
-    svg+=baseBody(sc1);
-    // Epaulettes
-    svg+='<rect x="'+(bx-Math.round(s*.04))+'" y="'+by+'" width="'+Math.round(s*.13)+'" height="'+Math.round(s*.06)+'" rx="2" fill="'+sc2+'"/>'
-        +'<rect x="'+(bx+bw-Math.round(s*.09))+'" y="'+by+'" width="'+Math.round(s*.13)+'" height="'+Math.round(s*.06)+'" rx="2" fill="'+sc2+'"/>';
-    // Badge on chest
-    svg+='<rect x="'+(cx-Math.round(s*.045))+'" y="'+(by+Math.round(s*.08))+'" width="'+Math.round(s*.09)+'" height="'+Math.round(s*.07)+'" rx="2" fill="'+sc3+'"/>'
-        +'<text x="'+(cx)+'" y="'+(by+Math.round(s*.135))+'" font-size="'+Math.round(s*.05)+'" fill="'+sc1+'" text-anchor="middle" font-weight="bold">GDC</text>';
-    // Radio clipped to left
-    svg+='<rect x="'+(bx+Math.round(s*.01))+'" y="'+(by+Math.round(s*.12))+'" width="'+Math.round(s*.09)+'" height="'+Math.round(s*.18)+'" rx="3" fill="#1a1a2a" stroke="'+sc2+'" stroke-width="1.5"/>'
-        +'<rect x="'+(bx+Math.round(s*.035))+'" y="'+(by+Math.round(s*.095))+'" width="'+Math.round(s*.04)+'" height="'+Math.round(s*.06)+'" rx="2" fill="#888"/>'
-        +'<circle cx="'+(bx+Math.round(s*.055))+'" cy="'+(by+Math.round(s*.17))+'" r="'+Math.round(s*.02)+'" fill="'+sc3+'"/>';
+    /* Security
+       Dark navy uniform, gold badge, shoulder radio, stern bearing
+       Palette: deep navy, gold, silver */
+    var sc1="#1a2a48", sc2="#3a4a68", sc3="#c9980a";
+    svg+=coat(sc1,sc2,"rgba(230,235,245,.75)");
+    /* Epaulettes — rank stripes */
+    svg+='<rect x="'+(bx-s*.025)+'" y="'+by+'" width="'+(s*.13)+'" height="'+(s*.06)+'" rx="2" fill="'+sc2+'"/>'
+        +'<rect x="'+(bx+bw-s*.105)+'" y="'+by+'" width="'+(s*.13)+'" height="'+(s*.06)+'" rx="2" fill="'+sc2+'"/>'
+        +'<line x1="'+(bx)+'" y1="'+(by+s*.02)+'" x2="'+(bx+s*.1)+'" y2="'+(by+s*.02)+'" stroke="'+sc3+'" stroke-width="1.5"/>'
+        +'<line x1="'+(bx+bw-s*.1)+'" y1="'+(by+s*.02)+'" x2="'+(bx+bw)+'" y2="'+(by+s*.02)+'" stroke="'+sc3+'" stroke-width="1.5"/>';
+    /* Gold chest badge */
+    svg+='<rect x="'+(cx-s*.05)+'" y="'+(by+s*.08)+'" width="'+(s*.1)+'" height="'+(s*.075)+'" rx="2" fill="'+sc3+'"/>'
+        +'<text x="'+cx+'" y="'+(by+s*.14)+'" font-size="'+(s*.05)+'" fill="'+sc1+'" text-anchor="middle" font-weight="bold">GDC</text>';
+    /* Radio on left shoulder */
+    svg+='<rect x="'+(bx+s*.01)+'" y="'+(by+s*.1)+'" width="'+(s*.09)+'" height="'+(s*.18)+'" rx="3" fill="#111" stroke="'+sc2+'" stroke-width="1.5"/>'
+        +'<rect x="'+(bx+s*.04)+'" y="'+(by+s*.08)+'" width="'+(s*.03)+'" height="'+(s*.06)+'" rx="2" fill="#666"/>'
+        +'<circle cx="'+(bx+s*.055)+'" cy="'+(by+s*.17)+'" r="'+(s*.018)+'" fill="'+sc3+'"/>';
     svg+=face();
+    svg+=hair(hc);
 
   } else if(team==="it"){
-    // IT — teal/blue smart casual, laptop bag, headset
-    var it1="#2a6ab8",it2="#5a9ae8";
-    svg+=baseBody(it2);
-    // Collar / polo
-    svg+='<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.08))+','+(by+Math.round(s*.14))+' '+cx+','+(by+Math.round(s*.12))+'" fill="'+it1+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx+Math.round(s*.08))+','+(by+Math.round(s*.14))+' '+cx+','+(by+Math.round(s*.12))+'" fill="'+it1+'"/>';
-    // Laptop bag strap
-    svg+='<line x1="'+(cx+Math.round(s*.15))+'" y1="'+by+'" x2="'+(bx+Math.round(s*.08))+'" y2="'+(by+bh)+'" stroke="'+it1+'" stroke-width="'+Math.round(s*.025)+'"/>';
-    // Laptop in hand
-    svg+='<rect x="'+(bx+Math.round(s*.04))+'" y="'+(by+armH-Math.round(s*.02))+'" width="'+Math.round(s*.38)+'" height="'+Math.round(s*.09)+'" rx="3" fill="#0a1a2a" stroke="'+it1+'" stroke-width="1.5"/>'
-        +'<rect x="'+(bx+Math.round(s*.06))+'" y="'+(by+armH)+'" width="'+Math.round(s*.34)+'" height="'+Math.round(s*.06)+'" rx="2" fill="#0a2a3a"/>'
-        +'<rect x="'+(bx+Math.round(s*.09))+'" y="'+(by+armH+Math.round(s*.01))+'" width="'+Math.round(s*.08)+'" height="'+Math.round(s*.013)+'" rx="1" fill="'+it2+'" opacity=".9"/>'
-        +'<rect x="'+(bx+Math.round(s*.2))+'" y="'+(by+armH+Math.round(s*.01))+'" width="'+Math.round(s*.05)+'" height="'+Math.round(s*.013)+'" rx="1" fill="#50e890" opacity=".9"/>';
+    /* IT
+       Smart-casual cobalt polo, headset, laptop
+       Palette: cobalt, bright blue, screen glow */
+    var it1="#2060b0", it2="#5090e0";
+    svg+=coat(it2,it1,"rgba(235,242,255,.85)");
+    /* Polo collar (no lapels — override with polo neck) */
+    svg+='<polygon points="'+cx+','+(by+s*.02)+' '+(cx-s*.08)+','+(by+s*.15)+' '+cx+','+(by+s*.13)+'" fill="'+it1+'"/>'
+        +'<polygon points="'+cx+','+(by+s*.02)+' '+(cx+s*.08)+','+(by+s*.15)+' '+cx+','+(by+s*.13)+'" fill="'+it1+'"/>';
+    /* Laptop bag diagonal strap */
+    svg+='<line x1="'+(cx+s*.15)+'" y1="'+by+'" x2="'+(bx+s*.1)+'" y2="'+(by+bh)+'" stroke="'+it1+'" stroke-width="'+(s*.025)+'"/>';
+    /* Laptop in hands, screen glow visible */
+    svg+='<rect x="'+(bx+s*.04)+'" y="'+(by+armH-s*.02)+'" width="'+(s*.4)+'" height="'+(s*.1)+'" rx="3" fill="#0a1828" stroke="'+it1+'" stroke-width="1.5"/>'
+        +'<rect x="'+(bx+s*.06)+'" y="'+(by+armH)+'" width="'+(s*.36)+'" height="'+(s*.07)+'" rx="2" fill="#0a2838"/>'
+        +'<rect x="'+(bx+s*.08)+'" y="'+(by+armH+s*.01)+'" width="'+(s*.08)+'" height="'+(s*.014)+'" rx="1" fill="'+it2+'" opacity=".9"/>'
+        +'<rect x="'+(bx+s*.2)+'" y="'+(by+armH+s*.01)+'" width="'+(s*.05)+'" height="'+(s*.014)+'" rx="1" fill="#50e890" opacity=".9"/>';
     svg+=face();
-    // Headset
-    svg+='<path d="M '+(cx-Math.round(s*.2))+' '+cy+' Q '+(cx-Math.round(s*.2))+' '+hy+' '+cx+' '+hy+' Q '+(cx+Math.round(s*.2))+' '+hy+' '+(cx+Math.round(s*.2))+' '+cy+'" fill="none" stroke="'+it1+'" stroke-width="'+Math.round(s*.022)+'"/>'
-        +'<rect x="'+(cx-Math.round(s*.25))+'" y="'+(cy-Math.round(s*.04))+'" width="'+Math.round(s*.07)+'" height="'+Math.round(s*.08)+'" rx="'+Math.round(s*.035)+'" fill="'+it1+'"/>'
-        +'<line x1="'+(cx-Math.round(s*.22))+'" y1="'+cy+'" x2="'+(cx-Math.round(s*.3))+'" y2="'+(cy+Math.round(s*.06))+'" stroke="'+it1+'" stroke-width="'+Math.round(s*.018)+'" stroke-linecap="round"/>';
+    svg+=hair(hc);
+    /* Headset */
+    svg+='<path d="M '+(cx-s*.2)+' '+(hcy+s*.05)+' Q '+(cx-s*.2)+' '+(hcy-hrY)+' '+cx+' '+(hcy-hrY)+' Q '+(cx+s*.2)+' '+(hcy-hrY)+' '+(cx+s*.2)+' '+(hcy+s*.05)+'" fill="none" stroke="'+it1+'" stroke-width="'+(s*.022)+'"/>'
+        +'<rect x="'+(cx-s*.25)+'" y="'+(hcy)+'" width="'+(s*.08)+'" height="'+(s*.09)+'" rx="'+(s*.04)+'" fill="'+it1+'"/>'
+        +'<line x1="'+(cx-s*.22)+'" y1="'+(hcy+s*.09)+'" x2="'+(cx-s*.3)+'" y2="'+(hcy+s*.15)+'" stroke="'+it1+'" stroke-width="'+(s*.018)+'" stroke-linecap="round"/>';
 
   } else if(team==="finance"){
-    // Finance — teal suit, gold tie, calculator
-    var fin1="#1a7a7a",fin2="#3ababa",fin3="#d4a020";
-    svg+=baseBody(fin1);
-    svg+='<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+fin2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx+Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+fin2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="white"/>'
-        // Gold tie
-        +'<polygon points="'+cx+','+(by+Math.round(s*.04))+' '+(cx-Math.round(s*.025))+','+(by+Math.round(s*.11))+' '+(cx-Math.round(s*.038))+','+(by+Math.round(s*.26))+' '+cx+','+(by+Math.round(s*.3))+' '+(cx+Math.round(s*.038))+','+(by+Math.round(s*.26))+' '+(cx+Math.round(s*.025))+','+(by+Math.round(s*.11))+'" fill="'+fin3+'"/>';
-    // Calculator in hand
-    svg+='<rect x="'+(bx-Math.round(s*.02))+'" y="'+(by+Math.round(s*.1))+'" width="'+Math.round(s*.16)+'" height="'+Math.round(s*.22)+'" rx="3" fill="#f0f0f8" stroke="'+fin1+'" stroke-width="1.5"/>'
-        +'<rect x="'+(bx+Math.round(s*.01))+'" y="'+(by+Math.round(s*.12))+'" width="'+Math.round(s*.1)+'" height="'+Math.round(s*.05)+'" rx="2" fill="'+fin2+'" opacity=".4"/>'
-        +'<rect x="'+(bx+Math.round(s*.01))+'" y="'+(by+Math.round(s*.19))+'" width="'+Math.round(s*.026)+'" height="'+Math.round(s*.026)+'" rx="1" fill="'+fin1+'"/>'
-        +'<rect x="'+(bx+Math.round(s*.048))+'" y="'+(by+Math.round(s*.19))+'" width="'+Math.round(s*.026)+'" height="'+Math.round(s*.026)+'" rx="1" fill="'+fin1+'"/>'
-        +'<rect x="'+(bx+Math.round(s*.085))+'" y="'+(by+Math.round(s*.19))+'" width="'+Math.round(s*.026)+'" height="'+Math.round(s*.026)+'" rx="1" fill="'+fin3+'"/>'
-        +'<rect x="'+(bx+Math.round(s*.01))+'" y="'+(by+Math.round(s*.226))+'" width="'+Math.round(s*.026)+'" height="'+Math.round(s*.026)+'" rx="1" fill="'+fin1+'"/>'
-        +'<rect x="'+(bx+Math.round(s*.048))+'" y="'+(by+Math.round(s*.226))+'" width="'+Math.round(s*.026)+'" height="'+Math.round(s*.026)+'" rx="1" fill="'+fin1+'"/>'
-        +'<rect x="'+(bx+Math.round(s*.085))+'" y="'+(by+Math.round(s*.226))+'" width="'+Math.round(s*.026)+'" height="'+Math.round(s*.026)+'" rx="1" fill="'+fin1+'"/>';
+    /* Finance
+       Deep teal suit, gold tie, pocket square, calculator
+       Palette: teal, gold, cream */
+    var fin1="#0e6060", fin2="#2a9a9a", fin3="#c9980a";
+    svg+=coat(fin1,fin2,"rgba(235,252,248,.88)");
+    svg+=tie(fin3);
+    svg+=pocketSquare(fin3);
+    /* Calculator in left hand */
+    svg+='<rect x="'+(bx-s*.04)+'" y="'+(by+s*.08)+'" width="'+(s*.17)+'" height="'+(s*.24)+'" rx="3" fill="#f0f0f8" stroke="'+fin1+'" stroke-width="1.5"/>'
+        +'<rect x="'+(bx+s*.0)+'" y="'+(by+s*.1)+'" width="'+(s*.09)+'" height="'+(s*.05)+'" rx="2" fill="'+fin2+'" opacity=".45"/>'
+        /* calculator buttons grid */
+        +'<rect x="'+(bx+s*.008)+'" y="'+(by+s*.18)+'" width="'+(s*.03)+'" height="'+(s*.03)+'" rx="1" fill="'+fin1+'"/>'
+        +'<rect x="'+(bx+s*.048)+'" y="'+(by+s*.18)+'" width="'+(s*.03)+'" height="'+(s*.03)+'" rx="1" fill="'+fin1+'"/>'
+        +'<rect x="'+(bx+s*.088)+'" y="'+(by+s*.18)+'" width="'+(s*.03)+'" height="'+(s*.03)+'" rx="1" fill="'+fin3+'"/>'
+        +'<rect x="'+(bx+s*.008)+'" y="'+(by+s*.22)+'" width="'+(s*.03)+'" height="'+(s*.03)+'" rx="1" fill="'+fin1+'"/>'
+        +'<rect x="'+(bx+s*.048)+'" y="'+(by+s*.22)+'" width="'+(s*.03)+'" height="'+(s*.03)+'" rx="1" fill="'+fin1+'"/>'
+        +'<rect x="'+(bx+s*.088)+'" y="'+(by+s*.22)+'" width="'+(s*.03)+'" height="'+(s*.03)+'" rx="1" fill="'+fin1+'"/>';
     svg+=face();
+    svg+=hair(hc);
 
   } else if(team==="legal"){
-    // Legal — purple suit, scales of justice, legal document
-    var leg1="#6a3a8a",leg2="#9a6aba",leg3="#d4a020";
-    svg+=baseBody(leg1);
-    svg+='<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+leg2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx+Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+leg2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="white"/>'
-        // Gold tie
-        +'<polygon points="'+cx+','+(by+Math.round(s*.04))+' '+(cx-Math.round(s*.025))+','+(by+Math.round(s*.11))+' '+(cx-Math.round(s*.038))+','+(by+Math.round(s*.26))+' '+cx+','+(by+Math.round(s*.3))+' '+(cx+Math.round(s*.038))+','+(by+Math.round(s*.26))+' '+(cx+Math.round(s*.025))+','+(by+Math.round(s*.11))+'" fill="'+leg3+'"/>';
-    // Mini scales of justice held in hand
-    svg+='<line x1="'+(bx+Math.round(s*.06))+'" y1="'+(by+armH-Math.round(s*.04))+'" x2="'+(bx+Math.round(s*.06))+'" y2="'+(by+armH+Math.round(s*.1))+'" stroke="'+leg3+'" stroke-width="'+Math.round(s*.022)+'" stroke-linecap="round"/>'
-        +'<line x1="'+(bx+Math.round(s*.01))+'" y1="'+(by+armH-Math.round(s*.04))+'" x2="'+(bx+Math.round(s*.11))+'" y2="'+(by+armH-Math.round(s*.04))+'" stroke="'+leg3+'" stroke-width="'+Math.round(s*.018)+'"/>'
-        +'<line x1="'+(bx+Math.round(s*.01))+'" y1="'+(by+armH-Math.round(s*.04))+'" x2="'+(bx+Math.round(s*.01))+'" y2="'+(by+armH+Math.round(s*.04))+'" stroke="'+leg3+'" stroke-width="'+Math.round(s*.018)+'"/>'
-        +'<line x1="'+(bx+Math.round(s*.11))+'" y1="'+(by+armH-Math.round(s*.04))+'" x2="'+(bx+Math.round(s*.11))+'" y2="'+(by+armH+Math.round(s*.04))+'" stroke="'+leg3+'" stroke-width="'+Math.round(s*.018)+'"/>'
-        +'<ellipse cx="'+(bx+Math.round(s*.01))+'" cy="'+(by+armH+Math.round(s*.04))+'" rx="'+Math.round(s*.04)+'" ry="'+Math.round(s*.015)+'" fill="none" stroke="'+leg3+'" stroke-width="'+Math.round(s*.018)+'"/>'
-        +'<ellipse cx="'+(bx+Math.round(s*.11))+'" cy="'+(by+armH+Math.round(s*.04))+'" rx="'+Math.round(s*.04)+'" ry="'+Math.round(s*.015)+'" fill="none" stroke="'+leg3+'" stroke-width="'+Math.round(s*.018)+'"/>';
+    /* Legal
+       Deep plum suit, gold tie, scales of justice
+       Palette: plum, gold, ivory */
+    var leg1="#4a2468", leg2="#7a4a98", leg3="#c9980a";
+    svg+=coat(leg1,leg2,"rgba(248,244,255,.88)");
+    svg+=tie(leg3);
+    /* Scales of justice in right hand */
+    svg+='<line x1="'+(bx+bw+s*.04)+'" y1="'+(by+armH-s*.06)+'" x2="'+(bx+bw+s*.04)+'" y2="'+(by+armH+s*.1)+'" stroke="'+leg3+'" stroke-width="'+(s*.022)+'" stroke-linecap="round"/>'
+        +'<line x1="'+(bx+bw-s*.02)+'" y1="'+(by+armH-s*.04)+'" x2="'+(bx+bw+s*.1)+'" y2="'+(by+armH-s*.04)+'" stroke="'+leg3+'" stroke-width="'+(s*.018)+'"/>'
+        +'<line x1="'+(bx+bw-s*.02)+'" y1="'+(by+armH-s*.04)+'" x2="'+(bx+bw-s*.02)+'" y2="'+(by+armH+s*.04)+'" stroke="'+leg3+'" stroke-width="'+(s*.018)+'"/>'
+        +'<ellipse cx="'+(bx+bw-s*.02)+'" cy="'+(by+armH+s*.04)+'" rx="'+(s*.04)+'" ry="'+(s*.016)+'" fill="none" stroke="'+leg3+'" stroke-width="'+(s*.018)+'"/>'
+        +'<line x1="'+(bx+bw+s*.1)+'" y1="'+(by+armH-s*.04)+'" x2="'+(bx+bw+s*.1)+'" y2="'+(by+armH+s*.04)+'" stroke="'+leg3+'" stroke-width="'+(s*.018)+'"/>'
+        +'<ellipse cx="'+(bx+bw+s*.1)+'" cy="'+(by+armH+s*.04)+'" rx="'+(s*.04)+'" ry="'+(s*.016)+'" fill="none" stroke="'+leg3+'" stroke-width="'+(s*.018)+'"/>';
     svg+=face();
+    svg+=hair(hc);
 
   } else {
-    // DBS — navy/blue finance: suit, tie, documents/spreadsheet
-    var fc="#2a5a9a",fc2="#4a80c0",fc3="#d4a020";
-    svg+=baseBody(fc);
-    svg+='<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx-Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx-Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="'+fc2+'"/>'
-        +'<polygon points="'+cx+','+(by+Math.round(s*.02))+' '+(cx+Math.round(s*.13))+','+(by+Math.round(s*.22))+' '+(cx+Math.round(s*.03))+','+(by+Math.round(s*.22))+'" fill="white"/>'
-        // Tie
-        +'<polygon points="'+cx+','+(by+Math.round(s*.04))+' '+(cx-Math.round(s*.025))+','+(by+Math.round(s*.11))+' '+(cx-Math.round(s*.04))+','+(by+Math.round(s*.24))+' '+cx+','+(by+Math.round(s*.28))+' '+(cx+Math.round(s*.04))+','+(by+Math.round(s*.24))+' '+(cx+Math.round(s*.025))+','+(by+Math.round(s*.11))+'" fill="'+fc3+'"/>'
-        // Pocket square
-        +'<rect x="'+(bx+Math.round(bw*.12))+'" y="'+(by+Math.round(s*.06))+'" width="'+Math.round(s*.07)+'" height="'+Math.round(s*.05)+'" rx="2" fill="white" stroke="'+fc2+'" stroke-width="1"/>'
-        +'<path d="M '+(bx+Math.round(bw*.135))+' '+(by+Math.round(s*.06))+' L '+(bx+Math.round(bw*.16))+' '+(by+Math.round(s*.025))+' L '+(bx+Math.round(bw*.185))+' '+(by+Math.round(s*.06))+'" fill="white" stroke="'+fc2+'" stroke-width="1"/>';
-    // Spreadsheet / report in left hand
-    svg+='<rect x="'+(bx-Math.round(s*.04))+'" y="'+(by+Math.round(s*.1))+'" width="'+Math.round(s*.18)+'" height="'+Math.round(s*.22)+'" rx="2" fill="white" stroke="'+fc+'" stroke-width="1.5"/>'
-        +'<rect x="'+(bx-Math.round(s*.02))+'" y="'+(by+Math.round(s*.13))+'" width="'+Math.round(s*.06)+'" height="'+Math.round(s*.04)+'" rx="1" fill="rgba(74,128,192,.25)"/>'
-        +'<rect x="'+(bx+Math.round(s*.055))+'" y="'+(by+Math.round(s*.13))+'" width="'+Math.round(s*.06)+'" height="'+Math.round(s*.04)+'" rx="1" fill="rgba(74,128,192,.25)"/>'
-        +'<rect x="'+(bx-Math.round(s*.02))+'" y="'+(by+Math.round(s*.18))+'" width="'+Math.round(s*.06)+'" height="'+Math.round(s*.04)+'" rx="1" fill="rgba(212,160,32,.3)"/>'
-        +'<rect x="'+(bx+Math.round(s*.055))+'" y="'+(by+Math.round(s*.18))+'" width="'+Math.round(s*.06)+'" height="'+Math.round(s*.04)+'" rx="1" fill="rgba(90,138,74,.25)"/>'
-        +'<rect x="'+(bx-Math.round(s*.02))+'" y="'+(by+Math.round(s*.23))+'" width="'+Math.round(s*.06)+'" height="'+Math.round(s*.04)+'" rx="1" fill="rgba(74,128,192,.2)"/>'
-        +'<rect x="'+(bx+Math.round(s*.055))+'" y="'+(by+Math.round(s*.23))+'" width="'+Math.round(s*.06)+'" height="'+Math.round(s*.04)+'" rx="1" fill="rgba(212,160,32,.25)"/>';
+    /* DBS (default) — also covers any unknown team
+       Crisp navy suit, gold tie, pocket square, spreadsheet report
+       Palette: navy, gold, white */
+    var fc="#1a3a6a", fc2="#3a6aaa", fc3="#c9980a";
+    svg+=coat(fc,fc2,"rgba(235,240,255,.88)");
+    svg+=tie(fc3);
+    svg+=pocketSquare(fc3);
+    /* Spreadsheet / report in left hand */
+    svg+='<rect x="'+(bx-s*.04)+'" y="'+(by+s*.08)+'" width="'+(s*.18)+'" height="'+(s*.24)+'" rx="2" fill="white" stroke="'+fc+'" stroke-width="1.5"/>'
+        +'<rect x="'+(bx)+'" y="'+(by+s*.12)+'" width="'+(s*.06)+'" height="'+(s*.04)+'" rx="1" fill="rgba(74,128,192,.28)"/>'
+        +'<rect x="'+(bx+s*.07)+'" y="'+(by+s*.12)+'" width="'+(s*.06)+'" height="'+(s*.04)+'" rx="1" fill="rgba(74,128,192,.28)"/>'
+        +'<rect x="'+(bx)+'" y="'+(by+s*.17)+'" width="'+(s*.06)+'" height="'+(s*.04)+'" rx="1" fill="rgba(212,160,32,.3)"/>'
+        +'<rect x="'+(bx+s*.07)+'" y="'+(by+s*.17)+'" width="'+(s*.06)+'" height="'+(s*.04)+'" rx="1" fill="rgba(90,170,80,.25)"/>'
+        +'<rect x="'+(bx)+'" y="'+(by+s*.22)+'" width="'+(s*.06)+'" height="'+(s*.04)+'" rx="1" fill="rgba(74,128,192,.22)"/>'
+        +'<rect x="'+(bx+s*.07)+'" y="'+(by+s*.22)+'" width="'+(s*.06)+'" height="'+(s*.04)+'" rx="1" fill="rgba(212,160,32,.22)"/>';
     svg+=face();
+    svg+=hair(hc);
   }
 
   svg+='</svg>';
@@ -1278,19 +1167,19 @@ var QUIZ=[
          {text:"I want to be someone who always does the right thing, even under pressure.",house:"ethics"}]}
 ];
 
-var state={done:[],xp:0,name:"",gender:"other",team:"rdd",houseTally:{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0},stationVotes:{}}; midwayShown=false;
+var state={done:[],xp:0,name:"",team:"rdd",houseTally:{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0},stationVotes:{}}; midwayShown=false;
 var active=null,pendingQuestId=null;
 
 /* ══ WELCOME SCREEN ══ */
-var selGender=null,selTeam=null;
+var selTeam=null;
 
 function refreshPreview(){
-  var g=selGender||"other",t=selTeam||"rdd";
+  var t=selTeam||"rdd";
   var inner=document.getElementById("welcomeAvInner");
   var hint=document.getElementById("welcomeAvHint");
   if(inner){
     if(selTeam){
-      inner.innerHTML=makeAvatar(t,g,80);
+      inner.innerHTML=makeAvatar(t,82);
       if(hint) hint.style.display="none";
     } else {
       inner.innerHTML='<svg width="80" height="80" viewBox="0 0 80 80"><circle cx="40" cy="40" r="38" fill="rgba(255,204,0,0.07)" stroke="rgba(255,204,0,0.2)" stroke-width="1.5"/><text x="40" y="52" text-anchor="middle" font-size="28" fill="rgba(255,204,0,0.35)">?</text></svg>';
@@ -1305,12 +1194,7 @@ function addTap(el, fn){
   el.addEventListener("touchstart",function(e){touched=true;fn(e);e.preventDefault();},{passive:false});
   el.addEventListener("click",function(e){if(!touched)fn(e);touched=false;});
 }
-document.querySelectorAll(".pill.gender").forEach(function(p){
-  addTap(p, function(){
-    document.querySelectorAll(".pill.gender").forEach(function(x){x.classList.remove("selected");});
-    p.classList.add("selected"); selGender=p.getAttribute("data-val"); refreshPreview();
-  });
-});
+
 document.querySelectorAll(".pill.team").forEach(function(p){
   addTap(p, function(){
     document.querySelectorAll(".pill.team").forEach(function(x){x.classList.remove("selected");x.className=x.className.replace(/\bteam-\S+/g,"").trim();});
@@ -1326,21 +1210,21 @@ addTap(document.getElementById("beginBtn"),function(){
   var name=document.getElementById("nameInput").value.trim();
   var err=document.getElementById("beginErr");
   if(!name){err.textContent="Please enter your name to begin.";return;}
-  if(!selGender){err.textContent="Please select your gender.";return;}
+
   if(!selTeam){err.textContent="Please select your team.";return;}
   err.textContent="";
-  state.name=name; state.gender=selGender; state.team=selTeam;
+  state.name=name; state.team=selTeam;
   document.getElementById("welcomeScreen").style.display="none";
   document.getElementById("mainApp").style.display="block";
   var ac=document.getElementById("avCircle");
   ac.className="av-circle "+selTeam;
-  document.getElementById("avInner").innerHTML=makeAvatar(selTeam,selGender,70);
+  document.getElementById("avInner").innerHTML=makeAvatar(selTeam,90);
   var tag=document.getElementById("cTeamTag");
   tag.className="c-team-tag "+selTeam;
   tag.textContent=TEAM_LABELS[selTeam];
   document.getElementById("hGreeting").textContent="Welcome, "+name;
   document.getElementById("cWarriorName").textContent=name;
-  buildNature(); render();
+  buildNature(); render(); updateGrowthScene();
 });
 
 /* ══ RENDER ══ */
@@ -1377,6 +1261,7 @@ function render(){
   var dots=document.getElementById("progDots"); dots.innerHTML="";
   for(var i=0;i<6;i++){var d=document.createElement("div");d.className="pdot"+(state.done.includes(i)?" done":" ");dots.appendChild(d);}
   document.getElementById("progTxt").textContent=n===6?"\u2726 Day One Complete!":n+" of 6 Complete";
+  updateGrowthScene();
 }
 
 /* ══ CODE MODAL ══ */
@@ -1495,11 +1380,22 @@ function completeQuest(id){
   document.getElementById("qsTitle").textContent="Station Complete!";
   document.getElementById("qsFlavor").textContent=q.flavor;
   document.getElementById("qsUnlock").textContent=q.reward+"  "+q.rname+" \u2014 Acquired";
-  document.getElementById("qsCta").textContent=id===5?"See Your Legend \u2726":"Continue the Journey";
+  document.getElementById("qsCta").textContent=id===5?"\u2726 Submit My Results":"Continue the Journey";
   document.getElementById("qSuccessOverlay").classList.add("show");
   var ctaEl=document.getElementById("qsCta");ctaEl.style.touchAction="manipulation";ctaEl.onclick=function(){
     document.getElementById("qSuccessOverlay").classList.remove("show");
-    if(id===5)setTimeout(showFinalScreen,300);
+    if(id===5){
+      setTimeout(function(){
+        document.getElementById("submitConfirmOverlay").classList.add("show");
+        document.getElementById("confirmGoFinal").onclick=function(){
+          document.getElementById("submitConfirmOverlay").classList.remove("show");
+          setTimeout(showFinalScreen,300);
+        };
+        document.getElementById("confirmStayBack").onclick=function(){
+          document.getElementById("submitConfirmOverlay").classList.remove("show");
+        };
+      },300);
+    }
   };
   confetti();
 }
@@ -1514,7 +1410,7 @@ function resolveHouse(){
 
 function showFinalScreen(){
   var fs=document.getElementById("finalScreen"); fs.style.display="block";
-  document.getElementById("finalAvatar").innerHTML=makeAvatar(state.team,state.gender,120);
+  document.getElementById("finalAvatar").innerHTML=makeAvatar(state.team,120);
   document.getElementById("finalSpeechName").textContent=state.name||"Welcome";
   // House
   var houseKey=resolveHouse(), h=HOUSES[houseKey];
@@ -1530,8 +1426,8 @@ function showFinalScreen(){
 
 /* ══ RESET ══ */
 function goToStart(){
-  state={done:[],xp:0,name:"",gender:"other",team:"rdd",houseTally:{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0},stationVotes:{}}; midwayShown=false;
-  selGender=null; selTeam=null;
+  state={done:[],xp:0,name:"",team:"rdd",houseTally:{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0},stationVotes:{}}; midwayShown=false;
+  selTeam=null;
   document.getElementById("finalScreen").style.display="none";
   document.getElementById("mainApp").style.display="none";
   document.getElementById("welcomeScreen").style.display="flex";
@@ -1676,6 +1572,17 @@ document.addEventListener("mousedown",function unlockAC(){
 
 
 
+
+
+
+/* ══════════════════════════════════════════════════════════════
+   GROWTH NARRATIVE — evolve the world as stations are completed
+   0 done → pre-dawn (base scene)
+   2 done → morning  (warm gold sky, 2 extra walkers)
+   4 done → noon     (blue sky, busy path, lit building)
+   6 done → arrival  (welcome figure appears at entrance)
+══════════════════════════════════════════════════════════════ */
+function updateGrowthScene() { /* static GDC background — no dynamic updates needed */ }
 
 
 </script>
