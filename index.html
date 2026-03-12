@@ -265,8 +265,11 @@ body{font-family:'Inter',sans-serif;background:#ede8dc;min-height:100vh;overflow
 .back-btn:hover{background:rgba(255,255,255,.8);color:var(--ink);transform:translateY(-2px);}
 
 /* FOOTER */
-.footer-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:20;animation:fadeUp .8s .5s ease both;}
+.footer-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:20;animation:fadeUp .8s .5s ease both;display:flex;flex-direction:column;align-items:center;gap:10px;}
 .footer-pill{background:rgba(255,255,255,0.80);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(26,20,64,.08);border-radius:100px;padding:10px 22px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 32px rgba(0,0,0,.4);white-space:nowrap;}
+.submit-all-btn{background:linear-gradient(135deg,var(--malaysia-gold),var(--dyson2));color:#06061a;border:none;border-radius:100px;padding:14px 36px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;cursor:pointer;box-shadow:0 8px 32px rgba(201,152,10,.45),0 2px 0 rgba(255,255,255,.3) inset;touch-action:manipulation;min-height:52px;width:100%;animation:submit-appear .5s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes submit-appear{0%{opacity:0;transform:translateY(16px) scale(.92);}100%{opacity:1;transform:translateY(0) scale(1);}}
+.submit-all-btn:active{transform:scale(.97);}
 .prog-dots{display:flex;gap:5px;}
 .pdot{width:6px;height:6px;border-radius:50%;background:rgba(26,20,64,.1);transition:all .4s;}
 .pdot.done{background:rgba(255,204,0,.5);}
@@ -599,6 +602,7 @@ to{transform:rotate(360deg);}}
       <div class="prog-dots" id="progDots"></div>
       <div class="prog-txt" id="progTxt">0 of 6 Complete</div>
     </div>
+    <button class="submit-all-btn" id="submitAllBtn" style="display:none;">✦ Submit My Results</button>
   </div>
 </div>
 
@@ -680,7 +684,7 @@ to{transform:rotate(360deg);}}
     </div>
     <div class="house-banner" id="houseBanner">
       <span class="house-crest" id="houseCrest"></span>
-      <div class="house-eyebrow">You have been sorted into</div>
+      <div class="house-eyebrow">You have been sorted into the</div>
       <div class="house-name" id="houseName"></div>
       <div class="house-desc" id="houseDesc"></div>
     </div>
@@ -1107,17 +1111,17 @@ var TEAM_LABELS={rdd:"Research, Design & Dev",gsc:"Global Supply Chain",quality:
 
 /* ══ HOUSES ══ */
 var HOUSES={
-  diversity: {name:"House of Diversity & Inclusion",    crest:"🤝",color:"#7B4FA6",
+  diversity: {name:"Diversity & Inclusion",    crest:"🤝",color:"#7B4FA6",
               desc:"You believe every voice matters. You champion fairness, celebrate difference, and make sure everyone feels they truly belong at GDC."},
-  social:    {name:"House of Social Compliance",         crest:"⚖️",  color:"#2C4A8A",
+  social:    {name:"Social Compliance",         crest:"⚖️",  color:"#2C4A8A",
               desc:"You stand for what is right. You uphold the principles that protect people — from modern slavery to child labour — and hold GDC to the highest ethical standards."},
-  green:     {name:"House of Green Ambassador",          crest:"🌿",color:"#2E7D4F",
+  green:     {name:"Green Ambassador",          crest:"🌿",color:"#2E7D4F",
               desc:"You think about tomorrow. You take responsibility for our planet, champion sustainable choices, and help GDC leave a lighter footprint on the world."},
-  wellbeing: {name:"House of Employee Wellbeing",        crest:"💛",color:"#C8961A",
+  wellbeing: {name:"Employee Wellbeing",        crest:"💛",color:"#C8961A",
               desc:"You put people first. You care about the whole person — their energy, their balance, their happiness — and help create a workplace where everyone can thrive."},
-  safety:    {name:"House of Health & Safety",           crest:"🛡️",color:"#1A6FA8",
+  safety:    {name:"Health & Safety",           crest:"🛡️",color:"#1A6FA8",
               desc:"You never compromise on safety. You look out for your colleagues, follow the rules that protect everyone, and make sure every person goes home safe every day."},
-  ethics:    {name:"House of Respect, Ethics & Compliance",crest:"⭐",  color:"#2A8A7A",
+  ethics:    {name:"Respect, Ethics & Compliance",crest:"⭐",  color:"#2A8A7A",
               desc:"You do the right thing, even when no one is watching. You act with integrity, treat everyone with respect, and hold yourself to the standards GDC is proud of."}
 };
 
@@ -1261,6 +1265,8 @@ function render(){
   var dots=document.getElementById("progDots"); dots.innerHTML="";
   for(var i=0;i<6;i++){var d=document.createElement("div");d.className="pdot"+(state.done.includes(i)?" done":" ");dots.appendChild(d);}
   document.getElementById("progTxt").textContent=n===6?"\u2726 Day One Complete!":n+" of 6 Complete";
+  var sab=document.getElementById("submitAllBtn");
+  if(n===6){sab.style.display="block";}else{sab.style.display="none";}
   updateGrowthScene();
 }
 
@@ -1315,6 +1321,18 @@ function doSubmit(){
 }
 addTap(document.getElementById("btnSubmit"),function(){doSubmit();});
 addTap(document.getElementById("btnCancel"),function(){closeModal();});
+
+/* ── Submit All Button → confirm overlay ── */
+addTap(document.getElementById("submitAllBtn"),function(){
+  document.getElementById("submitConfirmOverlay").classList.add("show");
+});
+document.getElementById("confirmGoFinal").onclick=function(){
+  document.getElementById("submitConfirmOverlay").classList.remove("show");
+  setTimeout(showFinalScreen,300);
+};
+document.getElementById("confirmStayBack").onclick=function(){
+  document.getElementById("submitConfirmOverlay").classList.remove("show");
+};
 
 /* ══ QUIZ ══ */
 function openQuizForReanswer(questId){
@@ -1380,22 +1398,10 @@ function completeQuest(id){
   document.getElementById("qsTitle").textContent="Station Complete!";
   document.getElementById("qsFlavor").textContent=q.flavor;
   document.getElementById("qsUnlock").textContent=q.reward+"  "+q.rname+" \u2014 Acquired";
-  document.getElementById("qsCta").textContent=id===5?"\u2726 Submit My Results":"Continue the Journey";
+  document.getElementById("qsCta").textContent="Continue the Journey";
   document.getElementById("qSuccessOverlay").classList.add("show");
   var ctaEl=document.getElementById("qsCta");ctaEl.style.touchAction="manipulation";ctaEl.onclick=function(){
     document.getElementById("qSuccessOverlay").classList.remove("show");
-    if(id===5){
-      setTimeout(function(){
-        document.getElementById("submitConfirmOverlay").classList.add("show");
-        document.getElementById("confirmGoFinal").onclick=function(){
-          document.getElementById("submitConfirmOverlay").classList.remove("show");
-          setTimeout(showFinalScreen,300);
-        };
-        document.getElementById("confirmStayBack").onclick=function(){
-          document.getElementById("submitConfirmOverlay").classList.remove("show");
-        };
-      },300);
-    }
   };
   confetti();
 }
@@ -1416,7 +1422,7 @@ function showFinalScreen(){
   var houseKey=resolveHouse(), h=HOUSES[houseKey];
   document.getElementById("houseBanner").style.setProperty("--house-accent",h.color);
   document.getElementById("houseCrest").textContent=h.crest;
-  document.getElementById("houseName").textContent=h.name;
+  document.getElementById("houseName").textContent=h.name+" Pillar";
   document.getElementById("houseDesc").textContent=h.desc;
   // Relics
   var rel=document.getElementById("finalRelics"); rel.innerHTML="";
@@ -1433,6 +1439,7 @@ function goToStart(){
   document.getElementById("welcomeScreen").style.display="flex";
   document.getElementById("nameInput").value="";
   document.getElementById("beginErr").textContent="";
+  document.getElementById("submitAllBtn").style.display="none";
   document.querySelectorAll(".pill").forEach(function(p){p.classList.remove("selected");});
   refreshPreview();
 }
