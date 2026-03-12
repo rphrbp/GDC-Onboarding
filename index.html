@@ -548,7 +548,7 @@ to{transform:rotate(360deg);}}
   <div class="midway-card">
     <span class="midway-emoji">🌟</span>
     <div class="midway-title">Halfway There!</div>
-    <p class="midway-sub">Three stations down — you're doing great, <strong id="midwayName"></strong>!<br>Keep going, three more to complete your Day One.</p>
+    <p class="midway-sub">Three stations down, you're doing great, <strong id="midwayName"></strong>!<br>Keep going, three more to complete your Day One.</p>
     <button class="midway-cta" id="midwayCta">Keep Going ✦</button>
   </div>
 </div>
@@ -566,7 +566,7 @@ to{transform:rotate(360deg);}}
       </div>
       <div class="h-greeting" id="hGreeting">Welcome to GDC</div>
       <div class="h-title">Your First Day at <span>GDC</span></div>
-      <div class="h-instruction">Begin with Security — then complete the remaining 5 stations in any order you like. At each stop, get the 4-digit code from your host, answer a quick question, and collect your item.</div>
+      <div class="h-instruction">Begin with Security, then complete the remaining 5 stations in any order you like. At each stop, get the 4-digit code from your host, answer a quick question, and collect your item.</div>
       <button class="restart-btn" id="restartBtn">&#8592; Back to Start</button>
     </div>
     <div class="leaf-rule"><div class="leaf-line"></div><div class="leaf-mid">&#10022;</div><div class="leaf-line"></div></div>
@@ -663,7 +663,7 @@ to{transform:rotate(360deg);}}
   <div class="q-success-card" style="max-width:340px;">
     <span class="qs-emoji">🏆</span>
     <div class="qs-title">Ready to see your results?</div>
-    <div class="qs-flavor" style="margin-bottom:8px;">You've completed all 6 stations — well done!</div>
+    <div class="qs-flavor" style="margin-bottom:8px;">You've completed all 6 stations. Well done!</div>
     <div class="qs-flavor" style="font-size:12px;color:var(--ink-soft);margin-bottom:20px;line-height:1.5;">Once you go to your results page you <strong>won't be able to return</strong> to the station questions.</div>
     <button class="qs-cta" id="confirmGoFinal">✦ View My Results</button>
     <button class="qs-back" id="confirmStayBack">← Not yet, go back</button>
@@ -1083,15 +1083,15 @@ function makeAvatar(team,size){
 /* ══ QUEST DATA ══ */
 var QUESTS=[
   {id:0,name:"Station One: Security",station:"Security Office",desc:"Badging & photograph",icon:"\uD83E\uDEAA",code:"1111",reward:"\uD83C\uDF9F\uFE0F",rname:"GDC Access Badge",xp:10,
-   flavor:"Every great career starts with a first step — and yours starts here. Your badge is your key to GDC. Wear it with pride from day one."},
+   flavor:"Every great career starts with a first step, and yours starts here. Your badge is your key to GDC. Wear it with pride from day one."},
   {id:1,name:"Station Two: IT",station:"IT Department",desc:"Collect your equipment",icon:"\uD83D\uDCBB",code:"2222",reward:"\uD83D\uDD27",rname:"Tech Kit",xp:10,
-   flavor:"Your tools are ready. From here, you have everything you need to do your best work. Take care of your kit — it'll take care of you."},
+   flavor:"Your tools are ready. From here, you have everything you need to do your best work. Take care of your kit; it'll take care of you."},
   {id:2,name:"Station Three: People",station:"Employee Services",desc:"HR mini-induction",icon:"\uD83D\uDCCB",code:"3333",reward:"\uD83D\uDCDC",rname:"People Charter",xp:10,
-   flavor:"GDC runs on its people and its principles. Today you learned what we stand for — the commitments that shape how we work together every day."},
+   flavor:"GDC runs on its people and its principles. Today you learned what we stand for: the commitments that shape how we work together every day."},
   {id:3,name:"Station Four: Your Team",station:"Manager & Buddy",desc:"Meet your manager & buddy",icon:"\uD83E\uDD1D",code:"4444",reward:"\uD83C\uDF1F",rname:"Team Crest",xp:10,
-   flavor:"No one succeeds alone. You've met the people who will support you, challenge you and champion you. This is your crew — look after each other."},
+   flavor:"No one succeeds alone. You've met the people who will support you, challenge you and champion you. This is your crew. Look after each other."},
   {id:4,name:"Station Five: The Site",station:"Site Tour",desc:"Explore the office & facilities",icon:"\uD83D\uDDFA\uFE0F",code:"5555",reward:"\uD83E\uDDED",rname:"Site Map",xp:10,
-   flavor:"You know where everything is now. GDC is a big place — but familiarity turns a building into a home. Consider this place yours."},
+   flavor:"You know where everything is now. GDC is a big place, but familiarity turns a building into a home. Consider this place yours."},
   {id:5,name:"Station Six: Leadership",station:"Leadership",desc:"General Manager & Head of HR",icon:"\uD83C\uDFDB\uFE0F",code:"6666",reward:"\uD83C\uDFC6",rname:"GDC Medal",xp:10,
    flavor:"You have met the people who lead GDC and who are invested in your success here. You are no longer a new joiner. You are part of the team."}
 ];
@@ -1114,11 +1114,11 @@ var HOUSES={
   diversity: {name:"Diversity & Inclusion",    crest:"🤝",color:"#7B4FA6",
               desc:"You believe every voice matters. You champion fairness, celebrate difference, and make sure everyone feels they truly belong at GDC."},
   social:    {name:"Social Compliance",         crest:"⚖️",  color:"#2C4A8A",
-              desc:"You stand for what is right. You uphold the principles that protect people — from modern slavery to child labour — and hold GDC to the highest ethical standards."},
+              desc:"You stand for what is right. You uphold the principles that protect people, from modern slavery to child labour, and hold GDC to the highest ethical standards."},
   green:     {name:"Green Ambassador",          crest:"🌿",color:"#2E7D4F",
               desc:"You think about tomorrow. You take responsibility for our planet, champion sustainable choices, and help GDC leave a lighter footprint on the world."},
   wellbeing: {name:"Employee Wellbeing",        crest:"💛",color:"#C8961A",
-              desc:"You put people first. You care about the whole person — their energy, their balance, their happiness — and help create a workplace where everyone can thrive."},
+              desc:"You put people first. You care about the whole person: their energy, their balance, their happiness, and help create a workplace where everyone can thrive."},
   safety:    {name:"Health & Safety",           crest:"🛡️",color:"#1A6FA8",
               desc:"You never compromise on safety. You look out for your colleagues, follow the rules that protect everyone, and make sure every person goes home safe every day."},
   ethics:    {name:"Respect, Ethics & Compliance",crest:"⭐",  color:"#2A8A7A",
@@ -1128,40 +1128,40 @@ var HOUSES={
 /* ══ QUIZ DATA ══ */
 var QUIZ=[
   {q:"It’s your first day. What matters most to you as you walk in?",
-   opts:[{text:"Making sure I greet everyone equally — every person matters here.",house:"diversity"},
+   opts:[{text:"Making sure I greet everyone equally, because every person matters here.",house:"diversity"},
          {text:"Understanding the rules and codes of conduct straightaway.",house:"social"},
          {text:"Finding out how GDC approaches sustainability and waste.",house:"green"},
-         {text:"Getting settled in — I want to feel comfortable and supported.",house:"wellbeing"},
+         {text:"Getting settled in. I want to feel comfortable and supported.",house:"wellbeing"},
          {text:"Knowing the emergency exits and safety procedures from day one.",house:"safety"},
-         {text:"Making a good impression — I want to act with integrity from the start.",house:"ethics"}]},
+         {text:"Making a good impression. I want to act with integrity from the start.",house:"ethics"}]},
   {q:"Your laptop is set up. What’s the first thing on your mind?",
    opts:[{text:"Are all the accessibility settings available for everyone on the team?",house:"diversity"},
          {text:"I need to make sure I only access systems I’m authorised to use.",house:"social"},
          {text:"I wonder how I can reduce my digital footprint from day one.",house:"green"},
          {text:"I should set boundaries early so I don’t end up working all hours.",house:"wellbeing"},
-         {text:"I’ll check my workstation setup — screen height, posture, lighting.",house:"safety"},
+         {text:"I’ll check my workstation setup: screen height, posture, lighting.",house:"safety"},
          {text:"I should read the data protection and IT policy before anything else.",house:"ethics"}]},
 {q:"During your HR induction, you’re asked what you believe makes a great workplace. What’s your answer?",
-   opts:[{text:"One where every person — regardless of background — has a real chance to contribute and grow.",house:"diversity"},
+   opts:[{text:"One where every person, regardless of background, has a real chance to contribute and grow.",house:"diversity"},
          {text:"One where every worker in our supply chain is treated with dignity and protected from harm.",house:"social"},
          {text:"One that takes its responsibility to the environment as seriously as its responsibility to people.",house:"green"},
-         {text:"One where people feel genuinely supported — in their work, their health and their personal lives.",house:"wellbeing"},
-         {text:"One where everyone goes home safe — because no job is worth someone’s health.",house:"safety"},
+         {text:"One where people feel genuinely supported in their work, their health and their personal lives.",house:"wellbeing"},
+         {text:"One where everyone goes home safe, because no job is worth someone’s health.",house:"safety"},
          {text:"One where people do the right thing, not because they have to, but because they want to.",house:"ethics"}]},
   {q:"Your buddy asks what kind of team culture you want to help build. You say…",
    opts:[{text:"One where everyone has an equal voice, regardless of background.",house:"diversity"},
          {text:"One where we hold ourselves accountable and protect the vulnerable.",house:"social"},
          {text:"One that takes our environmental responsibility seriously.",house:"green"},
          {text:"One where people feel genuinely cared for and supported.",house:"wellbeing"},
-         {text:"One where safety is never an afterthought — it comes first.",house:"safety"},
+         {text:"One where safety is never an afterthought. It comes first.",house:"safety"},
          {text:"One built on honesty, fairness and doing the right thing.",house:"ethics"}]},
 {q:"After the site tour, a colleague asks what stood out to you most. What do you say?",
-   opts:[{text:"The mix of people here — I love how diverse the team is.",house:"diversity"},
-         {text:"How seriously GDC takes its ethical responsibilities — it’s not just talk.",house:"social"},
+   opts:[{text:"The mix of people here. I love how diverse the team is.",house:"diversity"},
+         {text:"How seriously GDC takes its ethical responsibilities. It’s not just talk.",house:"social"},
          {text:"The sustainability efforts — it’s good to see the company walking the walk on green commitments.",house:"green"},
-         {text:"The spaces designed for people to recharge — it shows the company genuinely cares.",house:"wellbeing"},
+         {text:"The spaces designed for people to recharge. It shows the company genuinely cares.",house:"wellbeing"},
          {text:"How visible health and safety is across the whole site — it’s clearly a real priority.",house:"safety"},
-         {text:"The culture — people seem to genuinely respect each other here.",house:"ethics"}]},
+         {text:"The culture. People seem to genuinely respect each other here.",house:"ethics"}]},
   {q:"The General Manager asks what you hope to contribute at GDC. You say…",
    opts:[{text:"I want to make sure our team is truly inclusive for everyone.",house:"diversity"},
          {text:"I want to help ensure we always operate ethically across our supply chain.",house:"social"},
@@ -1173,6 +1173,44 @@ var QUIZ=[
 
 var state={done:[],xp:0,name:"",team:"rdd",houseTally:{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0},stationVotes:{}}; midwayShown=false;
 var active=null,pendingQuestId=null;
+
+/* ══ LOCAL STORAGE — PROGRESS PERSISTENCE ══ */
+var SAVE_KEY="gdcOnboarding_v1";
+
+function saveProgress(){
+  try{
+    localStorage.setItem(SAVE_KEY,JSON.stringify({state:state,midwayShown:midwayShown}));
+  }catch(e){}
+}
+
+function clearProgress(){
+  try{localStorage.removeItem(SAVE_KEY);}catch(e){}
+}
+
+function restoreProgress(){
+  try{
+    var raw=localStorage.getItem(SAVE_KEY);
+    if(!raw) return false;
+    var saved=JSON.parse(raw);
+    if(!saved||!saved.state||!saved.state.name) return false;
+    state=saved.state;
+    midwayShown=saved.midwayShown||false;
+    // Restore UI to main app
+    selTeam=state.team;
+    document.getElementById("welcomeScreen").style.display="none";
+    document.getElementById("mainApp").style.display="block";
+    var ac=document.getElementById("avCircle");
+    ac.className="av-circle "+state.team;
+    document.getElementById("avInner").innerHTML=makeAvatar(state.team,90);
+    var tag=document.getElementById("cTeamTag");
+    tag.className="c-team-tag "+state.team;
+    tag.textContent=TEAM_LABELS[state.team];
+    document.getElementById("hGreeting").textContent="Welcome back, "+state.name+"!";
+    document.getElementById("cWarriorName").textContent=state.name;
+    buildNature(); render(); updateGrowthScene();
+    return true;
+  }catch(e){return false;}
+}
 
 /* ══ WELCOME SCREEN ══ */
 var selTeam=null;
@@ -1228,7 +1266,7 @@ addTap(document.getElementById("beginBtn"),function(){
   tag.textContent=TEAM_LABELS[selTeam];
   document.getElementById("hGreeting").textContent="Welcome, "+name;
   document.getElementById("cWarriorName").textContent=name;
-  buildNature(); render(); updateGrowthScene();
+  buildNature(); render(); updateGrowthScene(); saveProgress();
 });
 
 /* ══ RENDER ══ */
@@ -1253,7 +1291,7 @@ function render(){
     var cls=done?"done":locked?"locked":"active";
     var card=document.createElement("div"); card.className="quest-card "+cls; card.style.animationDelay=(i*.06+.15)+"s";
     var pip=done?"\u2713":locked?"\u2013":"\u25B6";
-    card.innerHTML="<div class='q-icon "+cls+"'>"+q.icon+"</div><div class='q-body'><div class='q-name'>"+q.name+"</div><div class='q-station'>"+q.station+" &mdash; "+q.desc+"</div><div class='q-reward'>\u2726 "+q.rname+"</div>"+(q.id===0&&!done?"<div class='q-required'>Start here first</div>":"")+"</div><div class='q-pip "+cls+"'>"+pip+"</div>";
+    card.innerHTML="<div class='q-icon "+cls+"'>"+q.icon+"</div><div class='q-body'><div class='q-name'>"+q.name+"</div><div class='q-station'>"+q.station+" · "+q.desc+"</div><div class='q-reward'>\u2726 "+q.rname+"</div>"+(q.id===0&&!done?"<div class='q-required'>Start here first</div>":"")+"</div><div class='q-pip "+cls+"'>"+pip+"</div>";
     if(!done && !locked) addTap(card,(function(id){return function(){openModal(id);};})(q.id));
     if(done){
       var rab=document.createElement("button"); rab.className="q-reanswer"; rab.textContent="✦ Revisit Question";
@@ -1372,6 +1410,7 @@ function openQuiz(questId){
     if(prev && state.houseTally[prev]>0) state.houseTally[prev]--;
     state.houseTally[chosenHouse]=(state.houseTally[chosenHouse]||0)+1;
     state.stationVotes[questId]=chosenHouse;
+    saveProgress();
     closeQuiz();
     setTimeout(function(){completeQuest(questId);},280);
   });
@@ -1393,6 +1432,7 @@ function closeQuiz(){document.getElementById("quizOverlay").classList.remove("op
 function completeQuest(id){
   var q=QUESTS[id];
   if(!state.done.includes(id)){state.done.push(id); state.xp+=q.xp;}
+  saveProgress();
   render();
   document.getElementById("qsEmoji").textContent=q.reward;
   document.getElementById("qsTitle").textContent="Station Complete!";
@@ -1432,6 +1472,7 @@ function showFinalScreen(){
 
 /* ══ RESET ══ */
 function goToStart(){
+  clearProgress();
   state={done:[],xp:0,name:"",team:"rdd",houseTally:{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0},stationVotes:{}}; midwayShown=false;
   selTeam=null;
   document.getElementById("finalScreen").style.display="none";
@@ -1591,6 +1632,8 @@ document.addEventListener("mousedown",function unlockAC(){
 ══════════════════════════════════════════════════════════════ */
 function updateGrowthScene() { /* static GDC background — no dynamic updates needed */ }
 
+/* ══ RESTORE SAVED PROGRESS ON PAGE LOAD ══ */
+restoreProgress();
 
 </script>
 </body>
