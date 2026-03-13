@@ -368,117 +368,202 @@ to{transform:rotate(360deg);}}
 
   <!-- GDC Building -->
   <div class="building-wrap">
-    <svg width="450" height="380" viewBox="0 0 390 310" xmlns="http://www.w3.org/2000/svg">
+    <svg width="390" height="310" viewBox="0 0 390 310" xmlns="http://www.w3.org/2000/svg">
       <defs>
+        <!-- Warm interior light for lobby -->
         <linearGradient id="lobbyInterior" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%"   stop-color="rgba(255,230,180,.22)"/>
           <stop offset="60%"  stop-color="rgba(255,210,140,.14)"/>
           <stop offset="100%" stop-color="rgba(200,170,100,.08)"/>
         </linearGradient>
+        <!-- Glass tint for curtain walls -->
+        <linearGradient id="glassTint" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"  stop-color="rgba(140,185,210,.55)"/>
+          <stop offset="100%" stop-color="rgba(90,140,168,.45)"/>
+        </linearGradient>
       </defs>
 
-      <!-- LEFT WING -->
+      <!-- ══════════════════════════════════════════════
+           SKY FILL — behind all 3 roof curves
+      ═════════════════════════════════════════════════ -->
+      <rect x="0" y="0" width="390" height="120" fill="#7ec4e0" opacity=".0"/>
+
+      <!-- ══════════════════════════════════════════════
+           LEFT WING — white block, 2 floors
+      ═════════════════════════════════════════════════ -->
       <rect x="0" y="110" width="115" height="155" fill="#eceae4" stroke="rgba(180,170,150,.3)" stroke-width="1"/>
+      <!-- Floor divider band -->
       <rect x="0" y="183" width="115" height="5" fill="rgba(195,188,170,.55)"/>
+      <!-- Cladding bands -->
       <rect x="0" y="128" width="115" height="3" fill="rgba(195,188,170,.4)"/>
       <rect x="0" y="155" width="115" height="3" fill="rgba(195,188,170,.4)"/>
       <rect x="0" y="200" width="115" height="3" fill="rgba(195,188,170,.38)"/>
       <rect x="0" y="225" width="115" height="3" fill="rgba(195,188,170,.35)"/>
+      <!-- Floor 2 windows left wing -->
       <rect x="10"  y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.46)"/>
       <rect x="40"  y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.46)"/>
       <rect x="70"  y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.44)"/>
+      <!-- Floor 1 windows left wing -->
       <rect x="10"  y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.42)"/>
       <rect x="40"  y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.42)"/>
       <rect x="70"  y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.40)"/>
-      <!-- ROOF A S-curve -->
+
+      <!-- ── CURVED ROOF A — left wing, S-curve ── -->
       <path d="M -2 0 L -2 113 C 20 55, 90 130, 116 113 L 116 0 Z" fill="#7ec4e0"/>
-      <path d="M -2 112 C 20 54, 90 128, 116 112" fill="none" stroke="#252a2e" stroke-width="18" stroke-linecap="butt"/>
-      <path d="M -2 104 C 20 46, 90 120, 116 104" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
-      <path d="M -2 121 C 20 63, 90 137, 116 121" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2.5"/>
+      <path d="M -2 112 C 20 54, 90 128, 116 112"
+            fill="none" stroke="#252a2e" stroke-width="18" stroke-linecap="butt"/>
+      <path d="M -2 104 C 20 46, 90 120, 116 104"
+            fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
+      <path d="M -2 121 C 20 63, 90 137, 116 121"
+            fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2.5"/>
       <rect x="0" y="110" width="116" height="20" fill="rgba(120,165,190,.25)"/>
 
-      <!-- CENTRE LOBBY — interior scene -->
-      <rect x="118" y="110" width="140" height="150" fill="rgba(255,240,210,.08)"/>
-      <rect x="138" y="228" width="90" height="12" rx="3" fill="rgba(200,175,130,.55)" stroke="rgba(180,155,110,.4)" stroke-width="1"/>
-      <rect x="138" y="236" width="90" height="6" rx="2" fill="rgba(170,145,100,.45)"/>
-      <rect x="218" y="222" width="2" height="8" fill="rgba(180,160,120,.5)"/>
-      <ellipse cx="219" cy="221" rx="5" ry="3" fill="rgba(255,230,150,.4)"/>
-      <ellipse cx="155" cy="220" rx="5" ry="6" fill="rgba(80,55,35,.35)"/>
-      <rect x="151" y="226" width="8" height="12" rx="2" fill="rgba(60,80,100,.35)"/>
-      <ellipse cx="175" cy="220" rx="5" ry="6" fill="rgba(60,40,25,.32)"/>
-      <rect x="171" y="226" width="8" height="12" rx="2" fill="rgba(80,60,40,.30)"/>
-      <rect x="118" y="115" width="140" height="3" rx="1" fill="rgba(255,240,200,.18)"/>
-      <!-- Lobby glass curtain -->
-      <rect x="118" y="110" width="140" height="150" fill="rgba(130,178,205,.08)" stroke="rgba(160,195,215,.12)" stroke-width="1"/>
+      <!-- ══════════════════════════════════════════════
+           CENTRE LOBBY — transparent glass, full 2-floor height
+      ═════════════════════════════════════════════════ -->
+
+      <!-- ── Interior reception scene (drawn first, behind glass) ── -->
+      <!-- Reception desk — a long curved desk -->
+      <rect x="138" y="228" width="90" height="12" rx="3"
+            fill="rgba(200,175,130,.55)" stroke="rgba(180,155,110,.4)" stroke-width="1"/>
+      <!-- Desk front panel -->
+      <rect x="138" y="236" width="90" height="6" rx="2"
+            fill="rgba(170,145,100,.45)"/>
+      <!-- Desk lamp -->
+      <rect x="218" y="222" width="2"  height="8"  fill="rgba(180,160,120,.5)"/>
+      <ellipse cx="219" cy="221" rx="5" ry="3"     fill="rgba(255,230,150,.4)"/>
+      <!-- Two reception staff silhouettes -->
+      <!-- Staff 1 -->
+      <ellipse cx="155" cy="220" rx="5"  ry="6"   fill="rgba(80,55,35,.35)"/>
+      <rect    x="151"  y="226"  width="8" height="12" rx="2" fill="rgba(60,80,100,.35)"/>
+      <!-- Staff 2 -->
+      <ellipse cx="175" cy="220" rx="5"  ry="6"   fill="rgba(60,40,25,.32)"/>
+      <rect    x="171"  y="226"  width="8" height="12" rx="2" fill="rgba(80,60,40,.30)"/>
+      <!-- Interior ceiling light strip -->
+      <rect x="118" y="115" width="140" height="3" rx="1"
+            fill="rgba(255,240,200,.18)"/>
+      <!-- Floor line inside lobby -->
+      <rect x="118" y="258" width="140" height="2"
+            fill="rgba(200,185,155,.2)"/>
+      <!-- Back wall suggestion — warm ivory -->
+      <rect x="118" y="110" width="140" height="150"
+            fill="rgba(255,240,210,.08)"/>
+
+      <!-- ── Lobby glass curtain wall (transparent over interior) ── -->
+      <rect x="118" y="110" width="140" height="150"
+            fill="rgba(130,178,205,.08)" stroke="rgba(160,195,215,.12)" stroke-width="1"/>
+      <!-- Vertical mullions — slim aluminium frames -->
       <line x1="142" y1="110" x2="142" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
       <line x1="166" y1="110" x2="166" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
       <line x1="190" y1="110" x2="190" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
       <line x1="214" y1="110" x2="214" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
       <line x1="238" y1="110" x2="238" y2="260" stroke="rgba(200,210,218,.35)" stroke-width="1.5"/>
+      <!-- Floor transom line -->
       <line x1="118" y1="183" x2="258" y2="183" stroke="rgba(200,210,218,.28)" stroke-width="1.5"/>
+      <!-- Subtle glass reflection diagonal -->
       <path d="M 120 112 L 134 112 L 120 260 L 118 260 Z" fill="rgba(255,255,255,.06)"/>
-      <!-- Doors — half building height -->
-      <rect x="148" y="183" width="80" height="75" rx="1" fill="rgba(25,40,52,.35)" stroke="rgba(100,135,158,.3)" stroke-width="1"/>
-      <rect x="150" y="185" width="36" height="71" rx="0" fill="rgba(148,192,218,.15)" stroke="rgba(170,208,228,.25)" stroke-width=".8"/>
-      <rect x="180" y="215" width="2" height="18" rx="1" fill="rgba(210,220,225,.75)"/>
-      <rect x="152" y="187" width="6" height="67" fill="rgba(255,255,255,.06)"/>
-      <rect x="190" y="185" width="36" height="71" rx="0" fill="rgba(148,192,218,.15)" stroke="rgba(170,208,228,.25)" stroke-width=".8"/>
-      <rect x="194" y="215" width="2" height="18" rx="1" fill="rgba(210,220,225,.75)"/>
-      <rect x="192" y="187" width="6" height="67" fill="rgba(255,255,255,.05)"/>
-      <rect x="186" y="183" width="4" height="75" fill="rgba(80,115,138,.55)"/>
-      <rect x="148" y="258" width="80" height="4" rx="1" fill="rgba(40,55,65,.3)"/>
-      <!-- ROOF B S-curve -->
-      <path d="M 116 0 L 116 113 C 140 40, 234 130, 260 113 L 260 0 Z" fill="#7ec4e0"/>
-      <path d="M 116 112 C 140 39, 234 128, 260 112" fill="none" stroke="#252a2e" stroke-width="20" stroke-linecap="butt"/>
-      <path d="M 116 103 C 140 30, 234 119, 260 103" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="3.5"/>
-      <path d="M 116 122 C 140 49, 234 138, 260 122" fill="none" stroke="rgba(0,0,0,.16)" stroke-width="2.5"/>
+      <path d="M 160 112 L 175 112 L 162 183 L 148 183 Z" fill="rgba(255,255,255,.04)"/>
 
-      <!-- RIGHT WING -->
+      <!-- ── DOUBLE SLIDING DOORS — half building height, floor 1 ── -->
+      <!-- Door frame surround -->
+      <rect x="148" y="183" width="80" height="75" rx="1"
+            fill="rgba(25,40,52,.35)" stroke="rgba(100,135,158,.3)" stroke-width="1"/>
+      <!-- Left door panel -->
+      <rect x="150" y="185" width="36" height="71" rx="0"
+            fill="rgba(148,192,218,.15)" stroke="rgba(170,208,228,.25)" stroke-width=".8"/>
+      <!-- Left handle -->
+      <rect x="180" y="215" width="2" height="18" rx="1" fill="rgba(210,220,225,.75)"/>
+      <!-- Left reflection -->
+      <rect x="152" y="187" width="6" height="67" fill="rgba(255,255,255,.06)"/>
+      <!-- Right door panel -->
+      <rect x="190" y="185" width="36" height="71" rx="0"
+            fill="rgba(148,192,218,.15)" stroke="rgba(170,208,228,.25)" stroke-width=".8"/>
+      <!-- Right handle -->
+      <rect x="194" y="215" width="2" height="18" rx="1" fill="rgba(210,220,225,.75)"/>
+      <!-- Right reflection -->
+      <rect x="192" y="187" width="6" height="67" fill="rgba(255,255,255,.05)"/>
+      <!-- Centre mullion -->
+      <rect x="186" y="183" width="4" height="75" fill="rgba(80,115,138,.55)"/>
+      <!-- Entrance step -->
+      <rect x="148" y="258" width="80" height="4" rx="1" fill="rgba(40,55,65,.3)"/>
+
+      <!-- ── CURVED ROOF B — centre lobby, S-curve ── -->
+      <path d="M 116 0 L 116 113 C 140 40, 234 130, 260 113 L 260 0 Z" fill="#7ec4e0"/>
+      <path d="M 116 112 C 140 39, 234 128, 260 112"
+            fill="none" stroke="#252a2e" stroke-width="20" stroke-linecap="butt"/>
+      <path d="M 116 103 C 140 30, 234 119, 260 103"
+            fill="none" stroke="rgba(255,255,255,.09)" stroke-width="3.5"/>
+      <path d="M 116 122 C 140 49, 234 138, 260 122"
+            fill="none" stroke="rgba(0,0,0,.16)" stroke-width="2.5"/>
+
+      <!-- ══════════════════════════════════════════════
+           RIGHT WING — white block, 2 floors
+      ═════════════════════════════════════════════════ -->
       <rect x="258" y="110" width="132" height="155" fill="#e8e4dc" stroke="rgba(180,170,150,.3)" stroke-width="1"/>
+      <!-- Floor divider -->
       <rect x="258" y="183" width="132" height="5" fill="rgba(195,188,170,.55)"/>
+      <!-- Cladding bands -->
       <rect x="258" y="128" width="132" height="3" fill="rgba(195,188,170,.4)"/>
       <rect x="258" y="155" width="132" height="3" fill="rgba(195,188,170,.4)"/>
       <rect x="258" y="200" width="132" height="3" fill="rgba(195,188,170,.38)"/>
       <rect x="258" y="225" width="132" height="3" fill="rgba(195,188,170,.35)"/>
+      <!-- Floor 2 windows right wing -->
       <rect x="268" y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.46)"/>
       <rect x="298" y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.46)"/>
       <rect x="328" y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.44)"/>
       <rect x="358" y="118" width="22" height="58" rx="1" fill="rgba(108,150,175,.44)"/>
+      <!-- Floor 1 windows right wing -->
       <rect x="268" y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.42)"/>
       <rect x="298" y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.42)"/>
       <rect x="328" y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.40)"/>
       <rect x="358" y="191" width="22" height="68" rx="1" fill="rgba(100,142,168,.40)"/>
+      <!-- Porthole accents — right edge -->
       <circle cx="378" cy="128" r="8" fill="none" stroke="rgba(175,168,155,.55)" stroke-width="1.5"/>
       <circle cx="378" cy="152" r="8" fill="none" stroke="rgba(175,168,155,.55)" stroke-width="1.5"/>
       <circle cx="378" cy="176" r="8" fill="none" stroke="rgba(175,168,155,.55)" stroke-width="1.5"/>
       <circle cx="378" cy="208" r="8" fill="none" stroke="rgba(175,168,155,.5)"  stroke-width="1.5"/>
       <circle cx="378" cy="232" r="8" fill="none" stroke="rgba(175,168,155,.5)"  stroke-width="1.5"/>
-      <!-- ROOF C S-curve -->
-      <path d="M 258 0 L 258 113 C 280 55, 370 130, 392 113 L 392 0 Z" fill="#7ec4e0"/>
-      <path d="M 258 112 C 280 54, 370 128, 392 112" fill="none" stroke="#252a2e" stroke-width="18" stroke-linecap="butt"/>
-      <path d="M 258 104 C 280 46, 370 120, 392 104" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
-      <path d="M 258 121 C 280 63, 370 137, 392 121" fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2.5"/>
 
-      <!-- SECURITY GATE -->
+      <!-- ── CURVED ROOF C — right wing, S-curve ── -->
+      <path d="M 258 0 L 258 113 C 280 55, 370 130, 392 113 L 392 0 Z" fill="#7ec4e0"/>
+      <path d="M 258 112 C 280 54, 370 128, 392 112"
+            fill="none" stroke="#252a2e" stroke-width="18" stroke-linecap="butt"/>
+      <path d="M 258 104 C 280 46, 370 120, 392 104"
+            fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
+      <path d="M 258 121 C 280 63, 370 137, 392 121"
+            fill="none" stroke="rgba(0,0,0,.14)" stroke-width="2.5"/>
+
+      <!-- ══════════════════════════════════════════════
+           SECURITY GATE AREA
+      ═════════════════════════════════════════════════ -->
+      <!-- Perimeter wall -->
       <rect x="0" y="268" width="390" height="22" fill="#d0ccc0"/>
       <rect x="0" y="265" width="390" height="5"  fill="#c8c4b8"/>
+
+      <!-- Gate pillars left -->
       <rect x="14"  y="228" width="20" height="42" rx="2" fill="#d8d4cc"/>
       <circle cx="24" cy="237" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
       <circle cx="24" cy="249" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
       <circle cx="24" cy="261" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
       <rect x="42"  y="238" width="16" height="32" rx="2" fill="#ccc8c0"/>
-      <circle cx="50" cy="248" r="4" fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
-      <circle cx="50" cy="260" r="4" fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+      <circle cx="50" cy="248" r="4"   fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+      <circle cx="50" cy="260" r="4"   fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+
+      <!-- Gate pillars right -->
       <rect x="336" y="238" width="16" height="32" rx="2" fill="#ccc8c0"/>
-      <circle cx="344" cy="248" r="4" fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
-      <circle cx="344" cy="260" r="4" fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+      <circle cx="344" cy="248" r="4"   fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
+      <circle cx="344" cy="260" r="4"   fill="none" stroke="rgba(155,148,132,.45)" stroke-width="1.2"/>
       <rect x="358" y="228" width="20" height="42" rx="2" fill="#d8d4cc"/>
       <circle cx="368" cy="237" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
       <circle cx="368" cy="249" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
       <circle cx="368" cy="261" r="4.5" fill="none" stroke="rgba(155,148,132,.5)"  stroke-width="1.2"/>
+
+      <!-- Gate cables -->
       <line x1="34"  y1="240" x2="332" y2="240" stroke="rgba(158,153,138,.48)" stroke-width="1.5"/>
       <line x1="34"  y1="249" x2="332" y2="249" stroke="rgba(158,153,138,.43)" stroke-width="1.5"/>
       <line x1="34"  y1="258" x2="332" y2="258" stroke="rgba(158,153,138,.38)" stroke-width="1.5"/>
+
+      <!-- Gate sliding panel -->
       <rect x="72" y="254" width="236" height="36" rx="2" fill="#c0bcb0"/>
       <line x1="72"  y1="261" x2="308" y2="261" stroke="rgba(145,140,125,.5)" stroke-width="1"/>
       <line x1="72"  y1="268" x2="308" y2="268" stroke="rgba(145,140,125,.5)" stroke-width="1"/>
@@ -487,16 +572,156 @@ to{transform:rotate(360deg);}}
       <circle cx="90"  cy="291" r="4" fill="#a8a498"/>
       <circle cx="292" cy="291" r="4" fill="#a8a498"/>
 
-      <!-- TREES -->
+      <!-- ══════════════════════════════════════════════
+           TREES
+      ═════════════════════════════════════════════════ -->
+      <!-- Left cluster -->
       <ellipse cx="46" cy="205" rx="26" ry="34" fill="#527a3c" opacity=".82"/>
       <ellipse cx="32" cy="218" rx="18" ry="26" fill="#3d6630" opacity=".78"/>
       <ellipse cx="60" cy="214" rx="16" ry="23" fill="#608040" opacity=".72"/>
       <rect x="44" y="238" width="5" height="32" fill="#4a3a24" opacity=".6"/>
+
+      <!-- Mid-left background tree -->
       <ellipse cx="88" cy="188" rx="20" ry="28" fill="#4a7a38" opacity=".65"/>
       <ellipse cx="74" cy="200" rx="14" ry="22" fill="#3a6a2a" opacity=".60"/>
       <rect x="86" y="215" width="4" height="54" fill="#5a4a30" opacity=".48"/>
+
+      <!-- Right tree -->
       <ellipse cx="348" cy="188" rx="18" ry="26" fill="#4a7838" opacity=".62"/>
       <rect x="346" y="212" width="4" height="54" fill="#5a4a30" opacity=".48"/>
+
+      <!-- ══════════════════════════════════════════════
+           BMW X5 M SPORT — rear view, parked right of lobby
+           White, facing lobby entrance
+      ═════════════════════════════════════════════════ -->
+
+      <!-- Ground shadow -->
+      <ellipse cx="258" cy="299" rx="46" ry="5" fill="rgba(0,0,0,.20)"/>
+
+      <!-- Lower bumper / M Sport skirt -->
+      <rect x="218" y="274" width="80" height="24" rx="3" fill="#f2f0eb" stroke="rgba(185,180,170,.3)" stroke-width=".8"/>
+
+      <!-- M diffuser — dark mesh -->
+      <rect x="226" y="284" width="64" height="12" rx="2" fill="#252525"/>
+      <line x1="236" y1="284" x2="236" y2="296" stroke="rgba(60,60,60,.55)" stroke-width=".8"/>
+      <line x1="246" y1="284" x2="246" y2="296" stroke="rgba(60,60,60,.55)" stroke-width=".8"/>
+      <line x1="256" y1="284" x2="256" y2="296" stroke="rgba(60,60,60,.55)" stroke-width=".8"/>
+      <line x1="266" y1="284" x2="266" y2="296" stroke="rgba(60,60,60,.55)" stroke-width=".8"/>
+      <line x1="276" y1="284" x2="276" y2="296" stroke="rgba(60,60,60,.55)" stroke-width=".8"/>
+      <line x1="226" y1="290" x2="290" y2="290" stroke="rgba(60,60,60,.35)" stroke-width=".6"/>
+
+      <!-- Quad exhausts — 2 pairs -->
+      <rect x="226" y="291" width="9"  height="5" rx="1" fill="#8a8880" stroke="rgba(50,50,50,.5)" stroke-width=".8"/>
+      <ellipse cx="230.5" cy="293.5" rx="3" ry="1.8" fill="rgba(15,15,15,.6)"/>
+      <rect x="237" y="291" width="9"  height="5" rx="1" fill="#8a8880" stroke="rgba(50,50,50,.5)" stroke-width=".8"/>
+      <ellipse cx="241.5" cy="293.5" rx="3" ry="1.8" fill="rgba(15,15,15,.6)"/>
+      <rect x="270" y="291" width="9"  height="5" rx="1" fill="#8a8880" stroke="rgba(50,50,50,.5)" stroke-width=".8"/>
+      <ellipse cx="274.5" cy="293.5" rx="3" ry="1.8" fill="rgba(15,15,15,.6)"/>
+      <rect x="281" y="291" width="9"  height="5" rx="1" fill="#8a8880" stroke="rgba(50,50,50,.5)" stroke-width=".8"/>
+      <ellipse cx="285.5" cy="293.5" rx="3" ry="1.8" fill="rgba(15,15,15,.6)"/>
+
+      <!-- Upper body shoulder — wide boxy X5 -->
+      <rect x="220" y="250" width="76" height="26" rx="4" fill="#f4f2ed" stroke="rgba(183,178,168,.28)" stroke-width=".7"/>
+
+      <!-- Roof — flat X5 roofline -->
+      <rect x="222" y="234" width="72" height="18" rx="3" fill="#f5f3ee" stroke="rgba(183,178,168,.25)" stroke-width=".7"/>
+
+      <!-- Panoramic roof glass -->
+      <rect x="228" y="235" width="60" height="12" rx="2" fill="rgba(28,33,44,.72)" stroke="rgba(18,23,34,.3)" stroke-width=".5"/>
+      <rect x="230" y="236" width="14" height="10" rx="1" fill="rgba(255,255,255,.08)"/>
+
+      <!-- Rear window — tall upright X5 style -->
+      <path d="M 224 251 L 226 264 L 290 264 L 292 251 Z"
+            fill="rgba(22,28,40,.70)" stroke="rgba(18,23,34,.28)" stroke-width=".8"/>
+      <!-- Chrome surround -->
+      <path d="M 224 251 L 226 264 L 290 264 L 292 251 Z"
+            fill="none" stroke="rgba(200,195,183,.32)" stroke-width="1.2"/>
+      <!-- Glare streaks -->
+      <path d="M 227 252 L 228 264 L 234 264 L 232 252 Z" fill="rgba(255,255,255,.09)"/>
+      <path d="M 238 252 L 239 264 L 242 264 L 241 252 Z" fill="rgba(255,255,255,.05)"/>
+
+      <!-- BMW X5 L-SHAPED LED TAIL LIGHTS -->
+      <!-- LEFT cluster housing -->
+      <rect x="218" y="256" width="14" height="22" rx="2" fill="#141414" stroke="rgba(75,73,67,.4)" stroke-width=".5"/>
+      <!-- Vertical LED bar -->
+      <rect x="219" y="257" width="5"  height="18" rx="1" fill="rgba(215,42,42,.95)"/>
+      <rect x="220" y="258" width="3"  height="16" rx="1" fill="rgba(245,80,80,.80)"/>
+      <!-- L horizontal arm -->
+      <rect x="219" y="272" width="11" height="5"  rx="1" fill="rgba(205,36,36,.90)"/>
+      <!-- Reverse light -->
+      <rect x="225" y="257" width="6"  height="8"  rx="1" fill="rgba(238,234,218,.78)"/>
+      <!-- Dark inner area -->
+      <rect x="225" y="266" width="6"  height="10" rx="1" fill="rgba(12,12,12,.82)"/>
+
+      <!-- RIGHT cluster housing -->
+      <rect x="284" y="256" width="14" height="22" rx="2" fill="#141414" stroke="rgba(75,73,67,.4)" stroke-width=".5"/>
+      <!-- Vertical LED bar -->
+      <rect x="292" y="257" width="5"  height="18" rx="1" fill="rgba(215,42,42,.95)"/>
+      <rect x="293" y="258" width="3"  height="16" rx="1" fill="rgba(245,80,80,.80)"/>
+      <!-- L horizontal arm -->
+      <rect x="286" y="272" width="11" height="5"  rx="1" fill="rgba(205,36,36,.90)"/>
+      <!-- Reverse light -->
+      <rect x="285" y="257" width="6"  height="8"  rx="1" fill="rgba(238,234,218,.78)"/>
+      <!-- Dark inner area -->
+      <rect x="285" y="266" width="6"  height="10" rx="1" fill="rgba(12,12,12,.82)"/>
+
+      <!-- Centre connecting light strip -->
+      <rect x="232" y="274" width="52" height="3" rx="1" fill="rgba(175,28,28,.65)"/>
+      <!-- Chrome strip above lights -->
+      <rect x="218" y="274" width="80" height="1.5" rx=".5" fill="rgba(200,194,182,.4)"/>
+
+      <!-- Boot / tailgate panel -->
+      <rect x="230" y="264" width="56" height="11" rx="1" fill="#f2f0eb" stroke="rgba(178,173,163,.22)" stroke-width=".6"/>
+      <line x1="230" y1="269" x2="286" y2="269" stroke="rgba(172,167,157,.38)" stroke-width=".7"/>
+
+      <!-- BMW roundel — blue/white quadrants -->
+      <circle cx="258" cy="268" r="5.5" fill="#111" stroke="rgba(192,186,175,.45)" stroke-width=".7"/>
+      <circle cx="258" cy="268" r="4"   fill="#111"/>
+      <path d="M 258 264 A 4 4 0 0 1 262 268 L 258 268 Z" fill="#0067b1"/>
+      <path d="M 262 268 A 4 4 0 0 1 258 272 L 258 268 Z" fill="#f4f4f4"/>
+      <path d="M 258 272 A 4 4 0 0 1 254 268 L 258 268 Z" fill="#0067b1"/>
+      <path d="M 254 268 A 4 4 0 0 1 258 264 L 258 268 Z" fill="#f4f4f4"/>
+      <circle cx="258" cy="268" r="1.4" fill="#111"/>
+
+      <!-- Body sheen / highlight -->
+      <rect x="220" y="253" width="76" height="3" rx="1" fill="rgba(255,255,255,.14)"/>
+      <!-- Lower chrome strip -->
+      <rect x="220" y="282" width="76" height="2" rx="1" fill="rgba(198,192,181,.45)"/>
+
+      <!-- Wing mirrors -->
+      <rect x="212" y="258" width="7" height="4" rx="1" fill="#edeae4"/>
+      <rect x="297" y="258" width="7" height="4" rx="1" fill="#edeae4"/>
+
+      <!-- Door seam -->
+      <line x1="258" y1="264" x2="258" y2="284" stroke="rgba(170,165,155,.32)" stroke-width=".8"/>
+
+      <!-- WHEELS — 21" M Sport Y-spoke alloys -->
+      <!-- Left wheel -->
+      <circle cx="232" cy="297" r="11"  fill="#181818"/>
+      <circle cx="232" cy="297" r="8.5" fill="#222"/>
+      <circle cx="232" cy="297" r="5"   fill="#585858"/>
+      <line x1="232" y1="289" x2="232" y2="297" stroke="#999" stroke-width="2"/>
+      <line x1="225" y1="293" x2="232" y2="297" stroke="#999" stroke-width="2"/>
+      <line x1="227" y1="303" x2="232" y2="297" stroke="#999" stroke-width="2"/>
+      <line x1="237" y1="303" x2="232" y2="297" stroke="#999" stroke-width="2"/>
+      <line x1="239" y1="293" x2="232" y2="297" stroke="#999" stroke-width="2"/>
+      <circle cx="232" cy="297" r="2.5" fill="#2a2a2a"/>
+      <!-- Red brake caliper -->
+      <path d="M 224 293 A 8.5 8.5 0 0 1 228 288" fill="none" stroke="rgba(205,38,38,.72)" stroke-width="2.8"/>
+
+      <!-- Right wheel -->
+      <circle cx="284" cy="297" r="11"  fill="#181818"/>
+      <circle cx="284" cy="297" r="8.5" fill="#222"/>
+      <circle cx="284" cy="297" r="5"   fill="#585858"/>
+      <line x1="284" y1="289" x2="284" y2="297" stroke="#999" stroke-width="2"/>
+      <line x1="277" y1="293" x2="284" y2="297" stroke="#999" stroke-width="2"/>
+      <line x1="279" y1="303" x2="284" y2="297" stroke="#999" stroke-width="2"/>
+      <line x1="289" y1="303" x2="284" y2="297" stroke="#999" stroke-width="2"/>
+      <line x1="291" y1="293" x2="284" y2="297" stroke="#999" stroke-width="2"/>
+      <circle cx="284" cy="297" r="2.5" fill="#2a2a2a"/>
+      <!-- Red brake caliper -->
+      <path d="M 276 293 A 8.5 8.5 0 0 1 280 288" fill="none" stroke="rgba(205,38,38,.72)" stroke-width="2.8"/>
+
     </svg>
   </div>
 
@@ -689,7 +914,7 @@ to{transform:rotate(360deg);}}
       <div class="house-desc" id="houseDesc"></div>
     </div>
     <div class="final-relics" id="finalRelics"></div>
-    <div class="final-badge">&#x2726; GDC Initiated &mdash; Day One Complete &#x2726;</div>
+    <div class="final-badge">&#x2726; GDC Initiated &nbsp;&middot;&nbsp; Day One Complete &#x2726;</div>
     <button class="back-btn" id="backBtn">&#8592; Return to the Beginning</button>
     <button class="final-back-main" id="finalBackMain" onclick="document.getElementById('finalScreen').style.display='none';document.getElementById('mainApp').style.display='block';">&#8592; Back to My Progress</button>
   </div>
@@ -1158,9 +1383,9 @@ var QUIZ=[
 {q:"After the site tour, a colleague asks what stood out to you most. What do you say?",
    opts:[{text:"The mix of people here. I love how diverse the team is.",house:"diversity"},
          {text:"How seriously GDC takes its ethical responsibilities. It’s not just talk.",house:"social"},
-         {text:"The sustainability efforts — it’s good to see the company walking the walk on green commitments.",house:"green"},
+         {text:"The sustainability efforts. It’s good to see the company walking the walk on green commitments.",house:"green"},
          {text:"The spaces designed for people to recharge. It shows the company genuinely cares.",house:"wellbeing"},
-         {text:"How visible health and safety is across the whole site — it’s clearly a real priority.",house:"safety"},
+         {text:"How visible health and safety is across the whole site. It’s clearly a real priority.",house:"safety"},
          {text:"The culture. People seem to genuinely respect each other here.",house:"ethics"}]},
   {q:"The General Manager asks what you hope to contribute at GDC. You say…",
    opts:[{text:"I want to make sure our team is truly inclusive for everyone.",house:"diversity"},
@@ -1232,9 +1457,22 @@ function refreshPreview(){
 refreshPreview();
 
 function addTap(el, fn){
-  var touched=false;
-  el.addEventListener("touchstart",function(e){touched=true;fn(e);e.preventDefault();},{passive:false});
-  el.addEventListener("click",function(e){if(!touched)fn(e);touched=false;});
+  var startX=0, startY=0, moved=false;
+  el.addEventListener("touchstart", function(e){
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    moved = false;
+  }, {passive:true});
+  el.addEventListener("touchmove", function(e){
+    if(Math.abs(e.touches[0].clientX - startX) > 10 ||
+       Math.abs(e.touches[0].clientY - startY) > 10){
+      moved = true;
+    }
+  }, {passive:true});
+  el.addEventListener("touchend", function(e){
+    if(!moved){ fn(e); e.preventDefault(); }
+  }, {passive:false});
+  el.addEventListener("click", function(e){ fn(e); });
 }
 
 document.querySelectorAll(".pill.team").forEach(function(p){
