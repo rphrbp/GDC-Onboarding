@@ -1457,42 +1457,65 @@ var state={done:[],xp:0,name:"",team:"rdd",houseTally:{diversity:0,social:0,gree
 var active=null,pendingQuestId=null;
 
 /* ══ LOCAL STORAGE — PROGRESS PERSISTENCE ══ */
-var SAVE_KEY="gdcOnboarding_v1";
+var SAVE_KEY="gdcOnboarding_v2";
 
 function saveProgress(){
-  try{
-    localStorage.setItem(SAVE_KEY,JSON.stringify({state:state,midwayShown:midwayShown}));
-  }catch(e){}
+  if(!state.name) return;
+  var payload=JSON.stringify({state:state,midwayShown:midwayShown,ts:Date.now()});
+  try{ localStorage.setItem(SAVE_KEY, payload); }catch(e){ console.warn("localStorage failed:", e); }
+  try{ sessionStorage.setItem(SAVE_KEY, payload); }catch(e){ console.warn("sessionStorage failed:", e); }
 }
 
 function clearProgress(){
-  try{localStorage.removeItem(SAVE_KEY);}catch(e){}
+  try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
+  try{ sessionStorage.removeItem(SAVE_KEY); }catch(e){}
+}
+
+function getSaved(){
+  var raw=null;
+  try{ raw=localStorage.getItem(SAVE_KEY); }catch(e){}
+  if(!raw){ try{ raw=sessionStorage.getItem(SAVE_KEY); }catch(e){} }
+  if(!raw){ console.warn("No saved data found in any storage."); return null; }
+  try{
+    var saved=JSON.parse(raw);
+    if(!saved||!saved.state||!saved.state.name||!saved.state.team){ console.warn("Saved data invalid:", saved); return null; }
+    console.log("Saved data found:", saved.state.name, "| stations done:", saved.state.done.length);
+    return saved;
+  }catch(e){ console.warn("Failed to parse saved data:", e); return null; }
 }
 
 function restoreProgress(){
-  try{
-    var raw=localStorage.getItem(SAVE_KEY);
-    if(!raw) return false;
-    var saved=JSON.parse(raw);
-    if(!saved||!saved.state||!saved.state.name) return false;
-    state=saved.state;
-    midwayShown=saved.midwayShown||false;
-    // Restore UI to main app
-    selTeam=state.team;
-    document.getElementById("welcomeScreen").style.display="none";
-    document.getElementById("mainApp").style.display="block";
-    var ac=document.getElementById("avCircle");
-    ac.className="av-circle "+state.team;
-    document.getElementById("avInner").innerHTML=makeAvatar(state.team,90);
-    var tag=document.getElementById("cTeamTag");
-    tag.className="c-team-tag "+state.team;
-    tag.textContent=TEAM_LABELS[state.team];
-    document.getElementById("hGreeting").textContent="Welcome back, "+state.name+"!";
-    document.getElementById("cWarriorName").textContent=state.name;
-    buildNature(); render(); updateGrowthScene();
-    return true;
-  }catch(e){return false;}
+  var saved=getSaved();
+  if(!saved) return false;
+  state=saved.state;
+  midwayShown=saved.midwayShown||false;
+  selTeam=state.team;
+  document.getElementById("welcomeScreen").style.display="none";
+  document.getElementById("briefingScreen").style.display="none";
+  document.getElementById("mainApp").style.display="block";
+  var ac=document.getElementById("avCircle");
+  ac.className="av-circle "+state.team;
+  document.getElementById("avInner").innerHTML=makeAvatar(state.team,90);
+  var tag=document.getElementById("cTeamTag");
+  tag.className="c-team-tag "+state.team;
+  tag.textContent=TEAM_LABELS[state.team];
+  document.getElementById("hGreeting").textContent="Welcome back, "+state.name+"!";
+  document.getElementById("cWarriorName").textContent=state.name;
+  buildNature(); render(); updateGrowthScene();
+  console.log("Progress restored successfully for:", state.name);
+  return true;
 }
+
+/* Save on every state-changing event and on page exit */
+document.addEventListener("visibilitychange",function(){
+  if(document.visibilityState==="hidden" && state.name) saveProgress();
+});
+window.addEventListener("pagehide",function(){
+  if(state.name) saveProgress();
+});
+window.addEventListener("beforeunload",function(){
+  if(state.name) saveProgress();
+});
 
 /* ══ WELCOME SCREEN ══ */
 var selTeam=null;
@@ -1566,7 +1589,7 @@ addTap(document.getElementById("briefingBtn"),function(){
   tag.textContent=TEAM_LABELS[state.team];
   document.getElementById("hGreeting").textContent="Welcome, "+state.name;
   document.getElementById("cWarriorName").textContent=state.name;
-  buildNature(); render(); updateGrowthScene();
+  buildNature(); render(); updateGrowthScene(); saveProgress();
 });
 
 /* ══ RENDER ══ */
