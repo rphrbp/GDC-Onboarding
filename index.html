@@ -1459,29 +1459,60 @@ var active=null,pendingQuestId=null;
 /* ══ LOCAL STORAGE — PROGRESS PERSISTENCE ══ */
 var SAVE_KEY="gdcOnboarding_v2";
 
+/* ── URL hash encoding — works across all browsers, survives close/reopen ── */
+function saveToHash(){
+  if(!state.name) return;
+  try{
+    var payload=JSON.stringify({s:state,m:midwayShown?1:0});
+    // Simple base64 encoding - works reliably across all mobile browsers
+    var encoded=btoa(payload);
+    window.history.replaceState(null,'',window.location.pathname+'?d='+encodeURIComponent(encoded));
+  }catch(e){ console.warn("URL save failed:",e); }
+}
+
+function loadFromHash(){
+  try{
+    var params=new URLSearchParams(window.location.search);
+    var encoded=params.get('d');
+    if(!encoded) return null;
+    var decoded=atob(decodeURIComponent(encoded));
+    var parsed=JSON.parse(decoded);
+    if(!parsed||!parsed.s||!parsed.s.name||!parsed.s.team) return null;
+    return {state:parsed.s, midwayShown:!!parsed.m};
+  }catch(e){ console.warn("URL load failed:",e); return null; }
+}
+
 function saveProgress(){
   if(!state.name) return;
   var payload=JSON.stringify({state:state,midwayShown:midwayShown,ts:Date.now()});
-  try{ localStorage.setItem(SAVE_KEY, payload); }catch(e){ console.warn("localStorage failed:", e); }
-  try{ sessionStorage.setItem(SAVE_KEY, payload); }catch(e){ console.warn("sessionStorage failed:", e); }
+  /* Primary: URL query string — survives all browser closes */
+  saveToHash();
+  /* Secondary: localStorage fallback */
+  try{ localStorage.setItem(SAVE_KEY, payload); }catch(e){}
+  try{ sessionStorage.setItem(SAVE_KEY, payload); }catch(e){}
 }
 
 function clearProgress(){
   try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
   try{ sessionStorage.removeItem(SAVE_KEY); }catch(e){}
+  /* Clear URL state */
+  try{ window.history.replaceState(null,'',window.location.pathname); }catch(e){}
 }
 
 function getSaved(){
+  /* 1. Try URL first — most reliable */
+  var fromHash=loadFromHash();
+  if(fromHash) return fromHash;
+  /* 2. Try localStorage */
   var raw=null;
   try{ raw=localStorage.getItem(SAVE_KEY); }catch(e){}
   if(!raw){ try{ raw=sessionStorage.getItem(SAVE_KEY); }catch(e){} }
-  if(!raw){ console.warn("No saved data found in any storage."); return null; }
+  if(!raw) return null;
   try{
     var saved=JSON.parse(raw);
-    if(!saved||!saved.state||!saved.state.name||!saved.state.team){ console.warn("Saved data invalid:", saved); return null; }
-    console.log("Saved data found:", saved.state.name, "| stations done:", saved.state.done.length);
+    if(!saved||!saved.state||!saved.state.name||!saved.state.team) return null;
     return saved;
-  }catch(e){ console.warn("Failed to parse saved data:", e); return null; }
+  }catch(e){ return null; }
 }
 
 function restoreProgress(){
@@ -1502,7 +1533,12 @@ function restoreProgress(){
   document.getElementById("hGreeting").textContent="Welcome back, "+state.name+"!";
   document.getElementById("cWarriorName").textContent=state.name;
   buildNature(); render(); updateGrowthScene();
-  console.log("Progress restored successfully for:", state.name);
+  /* Show a brief toast so we know restore fired */
+  var toast=document.createElement("div");
+  toast.textContent="Progress restored \u2714";
+  toast.style.cssText="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(46,125,79,.92);color:#fff;padding:10px 20px;border-radius:100px;font-family:Inter,sans-serif;font-size:13px;z-index:9999;pointer-events:none;";
+  document.body.appendChild(toast);
+  setTimeout(function(){toast.remove();},2500);
   return true;
 }
 
@@ -1510,12 +1546,8 @@ function restoreProgress(){
 document.addEventListener("visibilitychange",function(){
   if(document.visibilityState==="hidden" && state.name) saveProgress();
 });
-window.addEventListener("pagehide",function(){
-  if(state.name) saveProgress();
-});
-window.addEventListener("beforeunload",function(){
-  if(state.name) saveProgress();
-});
+window.addEventListener("pagehide",function(){ if(state.name) saveProgress(); });
+window.addEventListener("beforeunload",function(){ if(state.name) saveProgress(); });
 
 /* ══ WELCOME SCREEN ══ */
 var selTeam=null;
