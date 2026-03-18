@@ -820,6 +820,7 @@ to{transform:rotate(360deg);}}
       </div>
     </div>
     <div class="briefing-note"><strong>Start with Security</strong> — then complete the remaining 5 stations in any order you like. It should take around half a day. Enjoy it.</div>
+    <div class="briefing-note" style="background:rgba(26,20,64,.04);border-color:rgba(26,20,64,.1);margin-top:-10px;">&#128278; <strong>Bookmark this page now</strong> so you can return to your progress if you close the app.</div>
     <button class="begin-btn" id="briefingBtn">&#10022; Let's Go &#10022;</button>
   </div>
 </div>
@@ -1464,9 +1465,11 @@ function saveToHash(){
   if(!state.name) return;
   try{
     var payload=JSON.stringify({s:state,m:midwayShown?1:0});
-    // Simple base64 encoding - works reliably across all mobile browsers
-    var encoded=btoa(payload);
-    window.history.replaceState(null,'',window.location.pathname+'?d='+encodeURIComponent(encoded));
+    // Unicode-safe base64 encoding
+    var encoded=btoa(encodeURIComponent(payload));
+    var url=window.location.pathname+'?d='+encoded;
+    window.history.replaceState(null,'',url);
+    console.log("URL updated with state:", url.substring(0,80)+"...");
   }catch(e){ console.warn("URL save failed:",e); }
 }
 
@@ -1474,10 +1477,12 @@ function loadFromHash(){
   try{
     var params=new URLSearchParams(window.location.search);
     var encoded=params.get('d');
-    if(!encoded) return null;
-    var decoded=atob(decodeURIComponent(encoded));
+    if(!encoded){ console.log("No ?d= param found in URL"); return null; }
+    console.log("Found ?d= param, attempting decode...");
+    var decoded=decodeURIComponent(atob(encoded));
     var parsed=JSON.parse(decoded);
-    if(!parsed||!parsed.s||!parsed.s.name||!parsed.s.team) return null;
+    if(!parsed||!parsed.s||!parsed.s.name||!parsed.s.team){ console.warn("Parsed data missing fields:", parsed); return null; }
+    console.log("Successfully decoded state for:", parsed.s.name);
     return {state:parsed.s, midwayShown:!!parsed.m};
   }catch(e){ console.warn("URL load failed:",e); return null; }
 }
@@ -1605,9 +1610,9 @@ addTap(document.getElementById("beginBtn"),function(){
   if(!selTeam){err.textContent="Please select your team.";return;}
   err.textContent="";
   state.name=name; state.team=selTeam;
+  saveProgress(); // Update URL BEFORE changing screen
   document.getElementById("welcomeScreen").style.display="none";
   document.getElementById("briefingScreen").style.display="flex";
-  saveProgress();
 });
 
 addTap(document.getElementById("briefingBtn"),function(){
