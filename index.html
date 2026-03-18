@@ -1475,14 +1475,18 @@ function saveToHash(){
 
 function loadFromHash(){
   try{
-    var params=new URLSearchParams(window.location.search);
-    var encoded=params.get('d');
-    if(!encoded){ console.log("No ?d= param found in URL"); return null; }
-    console.log("Found ?d= param, attempting decode...");
+    // Get raw search string and manually extract ?d= value
+    var search=window.location.search;
+    if(!search || search.indexOf('d=')===-1){ return null; }
+    var encoded=search.split('d=')[1];
+    if(!encoded) return null;
+    // Decode URI encoding (handles %3D == = padding)
+    encoded=decodeURIComponent(encoded);
+    // Decode base64 then URI-decode the JSON
     var decoded=decodeURIComponent(atob(encoded));
     var parsed=JSON.parse(decoded);
-    if(!parsed||!parsed.s||!parsed.s.name||!parsed.s.team){ console.warn("Parsed data missing fields:", parsed); return null; }
-    console.log("Successfully decoded state for:", parsed.s.name);
+    if(!parsed||!parsed.s||!parsed.s.name||!parsed.s.team) return null;
+    console.log("Restored state for:", parsed.s.name, "done:", parsed.s.done);
     return {state:parsed.s, midwayShown:!!parsed.m};
   }catch(e){ console.warn("URL load failed:",e); return null; }
 }
