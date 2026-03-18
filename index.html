@@ -1464,31 +1464,22 @@ var SAVE_KEY="gdcOnboarding_v2";
 function saveToHash(){
   if(!state.name) return;
   try{
-    var payload=JSON.stringify({s:state,m:midwayShown?1:0});
-    // Unicode-safe base64 encoding
-    var encoded=btoa(encodeURIComponent(payload));
-    var url=window.location.pathname+'?d='+encoded;
-    window.history.replaceState(null,'',url);
-    console.log("URL updated with state:", url.substring(0,80)+"...");
-  }catch(e){ console.warn("URL save failed:",e); }
+    var raw=JSON.stringify({s:state,m:midwayShown?1:0});
+    var encoded=btoa(raw);
+    window.history.replaceState(null,'',window.location.pathname+'?d='+encoded);
+  }catch(e){}
 }
 
 function loadFromHash(){
   try{
-    // Get raw search string and manually extract ?d= value
     var search=window.location.search;
-    if(!search || search.indexOf('d=')===-1){ return null; }
-    var encoded=search.split('d=')[1];
-    if(!encoded) return null;
-    // Decode URI encoding (handles %3D == = padding)
-    encoded=decodeURIComponent(encoded);
-    // Decode base64 then URI-decode the JSON
-    var decoded=decodeURIComponent(atob(encoded));
-    var parsed=JSON.parse(decoded);
+    if(search.indexOf('d=')===-1) return null;
+    var encoded=search.replace('?d=','').replace(/^.*[?&]d=/,'');
+    var raw=atob(encoded);
+    var parsed=JSON.parse(raw);
     if(!parsed||!parsed.s||!parsed.s.name||!parsed.s.team) return null;
-    console.log("Restored state for:", parsed.s.name, "done:", parsed.s.done);
-    return {state:parsed.s, midwayShown:!!parsed.m};
-  }catch(e){ console.warn("URL load failed:",e); return null; }
+    return {state:parsed.s,midwayShown:!!parsed.m};
+  }catch(e){ return null; }
 }
 
 function saveProgress(){
@@ -1998,6 +1989,23 @@ document.addEventListener("mousedown",function unlockAC(){
 function updateGrowthScene() { /* static GDC background — no dynamic updates needed */ }
 
 /* ══ RESTORE SAVED PROGRESS ON PAGE LOAD ══ */
+(function(){
+  try{
+    var search=window.location.search;
+    if(search.indexOf('d=')!==-1){
+      var encoded=search.replace('?d=','').replace(/^.*[?&]d=/,'');
+      var raw=atob(encoded);
+      var parsed=JSON.parse(raw);
+      if(parsed&&parsed.s&&parsed.s.name){
+        alert("Found saved data for: "+parsed.s.name+". Restoring...");
+      } else {
+        alert("URL has ?d= but data is invalid: "+raw.substring(0,100));
+      }
+    } else {
+      alert("No ?d= found in URL: "+search);
+    }
+  }catch(e){ alert("Restore error: "+e.message); }
+})();
 restoreProgress();
 
 </script>
