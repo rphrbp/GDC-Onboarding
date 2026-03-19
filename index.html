@@ -1493,6 +1493,7 @@ function saveToSupabase(){
     state: {state:state, midwayShown:midwayShown},
     updated_at: new Date().toISOString()
   };
+  var bodyStr=JSON.stringify(payload);
   /* Always try PATCH first — updates existing row */
   fetch(SB_URL+"/rest/v1/progress?session_key=eq."+encodeURIComponent(key), {
     method:"PATCH",
@@ -1500,31 +1501,31 @@ function saveToSupabase(){
       "Content-Type":"application/json",
       "apikey":SB_KEY,
       "Authorization":"Bearer "+SB_KEY,
-      "Prefer":"return=minimal"
+      "Prefer":"return=representation"
     },
-    body:JSON.stringify(payload)
+    body:bodyStr
   })
-  .then(function(r){
-    /* If no rows matched (new user), fall back to INSERT */
-    if(r.status===200||r.status===204){
-      return r.text().then(function(t){
-        /* Supabase returns empty body on PATCH with no match — do INSERT */
-        if(t===""||t==="[]"){
-          fetch(SB_URL+"/rest/v1/progress", {
-            method:"POST",
-            headers:{
-              "Content-Type":"application/json",
-              "apikey":SB_KEY,
-              "Authorization":"Bearer "+SB_KEY,
-              "Prefer":"return=minimal"
-            },
-            body:JSON.stringify(payload)
-          }).catch(function(){});
-        }
-      });
+  .then(function(r){ return r.json().then(function(data){ return {status:r.status, data:data}; }); })
+  .then(function(res){
+    console.log("PATCH status:", res.status, "rows updated:", JSON.stringify(res.data).substring(0,100));
+    /* If no rows updated, INSERT instead */
+    if(!res.data || res.data.length===0){
+      console.log("No rows matched PATCH — doing INSERT");
+      fetch(SB_URL+"/rest/v1/progress", {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "apikey":SB_KEY,
+          "Authorization":"Bearer "+SB_KEY,
+          "Prefer":"return=minimal"
+        },
+        body:bodyStr
+      })
+      .then(function(r2){ console.log("INSERT status:", r2.status); })
+      .catch(function(e){ console.warn("INSERT failed:", e); });
     }
   })
-  .catch(function(){});
+  .catch(function(e){ console.warn("PATCH failed:", e); });
 }
 
 /* ── Supabase: load ── */
