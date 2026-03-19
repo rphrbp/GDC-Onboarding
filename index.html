@@ -1493,39 +1493,18 @@ function saveToSupabase(){
     state: {state:state, midwayShown:midwayShown},
     updated_at: new Date().toISOString()
   };
-  var bodyStr=JSON.stringify(payload);
-  /* Always try PATCH first — updates existing row */
-  fetch(SB_URL+"/rest/v1/progress?session_key=eq."+encodeURIComponent(key), {
-    method:"PATCH",
+  /* Single upsert — inserts or updates based on session_key uniqueness */
+  fetch(SB_URL+"/rest/v1/progress", {
+    method:"POST",
     headers:{
       "Content-Type":"application/json",
       "apikey":SB_KEY,
       "Authorization":"Bearer "+SB_KEY,
-      "Prefer":"return=representation"
+      "Prefer":"resolution=merge-duplicates,return=minimal",
+      "x-upsert":"true"
     },
-    body:bodyStr
-  })
-  .then(function(r){ return r.json().then(function(data){ return {status:r.status, data:data}; }); })
-  .then(function(res){
-    console.log("PATCH status:", res.status, "rows updated:", JSON.stringify(res.data).substring(0,100));
-    /* If no rows updated, INSERT instead */
-    if(!res.data || res.data.length===0){
-      console.log("No rows matched PATCH — doing INSERT");
-      fetch(SB_URL+"/rest/v1/progress", {
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json",
-          "apikey":SB_KEY,
-          "Authorization":"Bearer "+SB_KEY,
-          "Prefer":"return=minimal"
-        },
-        body:bodyStr
-      })
-      .then(function(r2){ console.log("INSERT status:", r2.status); })
-      .catch(function(e){ console.warn("INSERT failed:", e); });
-    }
-  })
-  .catch(function(e){ console.warn("PATCH failed:", e); });
+    body:JSON.stringify(payload)
+  }).catch(function(){});
 }
 
 /* ── Supabase: load ── */
@@ -1678,6 +1657,7 @@ function refreshPreview(){
 refreshPreview();
 
 function addTap(el, fn){
+  if(!el) return; // null-safe — silently skip missing elements
   var startX=0, startY=0, moved=false;
   el.addEventListener("touchstart", function(e){
     startX = e.touches[0].clientX;
@@ -1731,7 +1711,7 @@ addTap(document.getElementById("beginBtn"),function(){
   });
 });
 
-addTap(document.getElementById("briefingBtn"),function(){
+(function(){var _el=document.getElementById("briefingBtn");if(_el)addTap(_el,function(){
   document.getElementById("briefingScreen").style.display="none";
   document.getElementById("mainApp").style.display="block";
   var ac=document.getElementById("avCircle");
@@ -1743,7 +1723,7 @@ addTap(document.getElementById("briefingBtn"),function(){
   document.getElementById("hGreeting").textContent="Welcome, "+state.name;
   document.getElementById("cWarriorName").textContent=state.name;
   buildNature(); render(); updateGrowthScene(); saveProgress();
-});
+});})();
 
 /* ══ RENDER ══ */
 function render(){
@@ -1833,13 +1813,13 @@ function doSubmit(){
     document.getElementById("c0").focus();
   }
 }
-addTap(document.getElementById("btnSubmit"),function(){doSubmit();});
-addTap(document.getElementById("btnCancel"),function(){closeModal();});
+(function(){var _el=document.getElementById("btnSubmit");if(_el)addTap(_el,function(){doSubmit();});})();
+(function(){var _el=document.getElementById("btnCancel");if(_el)addTap(_el,function(){closeModal();});})();
 
 /* ── Submit All Button → confirm overlay ── */
-addTap(document.getElementById("submitAllBtn"),function(){
+(function(){var _el=document.getElementById("submitAllBtn");if(_el)addTap(_el,function(){
   document.getElementById("submitConfirmOverlay").classList.add("show");
-});
+});})();
 document.getElementById("confirmGoFinal").onclick=function(){
   document.getElementById("submitConfirmOverlay").classList.remove("show");
   setTimeout(showFinalScreen,300);
@@ -1961,8 +1941,8 @@ function goToStart(){
   document.querySelectorAll(".pill").forEach(function(p){p.classList.remove("selected");});
   refreshPreview();
 }
-addTap(document.getElementById("restartBtn"),function(){goToStart();});
-addTap(document.getElementById("backBtn"),function(){goToStart();});
+(function(){var _el=document.getElementById("restartBtn");if(_el)addTap(_el,function(){goToStart();});})();
+(function(){var _el=document.getElementById("backBtn");if(_el)addTap(_el,function(){goToStart();});})();
 
 // Back to main page links — close modals, go to mainApp without full reset
 function goToMain(){
@@ -1973,9 +1953,9 @@ function goToMain(){
   document.getElementById("welcomeScreen").style.display="none";
   document.getElementById("mainApp").style.display="block";
 }
-addTap(document.getElementById("codeModalBackLink"),function(){goToMain();});
-addTap(document.getElementById("quizBackLink"),function(){goToMain();});
-var _fbl=document.getElementById("finalBackMain")||document.getElementById("finalBackLink");
+(function(){var _el=document.getElementById("codeModalBackLink");if(_el)addTap(_el,function(){goToMain();});})();
+(function(){var _el=document.getElementById("quizBackLink");if(_el)addTap(_el,function(){goToMain();});})();
+var _fbl=document.getElementById("finalBackMain");
 if(_fbl) addTap(_fbl,function(){goToMain();});
 
 /* ══ NATURE ══ */
@@ -2080,9 +2060,9 @@ function checkMidway(){
     },600);
   }
 }
-addTap(document.getElementById("midwayCta"),function(){
+(function(){var _el=document.getElementById("midwayCta");if(_el)addTap(_el,function(){
   document.getElementById("midwayOverlay").classList.remove("show");
-});
+});})();
 
 
 /* ── Unlock AudioContext on first touch (iOS) ── */
