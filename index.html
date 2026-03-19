@@ -942,6 +942,18 @@ to{transform:rotate(360deg);}}
 </div>
 
 
+<!-- RESET CONFIRM OVERLAY -->
+<div class="q-success-overlay" id="resetConfirmOverlay">
+  <div class="q-success-card" style="max-width:340px;">
+    <span class="qs-emoji">⚠️</span>
+    <div class="qs-title">Start Over?</div>
+    <div class="qs-flavor" style="margin-bottom:8px;">This will erase all your progress and return to the beginning.</div>
+    <div class="qs-flavor" style="font-size:12px;color:var(--ink-soft);margin-bottom:20px;">Only do this if you want to completely restart.</div>
+    <button class="qs-cta" id="confirmResetBtn" style="background:linear-gradient(135deg,#cc0001,#990001);">Yes, start over</button>
+    <button class="qs-back" id="cancelResetBtn">← Keep my progress</button>
+  </div>
+</div>
+
 <!-- SUBMIT CONFIRM OVERLAY -->
 <div class="q-success-overlay" id="submitConfirmOverlay">
   <div class="q-success-card" style="max-width:340px;">
@@ -1941,7 +1953,16 @@ function goToStart(){
   document.querySelectorAll(".pill").forEach(function(p){p.classList.remove("selected");});
   refreshPreview();
 }
-(function(){var _el=document.getElementById("restartBtn");if(_el)addTap(_el,function(){goToStart();});})();
+(function(){var _el=document.getElementById("restartBtn");if(_el)addTap(_el,function(){
+  document.getElementById("resetConfirmOverlay").classList.add("show");
+});})();
+document.getElementById("confirmResetBtn").onclick=function(){
+  document.getElementById("resetConfirmOverlay").classList.remove("show");
+  goToStart();
+};
+document.getElementById("cancelResetBtn").onclick=function(){
+  document.getElementById("resetConfirmOverlay").classList.remove("show");
+};
 (function(){var _el=document.getElementById("backBtn");if(_el)addTap(_el,function(){goToStart();});})();
 
 // Back to main page links — close modals, go to mainApp without full reset
