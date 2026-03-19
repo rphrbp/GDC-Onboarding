@@ -1546,7 +1546,10 @@ function loadLocal(){
   if(!raw) return null;
   try{
     var saved=JSON.parse(raw);
-    return (saved&&saved.state&&saved.state.name&&saved.state.team) ? saved : null;
+    /* Handle both {state:{...}, midwayShown} and direct state object */
+    if(saved&&saved.state&&saved.state.name&&saved.state.team) return saved;
+    if(saved&&saved.name&&saved.team) return {state:saved, midwayShown:false};
+    return null;
   }catch(e){ return null; }
 }
 
@@ -1579,7 +1582,14 @@ function clearProgress(){
 /* ── Restore UI from saved data ── */
 function applyRestoredState(saved){
   if(!saved) return false;
-  state=saved.state;
+  var s=saved.state||saved;
+  if(!s||!s.name||!s.team) return false;
+  /* Ensure all fields exist and done is a proper array */
+  s.done=Array.isArray(s.done)?s.done:[];
+  s.xp=s.xp||0;
+  s.houseTally=s.houseTally||{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0};
+  s.stationVotes=s.stationVotes||{};
+  state=s;
   midwayShown=saved.midwayShown||false;
   selTeam=state.team;
   document.getElementById("welcomeScreen").style.display="none";
