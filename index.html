@@ -775,6 +775,7 @@ to{transform:rotate(360deg);}}
       <div class="pill team" data-val="it">IT</div>
       <div class="pill team" data-val="finance">Finance</div>
       <div class="pill team" data-val="legal">Legal</div>
+      <div class="pill team" data-val="facilities">Facilities</div>
     </div>
 
     <div class="begin-err" id="beginErr"></div>
@@ -1339,6 +1340,20 @@ function makeAvatar(team,size){
     svg+=face();
     svg+=hair(hc);
 
+  } else if(team==="facilities"){
+    /* Facilities
+       Olive work shirt, hi-vis trim, wrench in hand
+       Palette: olive, amber, white */
+    var fac1="#4a5a2a", fac2="#7a8a4a", fac3="#d4880a";
+    svg+=coat(fac1,fac2,"rgba(245,242,225,.88)");
+    /* Hi-vis chest stripe */
+    svg+='<rect x="'+(bx+s*.02)+'" y="'+(by+s*.06)+'" width="'+(bw-s*.04)+'" height="'+(s*.04)+'" rx="2" fill="rgba(255,200,0,.55)"/>';
+    /* Wrench in right hand */
+    svg+='<rect x="'+(bx+bw+s*.02)+'" y="'+(by+armH-s*.12)+'" width="'+(s*.06)+'" height="'+(s*.22)+'" rx="'+(s*.02)+'" fill="'+fac3+'" stroke="rgba(0,0,0,.15)" stroke-width="1"/>'
+        +'<ellipse cx="'+(bx+bw+s*.05)+'" cy="'+(by+armH-s*.1)+'" rx="'+(s*.05)+'" ry="'+(s*.04)+'" fill="none" stroke="'+fac3+'" stroke-width="'+(s*.022)+'"/>';
+    svg+=face();
+    svg+=hair(hc);
+
   } else {
     /* DBS (default) — also covers any unknown team
        Crisp navy suit, gold tie, pocket square, spreadsheet report
@@ -1390,7 +1405,7 @@ var RANKS=[
 ];
 
 var ROMAN=["I","II","III","IV","V","VI","VII"];
-var TEAM_LABELS={rdd:"Research, Design & Dev",gsc:"Global Supply Chain",quality:"Quality",ddio:"DDIO",dbs:"DBS",hr:"HR",hse:"HSE",security:"Security",it:"IT",finance:"Finance",legal:"Legal"};
+var TEAM_LABELS={rdd:"Research, Design & Dev",gsc:"Global Supply Chain",quality:"Quality",ddio:"DDIO",dbs:"DBS",hr:"HR",hse:"HSE",security:"Security",it:"IT",finance:"Finance",legal:"Legal",facilities:"Facilities"};
 
 /* ══ HOUSES ══ */
 var HOUSES={
@@ -1457,10 +1472,28 @@ var QUIZ=[
 var state={done:[],xp:0,name:"",team:"rdd",houseTally:{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0},stationVotes:{}}; midwayShown=false;
 var active=null,pendingQuestId=null;
 
-/* ══ LOCAL STORAGE — PROGRESS PERSISTENCE ══ */
+/* ══ PROGRESS PERSISTENCE — triple layer: cookie + localStorage + URL ══ */
 var SAVE_KEY="gdcOnboarding_v2";
 
-/* ── URL hash encoding — works across all browsers, survives close/reopen ── */
+function saveCookie(payload){
+  try{
+    /* Expires in 1 day — enough for a single onboarding day */
+    var exp=new Date(Date.now()+86400000).toUTCString();
+    document.cookie=SAVE_KEY+"="+encodeURIComponent(payload)+"; expires="+exp+"; path=/; SameSite=Lax";
+  }catch(e){}
+}
+
+function loadCookie(){
+  try{
+    var match=document.cookie.match(new RegExp('(?:^|; )'+SAVE_KEY+'=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
+  }catch(e){ return null; }
+}
+
+function clearCookie(){
+  try{ document.cookie=SAVE_KEY+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax"; }catch(e){}
+}
+
 function saveToHash(){
   if(!state.name) return;
   try{
@@ -1485,28 +1518,32 @@ function loadFromHash(){
 function saveProgress(){
   if(!state.name) return;
   var payload=JSON.stringify({state:state,midwayShown:midwayShown,ts:Date.now()});
-  /* Primary: URL query string — survives all browser closes */
+  saveCookie(payload);
+  try{ localStorage.setItem(SAVE_KEY,payload); }catch(e){}
+  try{ sessionStorage.setItem(SAVE_KEY,payload); }catch(e){}
   saveToHash();
-  /* Secondary: localStorage fallback */
-  try{ localStorage.setItem(SAVE_KEY, payload); }catch(e){}
-  try{ sessionStorage.setItem(SAVE_KEY, payload); }catch(e){}
 }
 
 function clearProgress(){
+  clearCookie();
   try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
   try{ sessionStorage.removeItem(SAVE_KEY); }catch(e){}
-  /* Clear URL state */
   try{ window.history.replaceState(null,'',window.location.pathname); }catch(e){}
 }
 
 function getSaved(){
-  /* 1. Try URL first — most reliable */
-  var fromHash=loadFromHash();
-  if(fromHash) return fromHash;
-  /* 2. Try localStorage */
-  var raw=null;
-  try{ raw=localStorage.getItem(SAVE_KEY); }catch(e){}
+  /* Try all four sources in order of reliability */
+  /* 1. Cookie — most reliable on iOS Chrome */
+  var raw=loadCookie();
+  /* 2. localStorage */
+  if(!raw){ try{ raw=localStorage.getItem(SAVE_KEY); }catch(e){} }
+  /* 3. sessionStorage */
   if(!raw){ try{ raw=sessionStorage.getItem(SAVE_KEY); }catch(e){} }
+  /* 4. URL parameter */
+  if(!raw){
+    var fromHash=loadFromHash();
+    if(fromHash) return fromHash;
+  }
   if(!raw) return null;
   try{
     var saved=JSON.parse(raw);
@@ -1989,23 +2026,6 @@ document.addEventListener("mousedown",function unlockAC(){
 function updateGrowthScene() { /* static GDC background — no dynamic updates needed */ }
 
 /* ══ RESTORE SAVED PROGRESS ON PAGE LOAD ══ */
-(function(){
-  try{
-    var search=window.location.search;
-    if(search.indexOf('d=')!==-1){
-      var encoded=search.replace('?d=','').replace(/^.*[?&]d=/,'');
-      var raw=atob(encoded);
-      var parsed=JSON.parse(raw);
-      if(parsed&&parsed.s&&parsed.s.name){
-        alert("Found saved data for: "+parsed.s.name+". Restoring...");
-      } else {
-        alert("URL has ?d= but data is invalid: "+raw.substring(0,100));
-      }
-    } else {
-      alert("No ?d= found in URL: "+search);
-    }
-  }catch(e){ alert("Restore error: "+e.message); }
-})();
 restoreProgress();
 
 </script>
