@@ -1975,7 +1975,8 @@ function goToMain(){
 }
 addTap(document.getElementById("codeModalBackLink"),function(){goToMain();});
 addTap(document.getElementById("quizBackLink"),function(){goToMain();});
-addTap(document.getElementById("finalBackLink"),function(){goToMain();});
+var _fbl=document.getElementById("finalBackMain")||document.getElementById("finalBackLink");
+if(_fbl) addTap(_fbl,function(){goToMain();});
 
 /* ══ NATURE ══ */
 /* ══ STAR FIELD (generated once on load) ══ */
