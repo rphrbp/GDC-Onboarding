@@ -1486,30 +1486,52 @@ function getSessionKey(){
 function saveToSupabase(){
   var key=getSessionKey();
   if(!key) return;
-  var body=JSON.stringify({
+  var payload={
     session_key: key,
     name: state.name,
     team: state.team,
     state: {state:state, midwayShown:midwayShown},
     updated_at: new Date().toISOString()
-  });
-  fetch(SB_URL+"/rest/v1/progress", {
-    method:"POST",
+  };
+  /* Always try PATCH first — updates existing row */
+  fetch(SB_URL+"/rest/v1/progress?session_key=eq."+encodeURIComponent(key), {
+    method:"PATCH",
     headers:{
       "Content-Type":"application/json",
       "apikey":SB_KEY,
       "Authorization":"Bearer "+SB_KEY,
-      "Prefer":"resolution=merge-duplicates,return=minimal"
+      "Prefer":"return=minimal"
     },
-    body:body
-  }).catch(function(){});
+    body:JSON.stringify(payload)
+  })
+  .then(function(r){
+    /* If no rows matched (new user), fall back to INSERT */
+    if(r.status===200||r.status===204){
+      return r.text().then(function(t){
+        /* Supabase returns empty body on PATCH with no match — do INSERT */
+        if(t===""||t==="[]"){
+          fetch(SB_URL+"/rest/v1/progress", {
+            method:"POST",
+            headers:{
+              "Content-Type":"application/json",
+              "apikey":SB_KEY,
+              "Authorization":"Bearer "+SB_KEY,
+              "Prefer":"return=minimal"
+            },
+            body:JSON.stringify(payload)
+          }).catch(function(){});
+        }
+      });
+    }
+  })
+  .catch(function(){});
 }
 
 /* ── Supabase: load ── */
 function loadFromSupabase(callback){
   var key=getSessionKey();
   if(!key){ callback(null); return; }
-  fetch(SB_URL+"/rest/v1/progress?session_key=eq."+encodeURIComponent(key)+"&limit=1", {
+  fetch(SB_URL+"/rest/v1/progress?session_key=eq."+encodeURIComponent(key)+"&select=state&limit=1", {
     headers:{
       "apikey":SB_KEY,
       "Authorization":"Bearer "+SB_KEY
@@ -1517,8 +1539,11 @@ function loadFromSupabase(callback){
   })
   .then(function(r){ return r.json(); })
   .then(function(rows){
-    if(rows&&rows.length>0&&rows[0].state){ callback(rows[0].state); }
-    else{ callback(null); }
+    if(Array.isArray(rows)&&rows.length>0&&rows[0].state){
+      callback(rows[0].state);
+    } else {
+      callback(null);
+    }
   })
   .catch(function(){ callback(null); });
 }
