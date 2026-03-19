@@ -1472,88 +1472,112 @@ var QUIZ=[
 var state={done:[],xp:0,name:"",team:"rdd",houseTally:{diversity:0,social:0,green:0,wellbeing:0,safety:0,ethics:0},stationVotes:{}}; midwayShown=false;
 var active=null,pendingQuestId=null;
 
-/* ══ PROGRESS PERSISTENCE — triple layer: cookie + localStorage + URL ══ */
+/* ══ PROGRESS PERSISTENCE — Supabase backend + local fallback ══ */
 var SAVE_KEY="gdcOnboarding_v2";
+var SB_URL="https://ntmjxfuncssnoblcytgg.supabase.co";
+var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50bWp4ZnVuY3Nzbm9ibGN5dGdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NTkyODYsImV4cCI6MjA4OTQzNTI4Nn0.vyduXXrLH38rt9A3Kf0p6vuO8Hr9ak7aeFfJ1GZVos4";
 
-function saveCookie(payload){
+function getSessionKey(){
+  if(!state.name||!state.team) return null;
+  return (state.name.trim().toLowerCase().replace(/\s+/g,"_")+"_"+state.team).substring(0,60);
+}
+
+/* ── Supabase: save (upsert) ── */
+function saveToSupabase(){
+  var key=getSessionKey();
+  if(!key) return;
+  var body=JSON.stringify({
+    session_key: key,
+    name: state.name,
+    team: state.team,
+    state: {state:state, midwayShown:midwayShown},
+    updated_at: new Date().toISOString()
+  });
+  fetch(SB_URL+"/rest/v1/progress", {
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "apikey":SB_KEY,
+      "Authorization":"Bearer "+SB_KEY,
+      "Prefer":"resolution=merge-duplicates,return=minimal"
+    },
+    body:body
+  }).catch(function(){});
+}
+
+/* ── Supabase: load ── */
+function loadFromSupabase(callback){
+  var key=getSessionKey();
+  if(!key){ callback(null); return; }
+  fetch(SB_URL+"/rest/v1/progress?session_key=eq."+encodeURIComponent(key)+"&limit=1", {
+    headers:{
+      "apikey":SB_KEY,
+      "Authorization":"Bearer "+SB_KEY
+    }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(rows){
+    if(rows&&rows.length>0&&rows[0].state){ callback(rows[0].state); }
+    else{ callback(null); }
+  })
+  .catch(function(){ callback(null); });
+}
+
+/* ── Local fallbacks ── */
+function saveLocal(payload){
+  try{ localStorage.setItem(SAVE_KEY,payload); }catch(e){}
+  try{ sessionStorage.setItem(SAVE_KEY,payload); }catch(e){}
   try{
-    /* Expires in 1 day — enough for a single onboarding day */
     var exp=new Date(Date.now()+86400000).toUTCString();
     document.cookie=SAVE_KEY+"="+encodeURIComponent(payload)+"; expires="+exp+"; path=/; SameSite=Lax";
   }catch(e){}
 }
 
-function loadCookie(){
-  try{
-    var match=document.cookie.match(new RegExp('(?:^|; )'+SAVE_KEY+'=([^;]*)'));
-    return match ? decodeURIComponent(match[1]) : null;
-  }catch(e){ return null; }
-}
-
-function clearCookie(){
-  try{ document.cookie=SAVE_KEY+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax"; }catch(e){}
-}
-
-function saveToHash(){
-  if(!state.name) return;
-  try{
-    var raw=JSON.stringify({s:state,m:midwayShown?1:0});
-    var encoded=btoa(raw);
-    window.history.replaceState(null,'',window.location.pathname+'?d='+encoded);
-  }catch(e){}
-}
-
-function loadFromHash(){
-  try{
-    var search=window.location.search;
-    if(search.indexOf('d=')===-1) return null;
-    var encoded=search.replace('?d=','').replace(/^.*[?&]d=/,'');
-    var raw=atob(encoded);
-    var parsed=JSON.parse(raw);
-    if(!parsed||!parsed.s||!parsed.s.name||!parsed.s.team) return null;
-    return {state:parsed.s,midwayShown:!!parsed.m};
-  }catch(e){ return null; }
-}
-
-function saveProgress(){
-  if(!state.name) return;
-  var payload=JSON.stringify({state:state,midwayShown:midwayShown,ts:Date.now()});
-  saveCookie(payload);
-  try{ localStorage.setItem(SAVE_KEY,payload); }catch(e){}
-  try{ sessionStorage.setItem(SAVE_KEY,payload); }catch(e){}
-  saveToHash();
-}
-
-function clearProgress(){
-  clearCookie();
-  try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
-  try{ sessionStorage.removeItem(SAVE_KEY); }catch(e){}
-  try{ window.history.replaceState(null,'',window.location.pathname); }catch(e){}
-}
-
-function getSaved(){
-  /* Try all four sources in order of reliability */
-  /* 1. Cookie — most reliable on iOS Chrome */
-  var raw=loadCookie();
-  /* 2. localStorage */
-  if(!raw){ try{ raw=localStorage.getItem(SAVE_KEY); }catch(e){} }
-  /* 3. sessionStorage */
+function loadLocal(){
+  var raw=null;
+  try{ raw=localStorage.getItem(SAVE_KEY); }catch(e){}
   if(!raw){ try{ raw=sessionStorage.getItem(SAVE_KEY); }catch(e){} }
-  /* 4. URL parameter */
   if(!raw){
-    var fromHash=loadFromHash();
-    if(fromHash) return fromHash;
+    try{
+      var match=document.cookie.match(new RegExp('(?:^|; )'+SAVE_KEY+'=([^;]*)'));
+      if(match) raw=decodeURIComponent(match[1]);
+    }catch(e){}
   }
   if(!raw) return null;
   try{
     var saved=JSON.parse(raw);
-    if(!saved||!saved.state||!saved.state.name||!saved.state.team) return null;
-    return saved;
+    return (saved&&saved.state&&saved.state.name&&saved.state.team) ? saved : null;
   }catch(e){ return null; }
 }
 
-function restoreProgress(){
-  var saved=getSaved();
+function clearLocal(){
+  try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
+  try{ sessionStorage.removeItem(SAVE_KEY); }catch(e){}
+  try{ document.cookie=SAVE_KEY+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Lax"; }catch(e){}
+}
+
+/* ── Main save/clear ── */
+function saveProgress(){
+  if(!state.name) return;
+  var payload=JSON.stringify({state:state,midwayShown:midwayShown,ts:Date.now()});
+  saveLocal(payload);
+  saveToSupabase();
+}
+
+function clearProgress(){
+  clearLocal();
+  /* Delete from Supabase */
+  var key=getSessionKey();
+  if(key){
+    fetch(SB_URL+"/rest/v1/progress?session_key=eq."+encodeURIComponent(key),{
+      method:"DELETE",
+      headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY}
+    }).catch(function(){});
+  }
+}
+
+/* ── Restore UI from saved data ── */
+function applyRestoredState(saved){
   if(!saved) return false;
   state=saved.state;
   midwayShown=saved.midwayShown||false;
@@ -1570,7 +1594,6 @@ function restoreProgress(){
   document.getElementById("hGreeting").textContent="Welcome back, "+state.name+"!";
   document.getElementById("cWarriorName").textContent=state.name;
   buildNature(); render(); updateGrowthScene();
-  /* Show a brief toast so we know restore fired */
   var toast=document.createElement("div");
   toast.textContent="Progress restored \u2714";
   toast.style.cssText="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(46,125,79,.92);color:#fff;padding:10px 20px;border-radius:100px;font-family:Inter,sans-serif;font-size:13px;z-index:9999;pointer-events:none;";
@@ -1579,9 +1602,22 @@ function restoreProgress(){
   return true;
 }
 
-/* Save on every state-changing event and on page exit */
+/* ── Restore on page load — try local first, then Supabase ── */
+function restoreProgress(){
+  /* 1. Try local immediately for instant load */
+  var local=loadLocal();
+  if(local){
+    applyRestoredState(local);
+    return;
+  }
+  /* 2. Nothing local — show welcome screen, but also check Supabase */
+  /* Supabase needs a name to look up, so we can't restore without it */
+  /* This handles the case where local storage was cleared */
+}
+
+/* Save on page exit */
 document.addEventListener("visibilitychange",function(){
-  if(document.visibilityState==="hidden" && state.name) saveProgress();
+  if(document.visibilityState==="hidden"&&state.name) saveProgress();
 });
 window.addEventListener("pagehide",function(){ if(state.name) saveProgress(); });
 window.addEventListener("beforeunload",function(){ if(state.name) saveProgress(); });
@@ -1642,9 +1678,21 @@ addTap(document.getElementById("beginBtn"),function(){
   if(!selTeam){err.textContent="Please select your team.";return;}
   err.textContent="";
   state.name=name; state.team=selTeam;
-  saveProgress(); // Update URL BEFORE changing screen
-  document.getElementById("welcomeScreen").style.display="none";
-  document.getElementById("briefingScreen").style.display="flex";
+  /* Check Supabase for existing progress before showing briefing */
+  var btn=document.getElementById("beginBtn");
+  btn.textContent="Loading..."; btn.disabled=true;
+  loadFromSupabase(function(saved){
+    btn.textContent="\u2726 Begin Onboarding \u2726"; btn.disabled=false;
+    if(saved){
+      /* Found existing progress — restore directly */
+      applyRestoredState(saved);
+    } else {
+      /* New user — save and show briefing */
+      saveProgress();
+      document.getElementById("welcomeScreen").style.display="none";
+      document.getElementById("briefingScreen").style.display="flex";
+    }
+  });
 });
 
 addTap(document.getElementById("briefingBtn"),function(){
